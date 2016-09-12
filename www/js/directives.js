@@ -22,7 +22,7 @@ return {
 	            text: 'Stacked column chart'
 	        },
 	        xAxis: {
-	            categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas', 'Mangoes', 'Water-Melons']
+	            categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas', 'Mangoes', 'Water-Melons', 'Kiwi']
 	        },
 	        yAxis: {
 	            min: 0,
@@ -66,16 +66,19 @@ return {
 	        },
 	        series: [{
 	            name: 'John',
-	            data: [5, 3, 4, 7, 2, 8, 9]
+	            data: [5, 3, 4, 7, 2, 8, 9, 8]
 	        }, {
 	            name: 'Jane',
-	            data: [2, 2, 3, 2, 1, 4, 5]
+	            data: [2, 2, 3, 2, 1, 4, 5, 2]
 	        }, {
 	            name: 'Joe',
-	            data: [3, 4, 4, 2, 5, 9, 3]
+	            data: [3, 4, 4, 2, 5, 9, 3, 9]
 	        }, {
 	            name: 'Roy',
-	            data: [3, 4, 4, 2, 5, 3, 1]
+	            data: [3, 4, 4, 2, 5, 3, 1, 4]
+	        },{
+	            name: 'Abe',
+	            data: [5, 3, 4, 7, 2, 8, 9, 3]
 	        }]
         });
     }
