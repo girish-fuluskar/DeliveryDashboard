@@ -1,0 +1,84 @@
+<ion-view style="background-color: rgb(26, 139, 171);" title="Project Dashboard" hide-back-button="true" id="page2" class=" ">
+    <ion-content padding="true" class="has-header">    	    	
+    </ion-content>    
+    <ion-pane>
+			<ion-content ng-controller="dashboardCtrl">
+				<ion-list id="signIn-list2" class=" ">
+			        <button style="" class="button button-inline button-clear button-positive" ng-click="showPopup()" type="submit" id="submit4">Select projet and sprint</button>
+	            </ion-list>
+	            <div id="chartSection" class="animate-show" ng-show="allCharts">
+	            	<label class="item" id="effortExtended" style="margin: auto;border-radius:10px 10px 10px 10px;width:90%;">
+			            <span class="" style="font-weight:500;font-size:15px;text-align:center;">Total Spent Effort : <h1 style="color:blue">{{effortExtended[0].value}}<h3 style="color:blue">Hrs</h3></h1></span>
+			        </label>
+			        <label class="item" id="maxEstimatedEffort" style="margin: auto;border-radius:10px 10px 10px 10px;width:90%;">
+			            <span class="" style="font-weight:500;font-size:15px;text-align:center;">Max Estimated Effort : <h1 style="color:blue">{{effortExtended[2].value}}<h3 style="color:blue">Hrs</h3></h1></span>
+			        </label>
+			        <div class="card" style="width:90%;margin:20px;text-align:center;">
+		        		<span class="" style="margin:auto;font-weight:500;font-size:15px;text-align:center;">Spent Effort Date Histogram</span>
+			          <div class="">
+			              <canvas id="bar" class="chart chart-bar" chart-data="effortDateData" chart-labels="effortDateLabel" legend="effortDateSeries" chart-series="effortDateSeries" chart-options="{showTooltips: true}"></canvas>		              
+			          </div>
+			        </div>
+			        <div class="card" style="width:90%;margin:20px;text-align:center;">
+			        	<span class="" style="margin:auto;font-weight:500;font-size:15px;text-align:center;">
+			        		Burndown		              
+			          	</span>
+			          <div class="">
+			              <canvas id="line" class="chart chart-line" chart-data="burndownData" chart-labels="burndownLabel" legend="burndownSeries" chart-series="burndownSeries" chart-options="{showTooltips: true}"></canvas>
+			          </div>
+			        </div>
+			        <div class="card" style="width:90%;margin:20px;text-align:center;">
+			        	<span class="" style="margin:auto;font-weight:500;font-size:15px;text-align:center;">
+			          		Productivity		              
+			        	</span>
+			          <div class="">
+			              <canvas id="bar" class="chart chart-bar" chart-data="productivityDateData" chart-labels="productivityDateLabel" legend="productivityDateSeries" chart-series="productivityDateSeries" chart-options="{showTooltips: true}"></canvas>		              
+			          </div>
+			        </div>
+			        <div class="card" style="width:90%;margin:20px;text-align:center;">
+			        	<span class="" style="margin:auto;font-weight:500;font-size:15px;text-align:center;">
+			          		Quality		              
+			        	</span>
+			          <div class="">
+			              <canvas id="bar" class="chart chart-bar" chart-data="qualityDateData" chart-labels="qualityDateLabel" legend="qualityDateSeries" chart-series="qualityDateSeries" chart-options="{showTooltips: true}"></canvas>
+			          </div>
+			        </div>
+			        <div class="card" style="width:90%;margin:20px;text-align:center;">
+			        	<span class="" style="margin:auto;font-weight:500;font-size:15px;text-align:center;">
+			          		Team		              
+			          	</span>
+			          <div class="">
+			              <canvas id="bar" class="chart chart-bar" chart-data="teamDateData" chart-labels="teamDateLabel" legend="teamDateSeries" chart-series="teamDateSeries" chart-options="{showTooltips: true}"></canvas>
+			          </div>
+			        </div>
+			        <!-- <div class="card" style="width:90%;">
+			        	<div class="item item-divider">
+				        	Team Date Histogram		              
+				        </div>
+				        <div class="item item-text-wrap">
+			        		<highchart id="chart1" config="chartConfig"></highchart>
+			        	</div>
+			        </div>
+			        <div class="card" style="width:90%;">
+			        	<div class="item item-divider">		        		
+			        	</div>
+			        	<div id="container" class="item item-text-wrap">
+			        	</div>
+			        </div>
+			        <div class="card" style="width:90%;">
+			        	<div class="item item-divider">		        		
+			        	</div>
+			        	<div class="item item-text-wrap">
+			        		<hc-pie-chart title="Browser usage" style="width:90%;" data="pieData">Placeholder for pie chart</hc-pie-chart>
+			        	</div>
+		        	</div>
+		        	<div class="card" style="width:90%;">
+			        	<div class="item item-divider">		        		
+			        	</div>
+			        	<div id="container1" class="item item-text-wrap">
+			        	</div>
+			        </div> -->
+			    </div>		        				        		        
+		    </ion-content>
+		</ion-pane>
+</ion-view>

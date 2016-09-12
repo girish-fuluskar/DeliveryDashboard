@@ -1,0 +1,10 @@
+{
+  "name": "Project_Management",
+  "app_id": "46dcc0b2",
+  "proxies": [
+    {
+      "path": "/extendedStats",
+      "proxyUrl": "http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/BARCA/UKAEDF/effort/extendedStats"
+    }
+  ]
+}

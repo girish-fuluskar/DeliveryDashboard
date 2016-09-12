@@ -1,0 +1,121 @@
+<ion-view title="Log In" hide-nav-bar="true" hide-back-button="true" id="page6" class=" ">
+    <ion-content style="height:100%;" scroll="true" padding="false" class="manual-ios-statusbar-padding">
+        <ion-slide-box style="height:100%; background-image: url('img/loginBackground.jpg');background-repeat: no-repeat center center fixed; -webkit-background-size: contain;background-size: cover;background-position: center;">
+            <ion-slide>
+                <ion-scroll style="height:100%" scrollbar-y="true">
+                    <div class="spacer" style="width: 250px; height: 300px;"></div>
+                    <h1 style="color: white; font-weight: 300; text-align: center;" id="logIn-heading1">Log In</h1>        
+                    <form id="signIn-form2" class="list" name="signinForm" novalidate ng-submit="signinForm.$valid && Login(emailid,password)">
+                        <div class="spacer" style="width: 300px; height: 10px;"></div>
+                        <ion-list id="signIn-list2" class=" ">
+                            <label class="item item-input" name="email" id="signIn-input10">
+                                <span class="input-label">Username</span>
+                                <input type="text" placeholder="Username" required="" name="email" ng-model="emailid">
+                            </label>
+                             <div ng-show="signinForm.$submitted || signinForm.email.$touched">
+                              <div style="color:red;margin:5px;padding:5px;" ng-show="signinForm.email.$error.required">Please enter Email Id.</div>
+                              <div style="color:red;margin:5px;padding:5px;" ng-show="signinForm.email.$error.email">Please enter valid Email Id.</div>
+                            </div>
+                            <label class="item item-input" id="signIn-input11" name="password">
+                                <span class="input-label">Password</span>
+                                <input type="password" placeholder="Password" required="" name="password" ng-model="password">
+                            </label>
+                             <div ng-show="signinForm.$submitted || signinForm.firstname.$touched">
+                              <div style="color:red;margin:5px;padding:5px;" ng-show="signinForm.password.$error.required">Please enter password.</div>
+                            </div>
+                        </ion-list>
+                        <div style="width: 300px; height: 15px;" class="spacer"></div>
+                        <button class="button button-positive  button-block" style="font-weight:300;border-radius:10px 10px 10px 10px;" type="submit" id="signIn-button4" >Sign In</button>
+                        <div ng-show="submissionSuccess" style="width:50%;color:red;margin:0 auto;">Login failed. Please try again.</div>
+                        <div class="spacer" style="width: 250px; height: 50px;"></div>
+                        <!-- <a ui-sref="signUp" id="signIn-button5" class="button button-light  button-block button-clear" style="font-weight:300;font-style:italic;color:#1A8BAB;border-radius:10px 10px 10px 10px;">Or create an account</a> -->
+                    </form>
+                </ion-scroll>
+            </ion-slide>
+            <ion-slide>
+            <ion-scroll style="height:100%" scrollbar-y="true">
+                <form id="signUp-form1" class="list" name="signupform" novalidate ng-submit="signupform.$valid && signup(data)">
+                    <h1 style="color: rgb(240, 242, 247); font-weight: 300; text-align: right;" id="signUp-heading12">Sign Up</h1>
+                    <!-- <a class="button button-full  button-outline" style="font-weight:300;color: rgb(240, 242, 247);text-align:left;" id="signUp-button5" ui-sref="signIn">Sign In</a> -->
+                    <div style="width: 283px; height: 10px;" class="spacer"></div>
+                    <ion-list id="signUp-list1" class=" ">
+                        <label class="item item-input " id="signUp-input1" style="background-color: transparent; font-weight: 500;"> 
+                            <span class="input-label" style="color:white; font-weight: 500;">Employee Id</span>
+                            <input type="text" placeholder="" required=""  name="id" style="color:white; font-weight: 500;" ng-model="data.id">
+                        </label>
+                        <label class="item item-input " id="signUp-input2" style="background-color: transparent; font-weight: 500;">
+                            <span class="input-label"  style="color:white; font-weight: 500;">Email Id</span>
+                            <input type="email" placeholder="example@example.com"  style="color:white; font-weight: 500;" required=""  name="email" ng-model="data.email">
+                        </label>
+                         <div ng-show="signupform.$submitted || signupform.email.$touched">
+                          <div style="color:red; margin:5px;padding:5px;" ng-show="signupform.email.$error.required">Please enter email.</div>
+                          <div style="color:red;margin:5px;padding:5px;" ng-show="signupform.email.$error.email">Please enter valid email.</div>
+                        </div>
+                        <label class="item item-input " id="signUp-input3" style="background-color: transparent; font-weight: 500;">
+                            <span class="input-label"  style="color:white; font-weight: 500;">Password</span>
+                            <input type="password" placeholder="" required=""  style="color:white; font-weight: 500;"  name="password" ng-model="data.password">
+                        </label>
+                        <div ng-show="signupform.$submitted || signupform.password.$touched">
+                          <div style="color:red;margin:5px;padding:5px;" ng-show="signupform.password.$error.required">Please enter password.</div>
+                        </div>
+                        <label class="item item-input " id="signUp-input4" style="background-color: transparent; font-weight: 500;">
+                            <span class="input-label"  style="color:white; font-weight: 500;">First Name</span>
+                            <input type="text" placeholder="" required=""  style="color:white; font-weight: 500;" name="firstname" ng-model="data.firstname">
+                        </label>
+                         <div ng-show="signupform.$submitted || signupform.firstname.$touched">
+                          <div style="color:red;margin:5px;padding:5px;" ng-show="signupform.firstname.$error.required">Please enter first name.</div>
+                        </div>
+                        <label class="item item-input " id="signUp-input5" style="background-color: transparent; font-weight: 500;">
+                            <span class="input-label" style="color:white; font-weight: 500;">Last Name</span>
+                            <input type="text" placeholder="" required="" style="color:white; font-weight: 500;" name="lastname" ng-model="data.lastname">
+                        </label>
+                         <div ng-show="signupform.$submitted || signupform.lastname.$touched">
+                          <div style="color:red;margin:5px;padding:5px;" ng-show="signupform.lastname.$error.required">Please enter last name.</div>
+                        </div>
+                        <label class="item item-input " id="signUp-input6" style="background-color: transparent; font-weight: 500;">
+                            <span class="input-label" style="color:white; font-weight: 500;">Phone</span>
+                            <input type="tel" placeholder="" required="" style="color:white; font-weight: 500;" name="phoneNo" ng-model="data.phoneNo">
+                        </label>
+                        <div ng-show="signupform.$submitted || signupform.phoneNo.$touched">
+                          <div style="color:red;margin:5px;padding:5px;" ng-show="signupform.phoneNo.$error.required">Please enter phone no.</div>
+                        </div>
+                        <label class="item item-input " id="signUp-input7" style="background-color: transparent; font-weight: 500;">
+                            <span class="input-label" style="color:white; font-weight: 500;">Date of Birth</span>
+                            <input type="date" placeholder="mm/dd/yyyy" style="color:white; font-weight: 500;">
+                        </label> 
+                        <label class="item item-input " id="signUp-input8" style="background-color: transparent; font-weight: 500;">
+                            <span class="input-label" style="color:white; font-weight: 500;">Date of Joining IBM</span>
+                            <input type="date" placeholder="mm/dd/yyyy" style="color:white; font-weight: 500;">
+                        </label>     
+                        <label class="item item-input " id="signUp-input9" style="background-color: transparent; font-weight: 500;">
+                            <span class="input-label" style="color:white; font-weight: 500;">Career Start Date</span>
+                            <input type="date" placeholder="mm/dd/yyyy" style="color:white; font-weight: 500;">
+                        </label>
+                        <label class="item item-select " id="signUp-select1" style="background-color: transparent; font-weight: 500;">
+                            <span class="input-label" style="color:white; font-weight: 500;">Band</span>
+                            <select required="" name="band" ng-model="data.band" style="background-color: transparent; color:white; font-weight: 500;">
+                                <option style="color: black;">6G</option>
+                                <option style="color: black;">6A</option>
+                                <option style="color: black;">6B</option>
+                                <option style="color: black;">7A</option>
+                                <option style="color: black;">7B</option>
+                                <option style="color: black;">8</option>
+                                <option style="color: black;">9</option>
+                                <option style="color: black;">Executive</option>
+                            </select>
+                        </label>
+                    </ion-list>
+                    <button class="button button-assertive  button-block" style="border-radius:10px 10px 10px 10px;" type="submit" id="login-button13">Signup</button>
+                    <div class="spacer" style="width: 250px; height: 50px;"></div>
+                </form>
+                </ion-scroll>
+            </ion-slide>
+            <ion-slide>
+                <ion-scroll  style="height:100%" scrollbar-y="true">
+                    <h1 style="color: rgb(240, 242, 247); font-weight: 300; text-align: right;" id="signUp-heading12">About</h1>
+                    <div class="spacer" style="width: 250px; height: 50px;"></div>
+                </ion-scroll>
+            </ion-slide>
+        </ion-slide-box>        
+    </ion-content>
+</ion-view>

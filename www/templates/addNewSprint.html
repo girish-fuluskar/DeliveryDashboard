@@ -1,0 +1,64 @@
+<ion-view style="background-color: transparent;" title="Add New Sprint" hide-back-button="true" id="page8" class=" ">
+    <ion-content padding="false" class="manual-ios-statusbar-padding" ng-controller="dashboardCtrl">
+    	<ion-slide-box style="height:100%;">
+		  <ion-slide>
+		    <div class="" style="height:50;">
+		    	<h1 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;" id="projectDetails-heading12">Fill Project Details</h1>
+		    	<hr>
+		    	<div style="width: 283px; height: 10px;" class="spacer"></div>
+		    	<label class="item item-select card" id="projectList-select1" style="border-radius:10px 10px 10px 10px;width:90%;">
+		            <span class="input-label" style="font-weight:500;font-size:15px;text-align:left;">Project</span>
+		            <select style="font-weight:500;font-size:15px;width:90%;" ng-model="projectSelect">
+		            	<option ng-repeat="lst in projectLst" value="{{lst.id}}">{{lst.name}}</option>
+		            </select>
+		        </label>
+		        <label class="item item-input card" id="projectStartDate-input7" style="border-radius:10px 10px 10px 10px;width:90%;">
+                    <span class="input-label">Start Date</span>
+                    <input type="date" placeholder="mm/dd/yyyy">
+                </label> 
+                <label class="item item-input card" id="projectEndDate-input8" style="border-radius:10px 10px 10px 10px;width:90%;">
+                    <span class="input-label">End Date</span>
+                    <input type="date" placeholder="mm/dd/yyyy">
+                </label>
+                <ion-toggle ng-model="isFirstSprint" toggle-class="toggle-calm card" style="border-radius:10px 10px 10px 10px;width:90%; margin:10px;">Is this first sprint?</ion-toggle>
+                <label class="item item-input card" id="sprint-input2" style="border-radius:10px 10px 10px 10px;width:90%;">
+                    <span class="input-label">Sprint</span>
+                    <input type="number" placeholder="Sprint No" required=""  name="">
+                </label>
+		    </div>	    
+		  </ion-slide>
+		  <ion-slide>
+		    <div class="" style="height:50;">
+		    	<h1 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;" id="projectDetails-heading12">Fill Sprint Details</h1>
+		    	<hr>
+		    	<div style="width: 283px; height: 10px;" class="spacer"></div>
+		    	<ion-toggle ng-model="isSprintActive" toggle-class="toggle-calm card" style="border-radius:10px 10px 10px 10px;width:90%;margin:10px;">Is Sprint Active?</ion-toggle>
+		    	<label class="item item-input card" id="sprint-input2" style="border-radius:10px 10px 10px 10px;width:90%;">
+                    <span class="input-label">Sprint</span>
+                    <input type="number" placeholder="Sprint No" required=""  name="">
+                </label>
+                <label class="item item-input card" id="sprintStartDate-input7" style="border-radius:10px 10px 10px 10px;width:90%;">
+                    <span class="input-label">Start Date</span>
+                    <input type="date" placeholder="mm/dd/yyyy">
+                </label> 
+                <label class="item item-input card" id="sprintEndDate-input8" style="border-radius:10px 10px 10px 10px;width:90%;">
+                    <span class="input-label">End Date</span>
+                    <input type="date" placeholder="mm/dd/yyyy">
+                </label>
+                <div class = "item range range-positive" style="border-radius:10px 10px 10px 10px;width:90%;margin:10px;">
+			      <input type="range" name="sprint" ng-model="sprint">
+			   </div>
+			   <label class="item item-input card" id="sprintStartDate-input7" style="border-radius:10px 10px 10px 10px;width:90%;">
+			   Number of Sprints : {{sprint}}
+			   </label>
+		    </div>
+		  </ion-slide>
+		  <ion-slide>
+		    <div class="box pink" style="height:50;">
+		    	<h1 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;" id="projectDetails-heading12">Select your Team</h1>
+		    	<hr>
+		    </div>
+		  </ion-slide>
+		</ion-slide-box>
+	</ion-content>
+</ion-view>
