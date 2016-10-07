@@ -1,64 +1,266 @@
 <ion-view style="background-color: transparent;" title="Add New Sprint" hide-back-button="true" id="page8" class=" ">
-    <ion-content padding="false" class="manual-ios-statusbar-padding" ng-controller="dashboardCtrl">
-    	<ion-slide-box style="height:100%;">
-		  <ion-slide>
-		    <div class="" style="height:50;">
-		    	<h1 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;" id="projectDetails-heading12">Fill Project Details</h1>
-		    	<hr>
-		    	<div style="width: 283px; height: 10px;" class="spacer"></div>
-		    	<label class="item item-select card" id="projectList-select1" style="border-radius:10px 10px 10px 10px;width:90%;">
-		            <span class="input-label" style="font-weight:500;font-size:15px;text-align:left;">Project</span>
-		            <select style="font-weight:500;font-size:15px;width:90%;" ng-model="projectSelect">
-		            	<option ng-repeat="lst in projectLst" value="{{lst.id}}">{{lst.name}}</option>
-		            </select>
-		        </label>
-		        <label class="item item-input card" id="projectStartDate-input7" style="border-radius:10px 10px 10px 10px;width:90%;">
-                    <span class="input-label">Start Date</span>
-                    <input type="date" placeholder="mm/dd/yyyy">
-                </label> 
-                <label class="item item-input card" id="projectEndDate-input8" style="border-radius:10px 10px 10px 10px;width:90%;">
-                    <span class="input-label">End Date</span>
-                    <input type="date" placeholder="mm/dd/yyyy">
-                </label>
-                <ion-toggle ng-model="isFirstSprint" toggle-class="toggle-calm card" style="border-radius:10px 10px 10px 10px;width:90%; margin:10px;">Is this first sprint?</ion-toggle>
-                <label class="item item-input card" id="sprint-input2" style="border-radius:10px 10px 10px 10px;width:90%;">
-                    <span class="input-label">Sprint</span>
-                    <input type="number" placeholder="Sprint No" required=""  name="">
-                </label>
-		    </div>	    
-		  </ion-slide>
-		  <ion-slide>
-		    <div class="" style="height:50;">
-		    	<h1 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;" id="projectDetails-heading12">Fill Sprint Details</h1>
-		    	<hr>
-		    	<div style="width: 283px; height: 10px;" class="spacer"></div>
-		    	<ion-toggle ng-model="isSprintActive" toggle-class="toggle-calm card" style="border-radius:10px 10px 10px 10px;width:90%;margin:10px;">Is Sprint Active?</ion-toggle>
-		    	<label class="item item-input card" id="sprint-input2" style="border-radius:10px 10px 10px 10px;width:90%;">
-                    <span class="input-label">Sprint</span>
-                    <input type="number" placeholder="Sprint No" required=""  name="">
-                </label>
-                <label class="item item-input card" id="sprintStartDate-input7" style="border-radius:10px 10px 10px 10px;width:90%;">
-                    <span class="input-label">Start Date</span>
-                    <input type="date" placeholder="mm/dd/yyyy">
-                </label> 
-                <label class="item item-input card" id="sprintEndDate-input8" style="border-radius:10px 10px 10px 10px;width:90%;">
-                    <span class="input-label">End Date</span>
-                    <input type="date" placeholder="mm/dd/yyyy">
-                </label>
-                <div class = "item range range-positive" style="border-radius:10px 10px 10px 10px;width:90%;margin:10px;">
-			      <input type="range" name="sprint" ng-model="sprint">
-			   </div>
-			   <label class="item item-input card" id="sprintStartDate-input7" style="border-radius:10px 10px 10px 10px;width:90%;">
-			   Number of Sprints : {{sprint}}
-			   </label>
-		    </div>
-		  </ion-slide>
-		  <ion-slide>
-		    <div class="box pink" style="height:50;">
-		    	<h1 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;" id="projectDetails-heading12">Select your Team</h1>
-		    	<hr>
-		    </div>
-		  </ion-slide>
+    <ion-content padding="false" class="manual-ios-statusbar-padding" ng-controller="dashboardCtrl" style="" scroll="true" padding="false" class="manual-ios-statusbar-padding">
+    	<ion-slide-box>
+		  	<ion-slide style="height:500px;">
+			    <div class="" style="">
+			    	<h1 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" id="projectDetails-heading12">Fill Project Details</h1>
+			    	<hr>
+			    	<div style="width: 283px; height: 10px;" class="spacer"></div>
+			    	<label class="item item-select card" id="projectList-select1" style="border-radius:10px 10px 10px 10px;width:90%;">
+			            <span class="input-label" style="font-weight:500;font-size:15px;text-align:left;">Project</span>
+			            <select style="font-weight:500;font-size:15px;width:90%;" ng-model="projectSelect">
+			            	<option ng-repeat="lst in projectLst" value="{{lst.id}}">{{lst.name}}</option>
+			            </select>
+			        </label>
+			        <!-- <label class="item item-input card" id="projectStartDate-input7" style="border-radius:10px 10px 10px 10px;width:90%;">
+	                    <span class="input-label">Start Date</span>
+	                    <input type="date" placeholder="mm/dd/yyyy">
+	                </label> 
+	                <label class="item item-input card" id="projectEndDate-input8" style="border-radius:10px 10px 10px 10px;width:90%;">
+	                    <span class="input-label">End Date</span>
+	                    <input type="date" placeholder="mm/dd/yyyy">
+	                </label>
+	                <ion-toggle ng-model="isFirstSprint" toggle-class="toggle-calm card" style="border-radius:10px 10px 10px 10px;width:90%; margin:10px;">Is this first sprint?</ion-toggle>
+	                <label class="item item-input card" id="sprint-input2" style="border-radius:10px 10px 10px 10px;width:90%;">
+	                    <span class="input-label">Sprint</span>
+	                    <input type="number" placeholder="Sprint No" required=""  name="">
+	                </label> -->
+			    </div>	    
+		  	</ion-slide>
+		  	<ion-slide style="height:600px;">
+			    <div class="" style="">
+			    	<h1 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" id="projectDetails-heading12">Fill Sprint Details</h1>
+			    	<hr>
+			    	<div style="width: 283px; height: 10px;" class="spacer"></div>
+			    	<ion-toggle ng-model="isSprintActive" toggle-class="toggle-calm card" style="border-radius:10px 10px 10px 10px;width:90%;margin:10px;">Is Sprint Active?</ion-toggle>
+			    	<label class="item item-input card" id="sprint-input2" style="border-radius:10px 10px 10px 10px;width:90%;">
+	                    <span class="input-label">Sprint</span>
+	                    <input type="number" placeholder="Sprint No" required=""  name="">
+	                </label>
+	                <label class="item item-input card" id="sprintStartDate-input7" style="border-radius:10px 10px 10px 10px;width:90%;">
+	                    <span class="input-label">Start Date</span>
+	                    <input type="date" placeholder="mm/dd/yyyy">
+	                </label> 
+	                <label class="item item-input card" id="sprintEndDate-input8" style="border-radius:10px 10px 10px 10px;width:90%;">
+	                    <span class="input-label">End Date</span>
+	                    <input type="date" placeholder="mm/dd/yyyy">
+	                </label>
+	                <!-- <div class = "item range range-positive" style="border-radius:10px 10px 10px 10px;width:90%;margin:10px;">
+				      <input type="range" name="sprint" ng-model="sprint">
+				   	</div>
+				   	<label class="item item-input card" id="sprintStartDate-input7" style="border-radius:10px 10px 10px 10px;width:90%;">
+				   		Number of Sprints : {{sprint}}
+				   	</label> -->
+				   	<label class="item item-input card" id="numberofsprint-input2" style="border-radius:10px 10px 10px 10px;width:90%;">
+	                    <span class="input-label">Number of Sprint</span>
+	                    <input type="number" placeholder="Number of Sprint" required=""  name="">
+	                </label>
+	                <label class="item item-input card" id="userstorycount-input2" style="border-radius:10px 10px 10px 10px;width:90%;">
+	                    <span class="input-label">User Story Count</span>
+	                    <input type="number" placeholder="User Story Count" required=""  name="">
+	                </label>
+			    </div>
+		  	</ion-slide>
+		  	<ion-slide style="height:600px;">
+		    	<form class="list animated bounceIn " name="searchform" class="css-form" novalidate id="searchUser-form6" ng-submit="searchform.$valid && search(searchinput)">
+		        	<label id="searchUser-input14" class="item item-input ">
+		         		<input placeholder="Search User" required=""  name="searchinput" type="text" ng-model="searchinput">
+		         	</label>
+		         	<div ng-show="searchform.$submitted || searchform.searchinput.$touched">
+		            	<div style="color:red;margin:5px;padding:5px;" ng-show="searchform.searchinput.$error.required">Please enter input to search.</div>
+		         	</div>
+		         	<button class="button button-assertive-900  button-block" id="searchUser-button15">SUBMIT</button>
+		      	</form>
+		      	<div ng-show='showFilter && searchinput'>
+		         	<h4 id="searcResult" style="color:#000000;font-weight:400;text-align:left;" class=" ">Search Results</h4>
+		         	<label id="searchUser-input14" class="item item-input ">
+		         		<input  class="card" placeholder="Filter Result" type="text" ng-model="filterResult">
+		         	</label>
+		         	<!-- <div style="height: 8px;" class="spacer"></div>
+		         		Result are filter by: {{filterResult}} <BR>
+		         	<div style="height: 8px;" class="spacer"></div>
+		        	 Sort - 
+		         	<button class="icon ion-android-arrow-dropup-circle" href="" ng-click="term='fname'"> </button> 	
+		         	<button class="icon ion-android-arrow-dropdown-circle" href="" ng-click="term='-fname'"> </button>
+		         	<div style="height: 20px;" class="spacer"></div>-->
+		         	
+				         	<div class="list card animated bounceInUp" id="profile-list4" ng-repeat="userProfile in userProfiles|filter:filterResult|orderBy:term" ng-show='userProfile!==null && searchinput' >
+				         	<ion-list>
+		         				<ion-item>
+						            <div class="item item-avatar item-text-wrap in" style="transition-delay: 0.3s;">
+						               <span class="avatar" style="background-image: url('../www/img/user.png');"></span>
+						               <strong>
+						                  <h2 class="ng-binding">{{userProfile.firstname | uppercase}} {{userProfile.lastname | uppercase}}</h2>
+						               </strong>
+						               <i class="icon ion-iphone assertive-900"> </i> {{userProfile.phone}}<br>
+						               <i class="icon ion-ios-email assertive-900"> </i> {{userProfile.email}}<br>
+						               <i class="icon ion-android-add-circle assertive-900"> </i> {{userProfile.designation.profession}}<br>
+						               <br>
+						               <i class="icon ion-android-add-circle assertive-900"> </i> {{userProfile.designation.specialization}}			               
+						            </div>
+					            </ion-item>
+		         			</ion-list>
+				         	</div>
+			         	
+		      	</div>
+		  	</ion-slide>
+		  	<ion-slide style="height:600px;border-radius:20px 20px 20px 20px;">
+		  		<ion-content>
+			  		<ion-scroll style="height:auto;">
+				  		<div class="" style="">
+				  			<!-- <h1 style="background-color: transparent;color: blue; font-weight: 300; text-align: right; padding-right: 20px;" id="projectDetails-heading12">Metrics</h1>
+					    	<hr> -->
+					    	<div class="card" >
+					    		<h1 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" id="projectDetails-heading12">Effort Metrics
+					    		</h1>		            
+					            						
+									<h3 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" id="projectDetails-heading12">Spent Hours</h3>
+									<hr>				    						
+									<ion-list id="spenthours-list1" class=" ">
+						                <label class="item item-input card" id="requirements-input1">
+						                    <span class="input-label">Requirements</span>
+						                    <input type="number" placeholder="Requirements" required=""  name="id">
+						                </label>
+						                <label class="item item-input card" id="design-input1">
+						                    <span class="input-label">Design</span>
+						                    <input type="number" placeholder="Design" required=""  name="id">
+						                </label>
+						                <label class="item item-input card" id="build-input1">
+						                    <span class="input-label">Build</span>
+						                    <input type="number" placeholder="Build" required=""  name="id">
+						                </label>
+						                <label class="item item-input card" id="test-input1">
+						                    <span class="input-label">Test</span>
+						                    <input type="number" placeholder="Test" required=""  name="id">
+						                </label>
+						                <label class="item item-input card" id="support-input1">
+						                    <span class="input-label">Support</span>
+						                    <input type="number" placeholder="Support" required=""  name="id">
+						                </label>
+						                <label class="item item-input card" id="unproductive-input1">
+						                    <span class="input-label">Unproductive</span>
+						                    <input type="number" placeholder="Unproductive" required=""  name="id">
+						                </label>
+						            </ion-list>			            
+								
+							</div>
+							<hr>
+							<h3 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" class="" id="projectDetails-heading12">Remaining Hours</h3>
+							<hr>
+							<ion-list id="spenthours-list1" class=" ">
+				                <label class="item item-input card" id="requirements-input1">
+				                    <span class="input-label">Requirements</span>
+				                    <input type="number" placeholder="Requirements" required=""  name="id">
+				                </label>
+				                <label class="item item-input card" id="design-input1">
+				                    <span class="input-label">Design</span>
+				                    <input type="number" placeholder="Design" required=""  name="id">
+				                </label>
+				                <label class="item item-input card" id="build-input1">
+				                    <span class="input-label">Build</span>
+				                    <input type="number" placeholder="Build" required=""  name="id">
+				                </label>
+				                <label class="item item-input card" id="test-input1">
+				                    <span class="input-label">Test</span>
+				                    <input type="number" placeholder="Test" required=""  name="id">
+				                </label>
+				                <label class="item item-input card" id="support-input1">
+				                    <span class="input-label">Support</span>
+				                    <input type="number" placeholder="Support" required=""  name="id">
+				                </label>
+				                <label class="item item-input card" id="unproductive-input1">
+				                    <span class="input-label">Unproductive</span>
+				                    <input type="number" placeholder="Unproductive" required=""  name="id">
+				                </label>
+				            </ion-list>
+				            <hr>
+							<h3 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" class="" id="projectDetails-heading12">Estimated Hours</h3>
+							<hr>
+							<ion-list id="spenthours-list1" class=" ">
+				                <label class="item item-input card" id="requirements-input1">
+				                    <span class="input-label">Requirements</span>
+				                    <input type="number" placeholder="Requirements" required=""  name="id">
+				                </label>
+				                <label class="item item-input card" id="design-input1">
+				                    <span class="input-label">Design</span>
+				                    <input type="number" placeholder="Design" required=""  name="id">
+				                </label>
+				                <label class="item item-input card" id="build-input1">
+				                    <span class="input-label">Build</span>
+				                    <input type="number" placeholder="Build" required=""  name="id">
+				                </label>
+				                <label class="item item-input card" id="test-input1">
+				                    <span class="input-label">Test</span>
+				                    <input type="number" placeholder="Test" required=""  name="id">
+				                </label>
+				                <label class="item item-input card" id="support-input1">
+				                    <span class="input-label">Support</span>
+				                    <input type="number" placeholder="Support" required=""  name="id">
+				                </label>
+				                <label class="item item-input card" id="unproductive-input1">
+				                    <span class="input-label">Unproductive</span>
+				                    <input type="number" placeholder="Unproductive" required=""  name="id">
+				                </label>
+				            </ion-list>
+				            <hr>
+				            <h1 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" id="projectDetails-heading12">Quality Metrics
+				    		</h1>						
+							<h3 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" id="projectDetails-heading12">Stats</h3>
+							<hr>
+							<ion-list id="stats-list1" class=" ">
+				                <label class="item item-input card" id="junit-input1">
+				                    <span class="input-label">Junit</span>
+				                    <input type="number" placeholder="Junit" required=""  name="id">
+				                </label>
+				                <label class="item item-input card" id="sonarcritical-input1">
+				                    <span class="input-label">Sonar Critical</span>
+				                    <input type="number" placeholder="Sonar Critical" required=""  name="id">
+				                </label>
+				                <label class="item item-input card" id="sonarmajor-input1">
+				                    <span class="input-label">Sonar Major</span>
+				                    <input type="number" placeholder="Sonar Major" required=""  name="id">
+				                </label>
+				                <label class="item item-input card" id="defectssev1-input1">
+				                    <span class="input-label">Defects Sev 1</span>
+				                    <input type="number" placeholder="Defects Sev 1" required=""  name="id">
+				                </label>
+				                <label class="item item-input card" id="defectssev2-input1">
+				                    <span class="input-label">Defects Sev 2</span>
+				                    <input type="number" placeholder="Defects Sev 2" required=""  name="id">
+				                </label>
+				                <label class="item item-input card" id="defectssev3-input1">
+				                    <span class="input-label">Defects Sev 3</span>
+				                    <input type="number" placeholder="Defects Sev 3" required=""  name="id">
+				                </label>
+				                <label class="item item-input card" id="defectssev4-input1">
+				                    <span class="input-label">Defects Sev 4</span>
+				                    <input type="number" placeholder="Defects Sev 4" required=""  name="id">
+				                </label>
+				                <label class="item item-input card" id="defectdensity-input1">
+				                    <span class="input-label">Defect Density</span>
+				                    <input type="number" placeholder="Defect Density" required=""  name="id">
+				                </label>
+				            </ion-list>
+				             <hr>
+				            <h1 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" id="projectDetails-heading12">Productivity Metrics
+				    		</h1>						
+							<h3 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" id="projectDetails-heading12">Stats</h3>
+							<hr>
+							<ion-list id="stats-list1" class=" ">
+				                <label class="item item-input card" id="storypoints-input1">
+				                    <span class="input-label">Storypoints</span>
+				                    <input type="number" placeholder="Storypoints" required=""  name="id">
+				                </label>
+				                <label class="item item-input card" id="velocity-input1">
+				                    <span class="input-label">Velocity</span>
+				                    <input type="number" placeholder="Velocity" required=""  name="id">
+				                </label>
+				            </ion-list>
+				  		</div>
+			  		</ion-scroll>
+		  		</ion-content>
+		  	</ion-slide>
 		</ion-slide-box>
+		<button class="button button-block button-positive" id="searchUser-button15">SUBMIT</button>
 	</ion-content>
 </ion-view>

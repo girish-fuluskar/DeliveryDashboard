@@ -1,6 +1,60 @@
 angular.module('app.controllers', [])
      
 .controller('dashboardCtrl', function($scope,$ionicPopup, chartData, chartDataWithoutParam) {
+   //slide out function
+  $scope.isdiplayEffortMetrics = false;
+  $scope.showSearchEffortMetrics = function() {
+    $scope.isdiplayEffortMetrics = !$scope.isdiplayEffortMetrics;
+  }
+
+  $scope.isdiplayQualityMetrics = false;
+  $scope.showSearchQualityMetrics = function() {
+    $scope.isdiplayQualityMetrics = !$scope.isdiplayQualityMetrics;
+  }
+
+  $scope.isdiplayProductivityMetrics = false;
+  $scope.showSearchProductivityMetrics = function() {
+    $scope.isdiplayProductivityMetrics = !$scope.isdiplayProductivityMetrics;
+  }
+  $scope.teamList = [];
+  //Search team members
+  $scope.search = function(data){
+    /*$ionicLoading.show({
+        templateUrl: "templates/loading.html"
+    });*/
+      chartDataWithoutParam.search(data)
+        .then(function(searchedData) {
+          //$ionicLoading.hide();
+          $scope.showFilter = false;
+          if (searchedData !== undefined) {
+              $scope.showFilter = true;
+          }
+          if (searchedData === undefined) {
+              var alertPopup = $ionicPopup.alert({
+                  title: 'Search Failed!',
+                  template: 'No result found!'
+              });
+          }
+         /* $scope.teamList.push({
+              firstname: searchedData[0].firstname,
+              lastname: searchedData[0].lastname,
+              phone:searchedData[0].phone,
+              email:searchedData[0].email,
+              profession:searchedData[0].designation.profession,
+              specialization:searchedData[0].designation.specialization
+          });*/
+          $scope.userProfiles = searchedData;
+        }, function(err) {
+          $ionicLoading.hide();
+          var alertPopup = $ionicPopup.alert({
+              title: 'Search Failed!',
+              template: err.data.message
+          });
+      });
+    }
+
+
+
   //showing popr for project and sprint selection
   $scope.showPopup = function() {
   $scope.data = {};
@@ -25,6 +79,18 @@ angular.module('app.controllers', [])
       ]
     });
   }
+
+  //create project snapshot
+  /*$scope.projectSnapShot = chartDataWithoutParam.saveSnapShot(snapShotData)
+    .then(function(snapShot){
+      $scope.snapshotResponse = snapshot;
+      console.log($scope.snapshotResponse);
+    }, function(err){
+        var alertPopup = $ionicPopup.alert({
+          title: 'Search Failed!',
+          template: 'There was some problem with server.'
+      });
+    });*/
 
   //Effort Extended chart without param
   $scope.allCharts = true;

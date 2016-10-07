@@ -70,6 +70,56 @@ angular.module('app.services', [])
 //chartData without param
 .service('chartDataWithoutParam', function($state,$http, $q,$ionicPopup,$ionicLoading) {
   var token = window.localStorage.getItem('authToken');
+
+  this.search = function(userData) {
+    return $q(function(resolve, reject) {
+        var req = {
+            url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/users',
+            method: 'GET',
+            params: {
+                fts: userData
+            },
+            headers: { 
+                'Authorization' : 'Basic ' + token
+            }
+        }
+        $http(req).then(function(data) {
+            if (data.status == '200') {
+                resolve(data.data.response);
+            } else {
+                reject('Search Failed!');
+            }
+        }, function(err) {
+            reject(err);
+        });
+    });
+  }
+
+  this.saveSnapShot = function(snapData){
+    return $q(function(resolve, reject) {
+      var req = {
+          url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/BARCA/UKAEDF/CI002/projectsnapshot',
+          method: 'POST',
+          data: {
+              fts: userData
+          },
+          headers: {
+              'Content-Type' : 'application/json', 
+              'Authorization' : 'Basic ' + token
+          }
+      }
+      $http(req).then(function(data) {
+        if (data.status == '200') {
+            resolve(data.data.response);
+        } else {
+            reject('Search Failed!');
+        }
+      }, function(err) {
+          reject(err);
+      });
+    });
+  }
+
   this.getEffortExtendedWithoutParam = function() {
     return $q(function(resolve, reject) {   
       var req = {
