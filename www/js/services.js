@@ -95,14 +95,12 @@ angular.module('app.services', [])
     });
   }
 
-  this.saveSnapShot = function(snapData){
+  this.saveSnapShot = function(snapData, id){
     return $q(function(resolve, reject) {
       var req = {
-          url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/BARCA/UKAEDF/CI002/projectsnapshot',
+          url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/BARCA/UKAEDF/'+id+'/projectsnapshot',
           method: 'POST',
-          data: {
-              fts: userData
-          },
+          data: snapData,
           headers: {
               'Content-Type' : 'application/json', 
               'Authorization' : 'Basic ' + token

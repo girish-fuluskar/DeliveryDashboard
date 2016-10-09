@@ -1,6 +1,8 @@
 angular.module('app.controllers', [])
      
-.controller('dashboardCtrl', function($scope,$ionicPopup, chartData, chartDataWithoutParam) {
+.controller('dashboardCtrl', function($scope,$ionicPopup,$filter,$ionicListDelegate,$ionicLoading, chartData, chartDataWithoutParam) {
+  var teamListArray=[];
+   var finalTeamStructureList = [];
    //slide out function
   $scope.isdiplayEffortMetrics = false;
   $scope.showSearchEffortMetrics = function() {
@@ -17,11 +19,13 @@ angular.module('app.controllers', [])
     $scope.isdiplayProductivityMetrics = !$scope.isdiplayProductivityMetrics;
   }
   $scope.teamList = [];
+
   //Search team members
   $scope.search = function(data){
     /*$ionicLoading.show({
         templateUrl: "templates/loading.html"
     });*/
+      $scope.searchinput = "";
       chartDataWithoutParam.search(data)
         .then(function(searchedData) {
           //$ionicLoading.hide();
@@ -32,28 +36,154 @@ angular.module('app.controllers', [])
           if (searchedData === undefined) {
               var alertPopup = $ionicPopup.alert({
                   title: 'Search Failed!',
-                  template: 'No result found!'
+                  template: 'No result found!',
+                  button:[
+                    {
+                      text: 'Ok',
+                      onTap: $scope.teamList = teamListArray
+                    }
+                  ]
               });
           }
-         /* $scope.teamList.push({
-              firstname: searchedData[0].firstname,
-              lastname: searchedData[0].lastname,
-              phone:searchedData[0].phone,
-              email:searchedData[0].email,
-              profession:searchedData[0].designation.profession,
-              specialization:searchedData[0].designation.specialization
-          });*/
+
+
+          var teamList={
+            id : searchedData[0].id,
+            firstname : searchedData[0].firstname,
+            lastname : searchedData[0].lastname,
+            phone : searchedData[0].phone,
+            email : searchedData[0].email,
+            profession:searchedData[0].designation.profession,
+            specialization:searchedData[0].designation.specialization
+          };
+
+          //Creating structure for API
+          var finalTeamStructList={
+            "user":{
+              "id" : searchedData[0].id,
+              "email" : searchedData[0].email
+            },
+            "role" : searchedData[0].designation.profession
+          };
+
+          finalTeamStructureList.push(finalTeamStructList);
+          console.log(finalTeamStructList);
+
+          $scope.teamListData = teamList;
+
+          var finalTeamList = {teamList:teamList};
+
+          teamListArray.push(finalTeamList);
+          $scope.teamList = teamListArray;
+
           $scope.userProfiles = searchedData;
         }, function(err) {
           $ionicLoading.hide();
           var alertPopup = $ionicPopup.alert({
               title: 'Search Failed!',
-              template: err.data.message
+              text: 'err.data.message'
           });
       });
+      $scope.teamList = teamListArray;
     }
 
+    //deleting items one by one from list
+  $scope.deleteTeamListItem = function (i, billItemsDelete){
+    teamListArray.splice(teamListArray.indexOf(i), 1);    
+    $ionicListDelegate.closeOptionButtons();
+  };
 
+    //create project snapshot
+  $scope.projectSnapShot = function(id,sprint,isSprintActive,startDate,endDate,noOfSprint,userStoryCount,spentHours_requirements,spentHours_design,spentHours_build,spentHours_test,spentHours_support,spentHours_unproductive,remainingHours_requirements,remainingHours_design,remainingHours_build,remainingHours_test,remainingHours_support,remainingHours_unproductive,estimatedHours_requirements,estimatedHours_design,estimatedHours_build,estimatedHours_test,estimatedHours_support,estimatedHours_unproductive,qualityMetrics_stats_junit,qualityMetrics_stats_sonarCritical,qualityMetrics_stats_sonarMajor,qualityMetrics_stats_defectSev1,qualityMetrics_stats_defectSev2,qualityMetrics_stats_defectSev3,qualityMetrics_stats_defectSev4,qualityMetrics_stats_defectDensity,productivityMetrics_stats_storypoints,productivityMetrics_stats_velocity){
+    var startDate = $filter('date')(startDate, "yyyy-MM-dd"+"T00:00:00.000+0530");
+    var endDate = $filter('date')(endDate, "yyyy-MM-dd"+"T00:00:00.000+0530");
+    console.log(id,sprint,isSprintActive,startDate,endDate,noOfSprint,userStoryCount,spentHours_requirements,spentHours_design,spentHours_build,spentHours_test,spentHours_support,spentHours_unproductive,remainingHours_requirements,remainingHours_design,remainingHours_build,remainingHours_test,remainingHours_support,remainingHours_unproductive,estimatedHours_requirements,estimatedHours_design,estimatedHours_build,estimatedHours_test,estimatedHours_support,estimatedHours_unproductive,qualityMetrics_stats_junit,qualityMetrics_stats_sonarCritical,qualityMetrics_stats_sonarMajor,qualityMetrics_stats_defectSev1,qualityMetrics_stats_defectSev2,qualityMetrics_stats_defectSev3,qualityMetrics_stats_defectSev4,qualityMetrics_stats_defectDensity,productivityMetrics_stats_storypoints,productivityMetrics_stats_velocity);
+
+    var sprintStatus;
+    if(isSprintActive==true)
+      {
+       sprintStatus= "ACTIVE"
+      }
+      else
+        {
+          sprintStatus="INACTIVE"
+        }
+
+    //Creating Snapshot structure for api
+    var projectSnapShot={
+      "logDate": $filter('date')(new Date(),"yyyy-MM-dd"+"T00:00:00.000+0530"),
+      "project":{
+        "id": id
+      },
+      "sprint":{
+        "id": id+sprint,
+        "sprintNumber": sprint,
+        "status": sprintStatus,
+        "startDate": startDate,
+        "endDate": endDate,
+        "userStoryCount": userStoryCount,
+        "teamMembers": finalTeamStructureList,
+        "effortMetrics":{
+          "spentHours":{
+            "requirements": spentHours_requirements,
+            "design": spentHours_design,
+            "build": spentHours_build,
+            "test": spentHours_test,
+            "support": spentHours_support,
+            "unproductive": spentHours_unproductive
+          },
+          "remainingHours":{
+            "requirements": remainingHours_requirements,
+            "design": remainingHours_design,
+            "build": remainingHours_build,
+            "test": remainingHours_test,
+            "support": remainingHours_support,
+            "unproductive": remainingHours_unproductive
+          },
+          "estimatedHours":{
+            "requirements": estimatedHours_requirements,
+            "design": estimatedHours_design,
+            "build": estimatedHours_build,
+            "test": estimatedHours_test,
+            "support": estimatedHours_support,
+            "unproductive": estimatedHours_unproductive
+          }
+        },
+        "qualityMetrics":{
+          "stats":{
+            "junit": qualityMetrics_stats_junit,
+            "sonarCritical": qualityMetrics_stats_sonarCritical,
+            "sonarMajor": qualityMetrics_stats_sonarMajor,
+            "DefectsSev1": qualityMetrics_stats_defectSev1,
+            "DefectsSev2": qualityMetrics_stats_defectSev2,
+            "DefectsSev3": qualityMetrics_stats_defectSev3,
+            "DefectsSev4": qualityMetrics_stats_defectSev4,
+            "defectDensity": qualityMetrics_stats_defectDensity
+          }
+        },
+        "productivityMetrics":{
+          "stats":{
+            "storyPoints": productivityMetrics_stats_storypoints,
+            "velocity": productivityMetrics_stats_velocity
+          }
+        }
+      }
+    };
+
+    console.log(projectSnapShot);
+    
+    chartDataWithoutParam.saveSnapShot(projectSnapShot, id)
+    .then(function(snapShot){
+      $scope.snapshotResponse = snapshot;
+      console.log($scope.snapshotResponse);
+    }, function(err){
+        var alertPopup = $ionicPopup.alert({
+          title: 'Search Failed!',
+          template: 'There was some problem with server.'
+      });
+    });
+
+  }
 
   //showing popr for project and sprint selection
   $scope.showPopup = function() {
@@ -79,18 +209,6 @@ angular.module('app.controllers', [])
       ]
     });
   }
-
-  //create project snapshot
-  /*$scope.projectSnapShot = chartDataWithoutParam.saveSnapShot(snapShotData)
-    .then(function(snapShot){
-      $scope.snapshotResponse = snapshot;
-      console.log($scope.snapshotResponse);
-    }, function(err){
-        var alertPopup = $ionicPopup.alert({
-          title: 'Search Failed!',
-          template: 'There was some problem with server.'
-      });
-    });*/
 
   //Effort Extended chart without param
   $scope.allCharts = true;
