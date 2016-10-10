@@ -210,6 +210,169 @@ angular.module('app.controllers', [])
     });
   }
 
+  //Spent Effort Date chart without param
+    $scope.effortDate = chartDataWithoutParam.getEffortDateWithoutParam()
+    .then(function(effortdata){
+      var effortDateLabel = [];
+      var effortDateSeries = [];
+      var data1 = [];
+      var seriesArry = [];
+      var seriesColor = ["#882cbb","#2d2c2f","#2f3eac","#54D1F1","#09f42f","#006eee","#f23209"];        
+      for(var i=0;i<effortdata[0].buckets.length;i++){
+        var a=[];
+        effortDateLabel.push(new Date(effortdata[0].buckets[i].key_as_string).toISOString().slice(0,10));
+        //loop for getting value with bucket                  
+        for(var j=0;j<effortdata[0].buckets[i].aggregations.length;j++){
+          a.push(effortdata[0].buckets[i].aggregations[j].value);               
+        }
+        data1.push(a);
+      }
+      //loop for names from bucket, which to take only once
+      for(var h=0;h<effortdata[0].buckets[h].aggregations.length;h++){
+        effortDateSeries.push(effortdata[0].buckets[h].aggregations[h].name);            
+      }
+      $scope.effortDateLabel = effortDateLabel;
+      $scope.effortDateSeries = effortDateSeries;         
+      var realignData = _.unzip(data1);
+
+      for(m=1;m<=$scope.effortDateSeries.length;m++){
+        var seriesStruc = {
+          "text": $scope.effortDateSeries[m-1],
+          "values": realignData[m-1],
+          "background-color":seriesColor[m-1],
+          "legend-item":{
+            "order": ($scope.effortDateSeries.length+1)-m
+          }
+        };
+        seriesArry.push(seriesStruc);
+      }
+
+      console.log(seriesArry);
+
+        zingchart.THEME="classic";
+        var myConfig = {
+            "graphset": [
+                {
+                    "type": "bar",
+                    "background-color": "white",
+                    "fill-angle": 55,
+                    "stacked": true,
+                    "stack-type": "normal",
+                    "title": {
+                        "text": "Spent Effort Date Histogram",
+                        "text-align": "left",
+                        "font-family": "Arial",
+                        "font-size": "14px",
+                        "font-color": "black",
+                        "background-color": "none",
+                        "padding": "20px 0 0 20px",
+                        "height": "40px"
+                    },
+                    "legend": {
+                        "toggle-action": "remove",
+                        "layout":"x5",
+                        "x":"22.5%",
+                        "y":"0.5%",
+                        "shadow":false,
+                        "background-color": "none",
+                        "border-width": 0,
+                        "border-color": "none",
+                        "item": {
+                            "font-color": "black"
+                        },
+                        "marker":{
+                            "type":"circle",
+                            "border-width":0
+                        }
+                    },
+                    "plotarea": {
+                        "margin": "55px 55px 55px 55px"
+                    },
+                    "plot": {
+                        "alpha": 0.8,
+                        "bar-width": "35px",
+                        "hover-state": {
+                            "background-color": "#212339",
+                            "alpha": 1
+                        },
+                        "animation": {
+                            "delay": 350,
+                            "effect": 3,
+                            "speed": "1000",
+                            "method": "0",
+                            "sequence": "1"
+                        }
+                    },
+                    "scale-x": {
+                        "values": $scope.effortDateLabel,
+                        "items-overlap": true,
+                        "line-color": "#53566f",
+                        "tick": {
+                            "line-color": "#53566f"
+                        },
+                        "guide": {
+                            "visible": false
+                        },
+                        "item": {
+                            "font-color": "black",
+                            "font-family": "Arial",
+                            "font-size": "10px",
+                            "font-angle": -48,
+                            "offset-x": "5px"
+                        }
+                    },
+                    "scale-y": {
+                        "value":"",
+                        "line-color": "#53566f",
+                        "tick": {
+                            "line-color": "#53566f"
+                        },
+                        "guide": {
+                            "line-style": "solid",
+                            "line-color": "#53566f",
+                            "line-width": "1px",
+                            "alpha": 0.4
+                        },
+                        "item": {
+                            "font-color": "#9a9cab",
+                            "font-family": "Arial",
+                            "font-size": "10px",
+                            "padding": "3px"
+                        }
+                    },
+                    "tooltip": {
+                        "text": "<b>%t: %v hrs",
+                        "font-family": "Arial",
+                        "font-size": "10px",
+                        "font-weight": "normal",
+                        "font-color": "#fff",
+                        "decimals": 0,
+                        "text-align": "left",
+                        "border-radius": "8px",
+                        "padding": "10px 10px",
+                        "background-color": "#212339",
+                        "alpha": 0.95,
+                        "shadow": 0,
+                        "border-width": 0,
+                        "border-color": "none"
+                    },
+                    "series": seriesArry 
+                }
+            ]
+        };         
+        zingchart.render({ 
+          id : 'spentEffortDate', 
+          data : myConfig
+        });
+      console.log($scope.effortDate);
+    }, function(err){
+      var alertPopup = $ionicPopup.alert({
+          title: 'Search Failed!',
+          template: 'There was some problem with server.'
+      });
+    });
+
+
   //Effort Extended chart without param
   $scope.allCharts = true;
   $scope.effortExtended = chartDataWithoutParam.getEffortExtendedWithoutParam()
@@ -222,6 +385,111 @@ angular.module('app.controllers', [])
           template: 'There was some problem with server.'
       });
   });
+
+   //Effort Extended chart without param
+  $scope.allCharts = true;
+  $scope.effortExtended = chartDataWithoutParam.getEffortExtendedWithoutParam()
+  .then(function(effortExtendedDataWithoutParam) {
+        $scope.effortExtended = effortExtendedDataWithoutParam;
+        console.log($scope.effortExtended);
+        var myConfig =     {
+              "type":"pie",
+              "height":"40%",
+              "width":"10%",
+              "x":"35%",
+              "y":"5%",
+              "background-color":"#ffffff",
+              "border-radius":4,
+              "title":{
+                  "text":"Steps",
+                  "text-align":"center",
+                  "background-color":"none",
+                  "font-color":"#000000",
+                  "font-size":"13px",
+                  "offset-y":"10%",
+                  "offset-x":"10%"
+              },
+              "value-box":{
+                  "visible":true
+              },
+              "plotarea":{
+                  "margin":"40% 0% 0% 0%"
+              },
+              "plot":{
+                  "slice":50,
+                  "ref-angle":270,
+                  "detach":false,
+                  "hover-state":{
+                      "visible":false
+                  },
+                  "value-box":{
+                      "visible":true,
+                      "type":"first",
+                      "connected":false,
+                      "placement":"center",
+                      "text":"Total Spent<br>"+  $scope.effortExtended[0].value+"<br>Max Estimate<br>"+$scope.effortExtended[2].value,
+                      "font-color":"#000000",
+                      "font-size":"8px"
+                  },
+                  "tooltip":{
+                      "rules":[
+                          {
+                              "rule":"%i == 0",
+                              "text":"Total Spent<br>"+  $scope.effortExtended[0].value,
+                              "shadow":false,
+                              "border-radius":4
+                          },
+                          {
+                              "rule":"%i == 1",
+                              "text":"Max Estimate<br>"+$scope.effortExtended[2].value,
+                              "shadow":false,
+                              "border-radius":4
+                          }
+                      ]
+                  },
+                  "animation":{
+                      "delay":0,
+                      "effect":2,
+                      "speed":"600",
+                      "method":"0",
+                      "sequence":"1"
+                  }
+              },
+              "series":[
+                  {
+                      "values":[$scope.effortExtended[2].value],
+                      "text":"Steps",
+                      "background-color":"#00baf0",
+                      "border-width":"0px",
+                      "shadow":0
+                  },
+                  {
+                      "values":[$scope.effortExtended[0].value],
+                      "background-color":"#dadada",
+                      "alpha":"0.5",
+                      "border-color":"#dadada",
+                      "border-width":"1px",
+                      "shadow":0
+                  }
+              ]
+          };     
+          zingchart.render({ 
+            id : 'myChart', 
+            data : myConfig, 
+            height: 500, 
+            width: '100%'
+          });
+
+  }, function(err) {            
+      var alertPopup = $ionicPopup.alert({
+          title: 'Search Failed!',
+          template: 'There was some problem with server.'
+      });
+  });
+
+  
+
+
   //Spent Effort Date chart without param
     $scope.effortDate = chartDataWithoutParam.getEffortDateWithoutParam()
     .then(function(effortdata){
