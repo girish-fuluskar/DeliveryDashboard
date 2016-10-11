@@ -37,6 +37,12 @@ angular.module('app.routes', [])
     controller: 'addNewSprintCtrl'
   })
 
+  .state('createAccount', {
+    url: '/createAccount',
+    templateUrl: 'templates/createAccount.html',
+    controller: 'createAccountCtrl'    
+  })
+
   .state('tabsController', {
     url: '/tabs',
     templateUrl: 'templates/tabsController.html',

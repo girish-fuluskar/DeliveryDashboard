@@ -1,6 +1,7 @@
 angular.module('app.controllers', [])
      
-.controller('dashboardCtrl', function($scope,$ionicPopup,$filter,$ionicListDelegate,$ionicLoading, chartData, chartDataWithoutParam) {
+.controller('dashboardCtrl', function($scope,$ionicPopup,$filter,$ionicListDelegate,$ionicLoading, 
+  chartData, chartDataWithoutParam) {
   var teamListArray=[];
    var finalTeamStructureList = [];
    //slide out function
@@ -180,6 +181,19 @@ angular.module('app.controllers', [])
           title: 'Search Failed!',
           template: 'There was some problem with server.'
       });
+    });
+  }
+
+  $scope.createAccount = function(accountName){
+    chartDataWithoutParam.setCreateAccount(accountName)
+      .then(function(accountNameRespopnse) {
+          $scope.accountNameResponse = accountNameRespopnse;
+      }, function(err) {    
+        $scope.submissionSuccess = true;        
+        var alertPopup = $ionicPopup.alert({
+            title: 'Account not created',
+            template: 'There was some problem with server.'
+        });
     });
   }
 
@@ -2066,6 +2080,10 @@ angular.module('app.controllers', [])
  
 .controller('updatesCtrl', function($scope) {
 
+})
+
+.controller('createAccountCtrl', function($scope){
+    
 })
    
 .controller('addNewSprintCtrl', function($scope) {

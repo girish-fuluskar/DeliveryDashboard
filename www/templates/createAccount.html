@@ -1,0 +1,85 @@
+<ion-view style="background-color: transparent;" title="Add Account and details.." hide-back-button="true" id="page10" class=" ">
+    <ion-content padding="false" class="manual-ios-statusbar-padding" ng-controller="dashboardCtrl" style="" scroll="true" padding="false" class="manual-ios-statusbar-padding">
+    		<form id="signIn-form2" class="list" name="signinForm" novalidate ng-submit="createAccount(accountName)">
+    			<ion-slide-box>
+			  		<ion-slide style="height:500px;">
+			  			<h1 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" id="projectDetails-heading12">Add Account</h1>
+			    		<hr>
+	    				<div class="card" style="border-radius:10px 10px 10px 10px;">
+	    					<label class="item item-input" name="account" id="account-input10">
+	            				<span class="input-label">Account</span>
+	                   			<input type="text" placeholder="Add Account" required="" name="account" ng-model="accountName">
+	            			</label>	            			
+	            		</div>
+	            		<button class="button button-positive  button-block icon ion-arrow-right-c icon-right" style="font-weight:300;border-radius:10px 10px 10px 10px;" type="submit" id="addAccount-button4">Add Account and Create Project</button>
+	            	</ion-slide>
+	            	<ion-slide style="height:500px;">
+	            		<h1 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" id="projectDetails-heading12">Create Project</h1>
+			    		<hr>
+	    				<div class="card" style="border-radius:10px 10px 10px 10px;">
+	    					<label class="item item-input" name="project" id="project-input10">
+	            				<span class="input-label">Project Name</span>
+	                   			<input type="text" placeholder="Add Project" required="" name="project" ng-model="projectName">
+	            			</label>
+	            			<label class="item item-input" name="startDate" id="startDate-input10">
+	            				<span class="input-label">Start Date</span>
+	                   			<input type="date" placeholder="Start Date" required="" name="startDate" ng-model="startDate">
+	            			</label>
+	            			<label class="item item-input" name="endDate" id="endDate-input10">
+	            				<span class="input-label">End Date</span>
+	                   			<input type="date" placeholder="End Date" required="" name="endDate" ng-model="endDate">
+	            			</label>
+	            			<label class="item item-input" name="currentSprint" id="currentSprint-input10">
+	            				<span class="input-label">Current Sprint</span>
+	                   			<input type="number" placeholder="Current Sprint" required="" name="currentSprint" ng-model="currentSprint">
+	            			</label>
+	            			<label id="technologies-input14" class="item item-input">
+				         		<input placeholder="Technologies" required=""  name="technologies" type="text" ng-model="technologies">
+				         		<button class="button button-assertive button-inline" style="font-weight:300;border-radius:10px 10px 10px 10px;" type="submit" id="signIn-button4">Add</button>
+				         	</label>
+				         	<ion-list show-delete="true" can-swipe="true">
+		         				<ion-item ng-repeat="i in teamList">
+						            <!-- <div class="item item-avatar item-text-wrap in" style="transition-delay: 0.3s;"> -->
+						            	<span class="input-label" style="color: black; font-weight: 600;">{{i.teamList.firstname}} {{i.teamList.lastname}}<br>
+						            	{{i.teamList.phone}}<br>
+						            	{{i.teamList.email}}<br>
+						            	{{i.teamList.profession}}
+						            	</span>
+						            	<ion-delete-button class="ion-minus-circled" ng-click="deleteTeamListItem(i)"></ion-delete-button>
+						               	<!-- <i class="icon ion-iphone assertive-900"> </i> {{userProfile.phone}}<br>
+						               	<i class="icon ion-ios-email assertive-900"> </i> {{userProfile.email}}<br>
+						               	<i class="icon ion-android-add-circle assertive-900"> </i> {{userProfile.designation.profession}}<br>
+						               	<br>
+						               	<i class="icon ion-android-add-circle assertive-900"> </i> {{userProfile.designation.specialization}}			                -->
+						            <!-- </div> -->
+					            </ion-item>
+		         			</ion-list>
+	            		</div>
+	            		<button class="button button-positive  button-block icon ion-arrow-right-c icon-right" style="font-weight:300;border-radius:10px 10px 10px 10px;" type="submit" id="addProject-button4">Add Project and Create Program</button>
+	            	</ion-slide>
+	            	<ion-slide style="height:500px;">
+	            		<h1 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" id="projectDetails-heading12">Create Program</h1>
+			    		<hr>
+	    				<div class="card" style="border-radius:10px 10px 10px 10px;">
+	    					<label class="item item-select" id="projectList-select1" style="border-radius:10px 10px 10px 10px;width:90%;">
+		            			<span class="input-label" style="font-weight:500;font-size:15px;text-align:left;">Project</span>
+		            			<select style="font-weight:500;font-size:15px;width:90%;" ng-model="data.projectSelect">
+		            				<option ng-repeat="lst in projectLst" value="{{lst.id}}">{{lst.name}}
+	            					</option>
+	        					</select>
+	        				</label>
+	        				<label class="item item-input" name="programName" id="programName-input10">
+	            				<span class="input-label">Program Name</span>
+	                   			<input type="text" placeholder="Program Name" required="" name="programName" ng-model="programName">
+	            			</label>
+	            			<label class="item item-input" name="tower" id="tower-input10">
+	            				<span class="input-label">Tower</span>
+	                   			<input type="text" placeholder="Tower" required="" name="tower" ng-model="tower">
+	            			</label>
+	    				</div>
+	    				<button class="button button-positive  button-block" style="font-weight:300;border-radius:10px 10px 10px 10px;" type="submit" id="createProgram-button4">Create Program</button>
+	            	</ion-slide>
+            	</ion-slide-box>
+        	</form>
+    </ion-content>
+</ion-view>

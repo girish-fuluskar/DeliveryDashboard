@@ -37,6 +37,11 @@ angular.module('app.services', [])
       });
     };
 })
+
+.service('createAccount', function($scope,$http, $q,$ionicPopup,$ionicLoading) {
+    
+})
+
 //Sign in Service
 .service('signInData', function($state,$http, $q,$ionicPopup,$ionicLoading) {
     this.getLoginAuthenticated = function(authTokenForLogin){
@@ -70,6 +75,37 @@ angular.module('app.services', [])
 //chartData without param
 .service('chartDataWithoutParam', function($state,$http, $q,$ionicPopup,$ionicLoading) {
   var token = window.localStorage.getItem('authToken');
+
+  this.setCreateAccount = function(createAccountName){
+      var accountStruc={
+        "id":createAccountName,
+        "name":createAccountName
+      };
+
+      return $q(function(resolve, reject){
+        var req = {
+            url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/account',
+            method:'GET',
+            headers : {
+              'Authorization' : 'Basic '+ token
+            },
+            data: accountStruc            
+        }
+        $http(req)
+          .then(function(loginData) {           
+            // function to retrive the response
+            if (loginData.id != "") {
+              resolve(loginData);
+            } else {
+              reject('Login Failed!');
+            }
+          },
+          function(err) {
+            reject(err);
+          });  
+      });
+    }
+
 
   this.search = function(userData) {
     return $q(function(resolve, reject) {
