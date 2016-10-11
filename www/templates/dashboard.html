@@ -7,30 +7,27 @@
 			        <button style="" class="button button-inline button-clear button-positive" ng-click="showPopup()" type="submit" id="submit4">Select projet and sprint</button>
 	            </ion-list>
 	            <div id="chartSection" class="animate-show" ng-show="allCharts">
-	            	<label class="item" id="effortExtended" style="margin: auto;border-radius:10px 10px 10px 10px;width:90%;">
+	            	<!-- <label class="item" id="effortExtended" style="margin: auto;border-radius:10px 10px 10px 10px;width:90%;">
 			            <span class="" style="font-weight:500;font-size:15px;text-align:center;">Total Spent Effort : <h1 style="color:blue">{{effortExtended[0].value}}<h3 style="color:blue">Hrs</h3></h1></span>
 			        </label>
 			        <label class="item" id="maxEstimatedEffort" style="margin: auto;border-radius:10px 10px 10px 10px;width:90%;">
 			            <span class="" style="font-weight:500;font-size:15px;text-align:center;">Max Estimated Effort : <h1 style="color:blue">{{effortExtended[2].value}}<h3 style="color:blue">Hrs</h3></h1></span>
-			        </label>
+			        </label> -->
 		        	<label class="item" id="effortExtended" style="margin: auto;border-radius:10px 10px 10px 10px;width:90%;">
 		        		<div id='myChart'></div>
-		        	</label>
-			       
-	        		<div class="card" style="width:90%;margin:20px;text-align:center;">
+		        	</label>			       
+	        		<label class="item" id="effortExtended" style="margin: auto;border-radius:10px 10px 10px 10px;width:90%;">
 		        		<div class="">
 	        				<div id='spentEffortDate'></div>
 	        			</div>
-	        		</div>
-
-	        		
-			        <div class="card" style="width:90%;margin:20px;text-align:center;">
+	        		</label>
+			        <!-- <div class="card" style="width:90%;margin:20px;text-align:center;">
 		        		<span class="" style="margin:auto;font-weight:500;font-size:15px;text-align:center;">Spent Effort Date Histogram</span>
 			          <div class="">
 			              <canvas id="bar" class="chart chart-bar" chart-data="effortDateData" chart-labels="effortDateLabel" legend="effortDateSeries" chart-series="effortDateSeries" chart-options="{showTooltips: true}"></canvas>		              
 			          </div>
-			        </div>
-			        <div class="card" style="width:90%;margin:20px;text-align:center;">
+			        </div> -->
+			        <div class="card" style="margin: auto;border-radius:10px 10px 10px 10px;width:90%;">
 			        	<span class="" style="margin:auto;font-weight:500;font-size:15px;text-align:center;">
 			        		Burndown		              
 			          	</span>
@@ -38,30 +35,45 @@
 			              <canvas id="line" class="chart chart-line" chart-data="burndownData" chart-labels="burndownLabel" legend="burndownSeries" chart-series="burndownSeries" chart-options="{showTooltips: true}"></canvas>
 			          </div>
 			        </div>
-			        <div class="card" style="width:90%;margin:20px;text-align:center;">
+			        <label class="item" id="" style="margin: auto;border-radius:10px 10px 10px 10px;width:90%;">
+		        		<div class="">
+	        				<div id='productivityDate'></div>
+	        			</div>
+	        		</label>
+			        <!-- <div class="card" style="width:90%;margin:20px;text-align:center;">
 			        	<span class="" style="margin:auto;font-weight:500;font-size:15px;text-align:center;">
 			          		Productivity		              
 			        	</span>
 			          <div class="">
 			              <canvas id="bar" class="chart chart-bar" chart-data="productivityDateData" chart-labels="productivityDateLabel" legend="productivityDateSeries" chart-series="productivityDateSeries" chart-options="{showTooltips: true}"></canvas>		              
 			          </div>
-			        </div>
-			        <div class="card" style="width:90%;margin:20px;text-align:center;">
+			        </div> -->
+			        <!-- <div class="card" style="width:90%;margin:20px;text-align:center;">
 			        	<span class="" style="margin:auto;font-weight:500;font-size:15px;text-align:center;">
 			          		Quality		              
 			        	</span>
 			          <div class="">
 			              <canvas id="bar" class="chart chart-bar" chart-data="qualityDateData" chart-labels="qualityDateLabel" legend="qualityDateSeries" chart-series="qualityDateSeries" chart-options="{showTooltips: true}"></canvas>
 			          </div>
-			        </div>
-			        <div class="card" style="width:90%;margin:20px;text-align:center;">
+			        </div> -->
+			        <label class="item" id="" style="margin: auto;border-radius:10px 10px 10px 10px;width:90%;">
+		        		<div class="">
+	        				<div id='quality'></div>
+	        			</div>
+	        		</label>
+			        <!-- <div class="card" style="width:90%;margin:20px;text-align:center;">
 			        	<span class="" style="margin:auto;font-weight:500;font-size:15px;text-align:center;">
 			          		Team		              
 			          	</span>
 			          <div class="">
 			              <canvas id="bar" class="chart chart-bar" chart-data="teamDateData" chart-labels="teamDateLabel" legend="teamDateSeries" chart-series="teamDateSeries" chart-options="{showTooltips: true}"></canvas>
 			          </div>
-			        </div>
+			        </div> -->
+			        <label class="item" id="" style="margin: auto;border-radius:10px 10px 10px 10px;width:90%;">
+		        		<div class="">
+	        				<div id='team'></div>
+	        			</div>
+	        		</label>
 			        <!-- <div class="card" style="width:90%;">
 			        	<div class="item item-divider">
 				        	Team Date Histogram		              
