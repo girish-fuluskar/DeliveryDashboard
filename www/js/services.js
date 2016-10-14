@@ -139,6 +139,15 @@ angular.module('app.services', [])
         .then(function(projectData) {           
           // function to retrive the response
           if (projectData != "") {
+              var userProjectArr = [];
+              for(var r=0;r<projectData.data.response.length;r++){
+                var usrProj={
+                  "id": projectData.data.response[r].id,
+                  "name": projectData.data.response[r].name
+                };
+                userProjectArr.push(usrProj);
+              }
+              window.localStorage.setItem('useProjectListData', JSON.stringify(userProjectArr));
             resolve(projectData);
           } else {
             reject('No Project found for selected Program');
@@ -149,6 +158,12 @@ angular.module('app.services', [])
         });  
     });
   }
+
+  this.getProjects = function(){       
+    var useProjectListData = JSON.parse(window.localStorage.getItem('useProjectListData'));
+    return useProjectListData;
+  }
+    
 
   this.setCreateAccount = function(createAccountName){
       var accountStruc={
@@ -822,38 +837,6 @@ angular.module('app.services', [])
           });
       });
     };
-    var userProgramId = JSON.parse(window.localStorage.getItem('initialDetails'));
-    var getUsrProgId = userProgramId[0].program;
-    if(getUsrProgId != undefined){
-      this.getProjects = function(){
-        var userAccount = window.localStorage.getItem('accountLst');
-        console.log("User Account " + userAccount);
-        return $q(function(resolve, reject) {
-          var reqDate = {
-              url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+userAccount+'/'+getUsrProgId+'/projects',
-              method:'GET',
-              headers : {
-                'Accept' : 'application/json',
-                'Content-Type':'application/json', 
-                'Authorization' : 'Basic ' + token
-              }
-          }
-          $http(reqDate)
-            .then(function(getProjectList) {
-              console.log(getProjectList);            
-              // function to retrive the response
-              if (getProjectList.status == 200) {
-                resolve(getProjectList.data.response);
-              } else {
-                reject('Update Expertise Failed!');
-              }
-            },
-            function(err) {
-              reject(err);
-            });
-        });
-      };
-    }
 
     /*this.getProjectForUser = function(programID){
     var userAccount = window.localStorage.getItem('accountLst');

@@ -6,7 +6,6 @@ angular.module('app.controllers', [])
   var teamListArray=[];
   var finalTeamStructureList = [];
 
-
    //slide out function
   /*$scope.isdiplayEffortMetrics = false;
   $scope.showSearchEffortMetrics = function() {
@@ -69,6 +68,27 @@ angular.module('app.controllers', [])
     });
   });
 
+  /*chartDataWithoutParam.getProjects()
+    .then(function(projectLst){
+      $scope.getUsrProjectList = projectLst;
+      console.log($scope.getUsrProjectList);
+      var userProjectListArr = [];
+        for(var r=0;r<projectLst.length;r++){
+          var usrProj={
+            "id": projectLst[r].id,
+            "name": projectLst[r].name
+          };
+          userProjectListArr.push(usrProj);
+        }
+
+        $scope.usrProjectLst = getUsrProjectList;
+    },function(err){
+      var alertPopup = $ionicPopup.alert({
+        title: 'Search Failed!',
+        template: 'There was some problem with server.'
+    });
+  });*/
+
   //Get Project from Program user selected
   $scope.getProjectOnProgram = function(programId){
     chartDataWithoutParam.getProjectForUser(programId)
@@ -85,6 +105,7 @@ angular.module('app.controllers', [])
           }
 
           $scope.userProjectLst = userProjectArr;
+
           //$scope.getProjectsList(programId);
 
         }, function(err){
@@ -94,6 +115,9 @@ angular.module('app.controllers', [])
         });
       });
   }
+  //console.log(getUsrProjectList);
+  
+  
       
 
 
@@ -289,6 +313,7 @@ angular.module('app.controllers', [])
     .then(function(snapShot){
       $scope.snapshotResponse = snapShot;
       console.log($scope.snapshotResponse);
+      $scope.id="";
     }, function(err){
         var alertPopup = $ionicPopup.alert({
           title: 'Search Failed!',
@@ -511,7 +536,11 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
           title: 'Search Failed!',
           template: 'There was some problem with server.'
       });
-  });  
+  });
+
+  
+  
+
 
 
   //Spent Effort Date chart without param
@@ -2134,28 +2163,17 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
           template: 'There was some problem with server.'
       });
     });*/
+
+    //Project Name and Id List
+  /*$scope.getUsrProjectList = function(){*/
+    /*$scope.getUsrProjectLst= function(){
+      
+    }*/
+  //});
   }
 
-  //Project Name and Id List
-
-    $scope.projectList = chartData.getProjects()
-      .then(function(projectLst){
-       var userProjectListArr = [];
-          for(var r=0;r<projectLst.length;r++){
-            var usrProj={
-              "id": projectLst[r].id,
-              "name": projectLst[r].name
-            };
-            userProjectListArr.push(usrProj);
-          }
-
-          $scope.usrProjectLst = userProjectListArr;
-      },function(err){
-        var alertPopup = $ionicPopup.alert({
-          title: 'Search Failed!',
-          template: 'There was some problem with server.'
-      });
-    }); 
+  
+    
    
   
 
@@ -2287,8 +2305,10 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
     
 })
    
-.controller('addNewSprintCtrl', function($scope) {
-
+.controller('addNewSprintCtrl', function($scope, chartDataWithoutParam ) {
+  //$scope.getUsrProjectDataList = function(){
+    $scope.getProjectsList = chartDataWithoutParam.getProjects();  
+  //}
 })
  
  //Sign up controller     

@@ -9,7 +9,8 @@
 			    	<label class="item item-select card" name="id" id="projectList-select1" style="border-radius:10px 10px 10px 10px;width:90%;">
 			            <span class="input-label" style="font-weight:500;font-size:15px;text-align:left;">Project</span>
 			            <select id="projectList" style="font-weight:500;font-size:15px;width:90%;" ng-model="id">
-			            	<option ng-repeat="lst in usrProjectLst" value="{{lst.id}}">{{lst.name}}</option>
+			            	<option value="Select">Select</option>
+			            	<option ng-repeat="lst in getProjectsList" value="{{lst.id}}">{{lst.name}}</option>
 			            </select>			            
 			        </label>
 			        
