@@ -1,0 +1,28 @@
+<ion-modal-view>
+    <ion-header-bar class="bar bar-header bar-assertive">
+      <h1 class="title">Add Program</h1>
+      <button class="button button-clear button-primary" ng-click="createProgramModal.hide()">Cancel</button>
+    </ion-header-bar>
+    <ion-content class="padding">
+		<div style="height:auto;width:auto;padding:10px;margin:3px;">
+			<div class="card" style="border-radius:10px 10px 10px 10px;">
+				<label class="item item-select" id="projectList-select1" style="border-radius:10px 10px 10px 10px;width:90%;">
+					<span class="input-label" style="font-weight:500;font-size:15px;text-align:left;">Project</span>
+					<select style="font-weight:500;font-size:15px;width:90%;" ng-model="data.projectSelect">
+						<option ng-repeat="lst in projectLst" value="{{lst.id}}">{{lst.name}}
+						</option>
+					</select>
+				</label>
+				<label class="item item-input" name="programName" id="programName-input10">
+					<span class="input-label">Program Name</span>
+						<input type="text" placeholder="Program Name" required="" name="programName" ng-model="programName">
+				</label>
+				<label class="item item-input" name="tower" id="tower-input10">
+					<span class="input-label">Tower</span>
+						<input type="text" placeholder="Tower" required="" name="tower" ng-model="tower">
+				</label>
+			</div>
+			<button class="button button-assertive button-block" style="font-weight:300;border-radius:10px 10px 10px 10px;" type="submit" id="addProgram-button4">Add Program</button>
+		</div>
+	</ion-content>
+</ion-modal-view>

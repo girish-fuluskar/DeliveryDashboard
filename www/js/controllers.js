@@ -1,11 +1,14 @@
 angular.module('app.controllers', [])
      
-.controller('dashboardCtrl', function($scope,$ionicPopup,$filter,$ionicListDelegate,$ionicLoading, 
+.controller('dashboardCtrl', function($scope,$ionicPopup,$filter,$ionicListDelegate, $ionicModal, $ionicSlideBoxDelegate, $ionicLoading, 
   chartData, chartDataWithoutParam) {
+  var technologyList=[];
   var teamListArray=[];
-   var finalTeamStructureList = [];
+  var finalTeamStructureList = [];
+
+
    //slide out function
-  $scope.isdiplayEffortMetrics = false;
+  /*$scope.isdiplayEffortMetrics = false;
   $scope.showSearchEffortMetrics = function() {
     $scope.isdiplayEffortMetrics = !$scope.isdiplayEffortMetrics;
   }
@@ -18,7 +21,117 @@ angular.module('app.controllers', [])
   $scope.isdiplayProductivityMetrics = false;
   $scope.showSearchProductivityMetrics = function() {
     $scope.isdiplayProductivityMetrics = !$scope.isdiplayProductivityMetrics;
+  }*/
+
+  //show popup on load if user came for the first time or no related data in localstorage 
+  $scope.$on('$ionicView.enter', function() {
+    // Code you want executed every time view is opened
+    $scope.getInitialDetailsFromStoarage = chartDataWithoutParam.getUsersInitialDetails();
+    if($scope.getInitialDetailsFromStoarage===null){
+      $scope.addProgramDetailsModal.show();
+    }
+    else{
+      var usersInitialDataFromStorage = JSON.parse($scope.getInitialDetailsFromStoarage);
+      $scope.program = usersInitialDataFromStorage[0].program;
+      $scope.startDate = usersInitialDataFromStorage[0].startDate;
+      $scope.endDate = usersInitialDataFromStorage[0].endDate;
+      $scope.project = usersInitialDataFromStorage[0].project;
+      $scope.interval = usersInitialDataFromStorage[0].interval;
+      $scope.interval = $scope.interval;
+      $scope.sprint = usersInitialDataFromStorage[0].sprint;
+
+      //$scope.chartsWithoutParam($scope.accountId, usersInitialDataFromStorage[0].project, usersInitialDataFromStorage[0].startDate, usersInitialDataFromStorage[0].endDate, usersInitialDataFromStorage[0].interval);
+      $scope.AllChrts($scope.accountId, $scope.program, $scope.sprint, $scope.project, $scope.startDate, $scope.endDate, $scope.interval);
+    }
+  })
+  
+
+  //Get Programs for user's account
+  chartDataWithoutParam.getProgramForUser()
+    .then(function(userPrograms){
+      $scope.userProgramData = userPrograms;
+      console.log($scope.userProgramData);
+       var userProgramArr = [];
+      for(var k=0;k<$scope.userProgramData.data.response.length;k++){
+        var usrProg={
+          "id": $scope.userProgramData.data.response[k].id,
+          "name": $scope.userProgramData.data.response[k].name
+        };
+        userProgramArr.push(usrProg);
+      }
+
+      $scope.userProgramLst = userProgramArr;
+
+    }, function(err){
+      var alertPopup = $ionicPopup.alert({
+        title: 'Search Failed!',
+        template: 'There was some problem with server.'
+    });
+  });
+
+  //Get Project from Program user selected
+  $scope.getProjectOnProgram = function(programId){
+    chartDataWithoutParam.getProjectForUser(programId)
+      .then(function(userProjects){
+          $scope.userProjectData = userProjects;
+          console.log($scope.userProjectData);
+           var userProjectArr = [];
+          for(var r=0;r<$scope.userProjectData.data.response.length;r++){
+            var usrProj={
+              "id": $scope.userProjectData.data.response[r].id,
+              "name": $scope.userProjectData.data.response[r].name
+            };
+            userProjectArr.push(usrProj);
+          }
+
+          $scope.userProjectLst = userProjectArr;
+          //$scope.getProjectsList(programId);
+
+        }, function(err){
+          var alertPopup = $ionicPopup.alert({
+            title: 'Search Failed!',
+            template: 'There was some problem with server.'
+        });
+      });
   }
+      
+
+
+  //slide on button click
+  $scope.nextSlide = function() {
+    $ionicSlideBoxDelegate.next();
+  }
+
+  $scope.previousSlide = function() {
+    $ionicSlideBoxDelegate.previous();
+  }
+
+  //Get User's Account
+  $scope.accountId = chartDataWithoutParam.getUserAccount();
+
+  //Set User's initial details to localstoarage after login
+  $scope.setInitialDetails = function(programSelect,projectSelect,startDate,endDate,sprint,interval){
+    var startDate = $filter('date')(startDate, "yyyy-MM-dd"+"T00:00:00.000+0530");
+    var endDate = $filter('date')(endDate, "yyyy-MM-dd"+"T00:00:00.000+0530");
+    var interval = interval;
+    var initialDetailsArr=[];
+    var initialDetails={
+      program:programSelect,
+      project:projectSelect,
+      startDate:startDate,
+      endDate:endDate,
+      sprint:sprint,
+      interval:interval
+    };
+    initialDetailsArr.push(initialDetails);
+    $scope.initialDeatils = initialDetailsArr;
+    chartDataWithoutParam.setUsersInitialDetails(initialDetailsArr);
+    $scope.addProgramDetailsModal.hide();
+    //$scope.chartsWithoutParam($scope.accountId, programSelect, startDate, endDate, interval);
+    $scope.AllChrts($scope.accountId, programSelect, sprint, projectSelect, startDate, endDate, interval);
+  }
+
+
   $scope.teamList = [];
 
   //Search team members
@@ -89,7 +202,7 @@ angular.module('app.controllers', [])
     }
 
     //deleting items one by one from list
-  $scope.deleteTeamListItem = function (i, billItemsDelete){
+  $scope.deleteTeamListItem = function (i){
     teamListArray.splice(teamListArray.indexOf(i), 1);    
     $ionicListDelegate.closeOptionButtons();
   };
@@ -174,7 +287,7 @@ angular.module('app.controllers', [])
     //calling API
     chartDataWithoutParam.saveSnapShot(projectSnapShot, id)
     .then(function(snapShot){
-      $scope.snapshotResponse = snapshot;
+      $scope.snapshotResponse = snapShot;
       console.log($scope.snapshotResponse);
     }, function(err){
         var alertPopup = $ionicPopup.alert({
@@ -184,21 +297,63 @@ angular.module('app.controllers', [])
     });
   }
 
-  $scope.createAccount = function(accountName){
-    chartDataWithoutParam.setCreateAccount(accountName)
-      .then(function(accountNameRespopnse) {
-          $scope.accountNameResponse = accountNameRespopnse;
-      }, function(err) {    
-        $scope.submissionSuccess = true;        
-        var alertPopup = $ionicPopup.alert({
-            title: 'Account not created',
-            template: 'There was some problem with server.'
-        });
+  /*$scope.addAccount_popup = function(){
+    // An elaborate, custom popup
+    $scope.myPopup = $ionicPopup.show({
+      templateUrl: 'templates/addAccount_popup.html' ,
+      title: 'Add Account',
+      subTitle: '',
+      scope: $scope,
+      buttons: [
+        { text: 'Cancel' },
+        {
+          text: '<b>Add Account</b>',
+          type: 'button-positive',
+          onTap: function(e) {
+              var accountName = $scope.accountName;
+              $scope.createAccount(accountName);                
+          }
+        }
+      ]
     });
-  }
+  }*/
 
+  $ionicModal.fromTemplateUrl('templates/addAccount_popup.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.addAccountModal = modal;
+  });
+
+  $ionicModal.fromTemplateUrl('templates/createProject_popup.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.createProjectModal = modal;
+  });
+
+  $ionicModal.fromTemplateUrl('templates/createProgram_popup.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.createProgramModal = modal;
+  });
+
+  $ionicModal.fromTemplateUrl('templates/refineDashboard.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.refineDashbaordModal = modal;
+  });
+
+  $ionicModal.fromTemplateUrl('templates/addProgramDetails.html', {
+    scope: $scope,
+    backdropClickToClose: false
+  }).then(function(modal) {
+    $scope.addProgramDetailsModal = modal;
+  });
+
+  
+
+ 
   //showing pop up for project and sprint selection
-  $scope.showPopup = function() {
+  /*$scope.showPopup = function() {
   $scope.data = {};
     // An elaborate, custom popup
     var myPopup = $ionicPopup.show({
@@ -220,7 +375,36 @@ angular.module('app.controllers', [])
         }
       ]
     });
+  }*/
+
+  $scope.createAccount = function(accountName){
+    chartDataWithoutParam.setCreateAccount(accountName)
+      .then(function(accountNameRespopnse) {
+          $scope.accountNameResponse = accountNameRespopnse;
+      }, function(err) {    
+        $scope.submissionSuccess = true;        
+        var alertPopup = $ionicPopup.alert({
+            title: 'Account not created',
+            template: 'There was some problem with server.'
+        });
+    });
   }
+
+  //selected technology list to add project
+  $scope.addTechnologies = function(technologies){
+    var tech={
+        "name":technologies
+      };
+      technologyList.push(tech);
+      $scope.technologySelected = technologyList;      
+      document.getElementById("technologies").value = '';
+  }
+
+  //deleting items one by one from list
+  $scope.deleteTechnologies = function (i){
+    technologyList.splice(technologyList.indexOf(i), 1);    
+    $ionicListDelegate.closeOptionButtons();
+  };
 
 
   //Effort Extended chart without param
@@ -236,9 +420,11 @@ angular.module('app.controllers', [])
       });
   });*/
 
-   //Effort Extended chart without param
+
+$scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, interval){
+  //Effort Extended chart without para$scope.accountId, $scope.getInitialDetailsFromStoarage.project, sprintNo, projectId, fromDate, toDate, intervalm 
   $scope.allCharts = true;
-  $scope.effortExtended = chartDataWithoutParam.getEffortExtendedWithoutParam()
+  $scope.effortExtended = chartDataWithoutParam.getEffortExtendedWithoutParam(accountId, projectId, fromDate, toDate, interval)
     .then(function(effortExtendedDataWithoutParam) {
         $scope.effortExtended = effortExtendedDataWithoutParam;
         console.log($scope.effortExtended);
@@ -329,7 +515,7 @@ angular.module('app.controllers', [])
 
 
   //Spent Effort Date chart without param
-    $scope.effortDate = chartDataWithoutParam.getEffortDateWithoutParam()
+    $scope.effortDate = chartDataWithoutParam.getEffortDateWithoutParam(accountId, projectId, fromDate, toDate, interval)
     .then(function(effortdata){
       var effortDateLabel = [];
       var effortDateSeries = [];
@@ -360,7 +546,7 @@ angular.module('app.controllers', [])
       });
     });
   //Spent Effort Date chart without param
-  $scope.effortDate = chartDataWithoutParam.getEffortDateWithoutParam()
+  $scope.effortDate = chartDataWithoutParam.getEffortDateWithoutParam(accountId, projectId, fromDate, toDate, interval)
     .then(function(effortdata){
       var effortDateLabel = [];
       var effortDateSeries = [];
@@ -519,7 +705,7 @@ angular.module('app.controllers', [])
       });
   });
     //Burndown chart
-    $scope.burndownData = chartDataWithoutParam.getBurndownDataWithoutParam()
+    $scope.burndownData = chartDataWithoutParam.getBurndownDataWithoutParam(accountId, projectId, fromDate, toDate, interval)
       .then(function(burndowndata){
         var burndownLabel = [];
         var burndownSeries = [];
@@ -549,7 +735,7 @@ angular.module('app.controllers', [])
       });
     });
     // Productivity Date chart   
-    $scope.productivityDate = chartDataWithoutParam.getProductivityDateWithoutParam()
+    $scope.productivityDate = chartDataWithoutParam.getProductivityDateWithoutParam(accountId, projectId, fromDate, toDate, interval)
       .then(function(productivityDate){
         var productivityDateLabel = [];
         var productivityDateSeries = [];
@@ -710,7 +896,7 @@ angular.module('app.controllers', [])
       });
     });
     // Quality Date chart   
-    $scope.qualityDate = chartDataWithoutParam.getQualityDateWithoutParam()
+    $scope.qualityDate = chartDataWithoutParam.getQualityDateWithoutParam(accountId, projectId, fromDate, toDate, interval)
       .then(function(qualityDate){
         var qualityDateLabel = [];
         var qualityDateSeries = [];
@@ -871,7 +1057,7 @@ angular.module('app.controllers', [])
       });
     });
     // Team Date chart   
-    $scope.teamDate = chartDataWithoutParam.getTeamDateWithoutParam()
+    $scope.teamDate = chartDataWithoutParam.getTeamDateWithoutParam(accountId, projectId, fromDate, toDate, interval)
       .then(function(teamDate){
         var teamDateLabel = [];
         var teamDateSeries = [];
@@ -1030,20 +1216,24 @@ angular.module('app.controllers', [])
           template: 'There was some problem with server.'
       });
     });
+}
 
 
-  $scope.setProjectValue = function(projectSelect){
-    $scope.projectId = projectSelect;
-    console.log($scope.projectId);
+  $scope.setProgramValue = function(programSelect){
+    $scope.programId = programSelect;
+    console.log($scope.programId);
   }
 
-  $scope.AllChrts = function(sprintNo, projectId){
+  $scope.AllChrts = function(accountId, programID, sprintNo, projectId, fromDate, toDate, interval){
+    //alert($scope.accountLst);
     $scope.allCharts = true;
+    /*var fromDate = $filter('date')(fromDate, "yyyy-MM-dd"+"T00:00:00.000+0530");
+    var toDate = $filter('date')(toDate, "yyyy-MM-dd"+"T00:00:00.000+0530");*/
 
   //Effort Extended chart with param
   $scope.allCharts = true;
   $scope.effortExtended = '';
-  $scope.effortExtended = chartData.getEffortExtended(sprintNo, projectId)
+  $scope.effortExtended = chartData.getEffortExtended(accountId, programID, sprintNo, projectId, fromDate, toDate, interval)
     .then(function(effortExtendedDataWithoutParam) {
           $scope.effortExtended = effortExtendedDataWithoutParam;
           console.log($scope.effortExtended);
@@ -1149,7 +1339,7 @@ angular.module('app.controllers', [])
     });*/
 
     //Spent Effort Date chart with param
-    $scope.effortDate = chartData.getEffortDate(sprintNo, projectId)
+    $scope.effortDate = chartData.getEffortDate(accountId, programID, sprintNo, projectId, fromDate, toDate, interval)
       .then(function(effortdata){
         var effortDateLabel = [];
         var effortDateSeries = [];
@@ -1340,7 +1530,7 @@ angular.module('app.controllers', [])
       });
     });*/
     //Burndown chart
-    $scope.burndownData = chartData.getBurndownData(sprintNo, projectId)
+    $scope.burndownData = chartData.getBurndownData(accountId, programID, sprintNo, projectId, fromDate, toDate, interval)
       .then(function(burndowndata){
         var burndownLabel = [];
         var burndownSeries = [];
@@ -1370,7 +1560,7 @@ angular.module('app.controllers', [])
       });
     });
     // Productivity Date chart   
-    $scope.productivityDate = chartData.getProductivityDate(sprintNo, projectId)
+    $scope.productivityDate = chartData.getProductivityDate(accountId, programID, sprintNo, projectId, fromDate, toDate, interval)
       .then(function(productivityDate){
         var productivityDateLabel = [];
         var productivityDateSeries = [];
@@ -1562,7 +1752,7 @@ angular.module('app.controllers', [])
       });
     });*/
     // Quality Date chart   
-    $scope.qualityDate = chartData.getQualityDate(sprintNo, projectId)
+    $scope.qualityDate = chartData.getQualityDate(accountId, programID, sprintNo, projectId, fromDate, toDate, interval)
       .then(function(qualityDate){
         var qualityDateLabel = [];
         var qualityDateSeries = [];
@@ -1754,7 +1944,7 @@ angular.module('app.controllers', [])
       });
     });*/
     // Team Date chart   
-    $scope.teamDate = chartData.getTeamDate(sprintNo, projectId)
+    $scope.teamDate = chartData.getTeamDate(accountId, programID, sprintNo, projectId, fromDate, toDate, interval)
       .then(function(teamDate){
         var teamDateLabel = [];
         var teamDateSeries = [];
@@ -1946,16 +2136,27 @@ angular.module('app.controllers', [])
     });*/
   }
 
-  //Project Name and Id List  
+  //Project Name and Id List
+
     $scope.projectList = chartData.getProjects()
       .then(function(projectLst){
-       $scope.projectLst  = projectLst;
+       var userProjectListArr = [];
+          for(var r=0;r<projectLst.length;r++){
+            var usrProj={
+              "id": projectLst[r].id,
+              "name": projectLst[r].name
+            };
+            userProjectListArr.push(usrProj);
+          }
+
+          $scope.usrProjectLst = userProjectListArr;
       },function(err){
         var alertPopup = $ionicPopup.alert({
           title: 'Search Failed!',
           template: 'There was some problem with server.'
       });
-    });
+    }); 
+   
   
 
   //Globals
@@ -2113,7 +2314,6 @@ angular.module('app.controllers', [])
 
 //Sign in Controller 
 .controller("signInCtrl", function($scope, $ionicPopup, signInData) {
- 
      $scope.Login = function(emailid,password) {      
         var emailid = $scope.emailid, 
             password = $scope.password;

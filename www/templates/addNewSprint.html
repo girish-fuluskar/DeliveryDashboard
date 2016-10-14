@@ -9,9 +9,11 @@
 			    	<label class="item item-select card" name="id" id="projectList-select1" style="border-radius:10px 10px 10px 10px;width:90%;">
 			            <span class="input-label" style="font-weight:500;font-size:15px;text-align:left;">Project</span>
 			            <select id="projectList" style="font-weight:500;font-size:15px;width:90%;" ng-model="id">
-			            	<option ng-repeat="lst in projectLst" value="{{lst.id}}">{{lst.name}}</option>
-			            </select>
+			            	<option ng-repeat="lst in usrProjectLst" value="{{lst.id}}">{{lst.name}}</option>
+			            </select>			            
 			        </label>
+			        
+			        
 			        <!-- <label class="item item-input card" id="projectStartDate-input7" style="border-radius:10px 10px 10px 10px;width:90%;">
 	                    <span class="input-label">Start Date</span>
 	                    <input type="date" placeholder="mm/dd/yyyy">
@@ -25,9 +27,11 @@
 	                    <span class="input-label">Sprint</span>
 	                    <input type="number" placeholder="Sprint No" required=""  name="">
 	                </label> -->
+	                <button class="button button-positive  button-block icon ion-arrow-right-c icon-right" style="font-weight:300;border-radius:10px 10px 10px 10px;" type="submit" id="addAccount-button4" ng-click="nextSlide()">Fill Sprint Details</button>
+
 			    </div>	    
 		  	</ion-slide>
-		  	<ion-slide style="height:600px;">
+		  	<ion-slide style="height:700px;">
 			    <div class="" style="">
 			    	<h1 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" id="projectDetails-heading12">Fill Sprint Details</h1>
 			    	<hr>
@@ -59,10 +63,14 @@
 	                    <span class="input-label">User Story Count</span>
 	                    <input type="number" placeholder="User Story Count" required=""  name="userStoryCount" ng-model="userStoryCount">
 	                </label>
+	                <button class="button button-positive  button-block icon ion-arrow-right-c icon-right" style="font-weight:300;border-radius:10px 10px 10px 10px;" type="submit" id="addAccount-button4" ng-click="nextSlide()">Add Team</button>
+	                 <button class="button button-assertive  button-block icon ion-arrow-left-c icon-left" style="font-weight:300;border-radius:10px 10px 10px 10px;" type="submit" id="addAccount-button4" ng-click="previousSlide()">Fill Project Details</button>
 			    </div>
 		  	</ion-slide>
 		  	<ion-slide style="height:600px;">
 		    	<form class="list animated bounceIn " name="searchform" class="css-form" novalidate id="searchUser-form6" ng-submit="searchform.$valid && search(searchinput)">
+		    		<h1 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" id="projectDetails-heading12">Add Team</h1>
+			    	<hr>
 		        	<label id="searchUser-input14" class="item item-input ">
 		         		<input placeholder="Search User" required=""  name="searchinput" type="text" ng-model="searchinput">
 		         	</label>
@@ -85,186 +93,215 @@
 		         	<div style="height: 20px;" class="spacer"></div>-->
 		         	
 				         	<!-- <div class="list card animated bounceInUp" id="profile-list4" ng-repeat="userProfile in userProfiles|filter:filterResult|orderBy:term" ng-show='userProfile!==null && searchinput' > -->
-				         	<ion-list show-delete="true" can-swipe="true">
-		         				<ion-item ng-repeat="i in teamList">
-						            <!-- <div class="item item-avatar item-text-wrap in" style="transition-delay: 0.3s;"> -->
-						            	<span class="input-label" style="color: black; font-weight: 600;">{{i.teamList.firstname}} {{i.teamList.lastname}}<br>
-						            	{{i.teamList.phone}}<br>
-						            	{{i.teamList.email}}<br>
-						            	{{i.teamList.profession}}
-						            	</span>
-						            	<ion-delete-button class="ion-minus-circled" ng-click="deleteTeamListItem(i)"></ion-delete-button>
-						               	<!-- <i class="icon ion-iphone assertive-900"> </i> {{userProfile.phone}}<br>
-						               	<i class="icon ion-ios-email assertive-900"> </i> {{userProfile.email}}<br>
-						               	<i class="icon ion-android-add-circle assertive-900"> </i> {{userProfile.designation.profession}}<br>
-						               	<br>
-						               	<i class="icon ion-android-add-circle assertive-900"> </i> {{userProfile.designation.specialization}}			                -->
-						            <!-- </div> -->
-					            </ion-item>
-		         			</ion-list>
-				         	</div>
-			         	
+		         	<ion-list show-delete="true" can-swipe="true">
+         				<ion-item ng-repeat="i in teamList">
+				            <!-- <div class="item item-avatar item-text-wrap in" style="transition-delay: 0.3s;"> -->
+				            	<span class="input-label" style="color: black; font-weight: 600;">{{i.teamList.firstname}} {{i.teamList.lastname}}<br>
+				            	{{i.teamList.phone}}<br>
+				            	{{i.teamList.email}}<br>
+				            	{{i.teamList.profession}}
+				            	</span>
+				            	<ion-delete-button class="ion-minus-circled" ng-click="deleteTeamListItem(i)"></ion-delete-button>
+				               	<!-- <i class="icon ion-iphone assertive-900"> </i> {{userProfile.phone}}<br>
+				               	<i class="icon ion-ios-email assertive-900"> </i> {{userProfile.email}}<br>
+				               	<i class="icon ion-android-add-circle assertive-900"> </i> {{userProfile.designation.profession}}<br>
+				               	<br>
+				               	<i class="icon ion-android-add-circle assertive-900"> </i> {{userProfile.designation.specialization}}			                -->
+				            <!-- </div> -->
+			            </ion-item>
+         			</ion-list>
+	         	</div>
+	         	<button class="button button-positive  button-block icon ion-arrow-right-c icon-right" style="font-weight:300;border-radius:10px 10px 10px 10px;" type="submit" id="addAccount-button4" ng-click="nextSlide()">Spent Metrics</button>
+	         	<button class="button button-assertive  button-block icon ion-arrow-left-c icon-left" style="font-weight:300;border-radius:10px 10px 10px 10px;" type="submit" id="addAccount-button4" ng-click="previousSlide()">Fill Sprint Details</button>			         	
 		      	</div>
 		  	</ion-slide>
-		  	<ion-slide style="height:600px;border-radius:20px 20px 20px 20px;">
+		  	<ion-slide style="height:800px;border-radius:20px 20px 20px 20px;">
 		  		<ion-content>
-			  		<ion-scroll style="height:auto;">
 				  		<div class="" style="">
 				  			<!-- <h1 style="background-color: transparent;color: blue; font-weight: 300; text-align: right; padding-right: 20px;" id="projectDetails-heading12">Metrics</h1>
-					    	<hr> -->
-					    	
-					    		<h1 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" id="projectDetails-heading12">Effort Metrics
-					    		</h1>		            
-					            						
-									<h3 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" id="projectDetails-heading12">Spent Hours</h3>
-									<hr>				    						
-									<!-- <ion-list id="spenthours-list1" class=" "> -->
-						                <label class="item item-input card" id="requirements-input1">
-						                    <span class="input-label">Requirements</span>
-						                    <input type="number" placeholder="Requirements" required="" name="spentHours_requirements" ng-model="spentHours_requirements">
-						                </label>
-						                <label class="item item-input card" id="design-input1">
-						                    <span class="input-label">Design</span>
-						                    <input type="number" placeholder="Design" required=""  name="spentHours_design" ng-model="spentHours_design">
-						                </label>
-						                <label class="item item-input card" id="build-input1">
-						                    <span class="input-label">Build</span>
-						                    <input type="number" placeholder="Build" required=""  name="spentHours_build" ng-model="spentHours_build">
-						                </label>
-						                <label class="item item-input card" id="test-input1">
-						                    <span class="input-label">Test</span>
-						                    <input type="number" placeholder="Test" required=""  name="spentHours_test" ng-model="spentHours_test">
-						                </label>
-						                <label class="item item-input card" id="support-input1">
-						                    <span class="input-label">Support</span>
-						                    <input type="number" placeholder="Support" required=""  name="spentHours_support" ng-model="spentHours_support">
-						                </label>
-						                <label class="item item-input card" id="unproductive-input1">
-						                    <span class="input-label">Unproductive</span>
-						                    <input type="number" placeholder="Unproductive" required=""  name="spentHours_unproductive" ng-model="spentHours_unproductive">
-						                </label>
-						            <!-- </ion-list> -->			            
-								
-							
-							<hr>
-							<h3 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" class="" id="projectDetails-heading12">Remaining Hours</h3>
-							<hr>
-							<ion-list id="spenthours-list1" class=" ">
+					    	<hr> -->					    	
+			    			<h1 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" id="projectDetails-heading12">Effort Metrics
+			    			</h1>		            
+			            						
+							<h3 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" id="projectDetails-heading12">Spent Hours</h3>
+							<hr>				    						
+							<!-- <ion-list id="spenthours-list1" class=" "> -->
 				                <label class="item item-input card" id="requirements-input1">
 				                    <span class="input-label">Requirements</span>
-				                    <input type="number" placeholder="Requirements" required=""  name="remainingHours_requirements" ng-model="remainingHours_requirements">
+				                    <input type="number" placeholder="Requirements" required="" name="spentHours_requirements" ng-model="spentHours_requirements">
 				                </label>
 				                <label class="item item-input card" id="design-input1">
 				                    <span class="input-label">Design</span>
-				                    <input type="number" placeholder="Design" required="" name="remainingHours_design" ng-model="remainingHours_design">
+				                    <input type="number" placeholder="Design" required=""  name="spentHours_design" ng-model="spentHours_design">
 				                </label>
 				                <label class="item item-input card" id="build-input1">
 				                    <span class="input-label">Build</span>
-				                    <input type="number" placeholder="Build" required=""  name="remainingHours_build" ng-model="remainingHours_build">
+				                    <input type="number" placeholder="Build" required=""  name="spentHours_build" ng-model="spentHours_build">
 				                </label>
 				                <label class="item item-input card" id="test-input1">
 				                    <span class="input-label">Test</span>
-				                    <input type="number" placeholder="Test" required=""  name="remainingHours_test", ng-model="remainingHours_test">
+				                    <input type="number" placeholder="Test" required=""  name="spentHours_test" ng-model="spentHours_test">
 				                </label>
 				                <label class="item item-input card" id="support-input1">
 				                    <span class="input-label">Support</span>
-				                    <input type="number" placeholder="Support" required=""  name="remainingHours_support" ng-model="remainingHours_support">
+				                    <input type="number" placeholder="Support" required=""  name="spentHours_support" ng-model="spentHours_support">
 				                </label>
 				                <label class="item item-input card" id="unproductive-input1">
 				                    <span class="input-label">Unproductive</span>
-				                    <input type="number" placeholder="Unproductive" required=""  name="remainingHours_unproductive" ng-model="remainingHours_unproductive">
+				                    <input type="number" placeholder="Unproductive" required=""  name="spentHours_unproductive" ng-model="spentHours_unproductive">
 				                </label>
-				                <!-- <label class="item item-input card" id="unproductive-input1">
-				                    <span class="input-label">Unproductive</span>
-				                    <input type="number" placeholder="Unproductive" required=""  name="remainingHours_unproductive" mg-model="remainingHours_unproductive">
-				                </label> -->
-				            </ion-list>
-				            <hr>
-							<h3 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" class="" id="projectDetails-heading12">Estimated Hours</h3>
-							<hr>
-							<ion-list id="spenthours-list1" class=" ">
-				                <label class="item item-input card" id="requirements-input1">
-				                    <span class="input-label">Requirements</span>
-				                    <input type="number" placeholder="Requirements" required=""  name="estimatedHours_requirements" ng-model="estimatedHours_requirements">
-				                </label>
-				                <label class="item item-input card" id="design-input1">
-				                    <span class="input-label">Design</span>
-				                    <input type="number" placeholder="Design" required="" name="estimatedHours_design" ng-model="estimatedHours_design">
-				                </label>
-				                <label class="item item-input card" id="build-input1">
-				                    <span class="input-label">Build</span>
-				                    <input type="number" placeholder="Build" required=""  name="estimatedHours_build" ng-model="estimatedHours_build">
-				                </label>
-				                <label class="item item-input card" id="test-input1">
-				                    <span class="input-label">Test</span>
-				                    <input type="number" placeholder="Test" required=""  name="estimatedHours_test" ng-model="estimatedHours_test">
-				                </label>
-				                <label class="item item-input card" id="support-input1">
-				                    <span class="input-label">Support</span>
-				                    <input type="number" placeholder="Support" required=""  name="estimatedHours_support" ng-model="estimatedHours_support">
-				                </label>
-				                <label class="item item-input card" id="unproductive-input1">
-				                    <span class="input-label">Unproductive</span>
-				                    <input type="number" placeholder="Unproductive" required="" ng-model="estimatedHours_unproductive">
-				                </label>
-				            </ion-list>
-				            <hr>
-				            <h1 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" id="projectDetails-heading12">Quality Metrics
-				    		</h1>						
-							<h3 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" id="projectDetails-heading12">Stats</h3>
-							<hr>
-							<ion-list id="stats-list1" class=" ">
-				                <label class="item item-input card" id="junit-input1">
-				                    <span class="input-label">Junit</span>
-				                    <input type="number" placeholder="Junit" required=""  name="qualityMetrics_stats_junit" ng-model="qualityMetrics_stats_junit">
-				                </label>
-				                <label class="item item-input card" id="sonarcritical-input1">
-				                    <span class="input-label">Sonar Critical</span>
-				                    <input type="number" placeholder="Sonar Critical" required=""  name="qualityMetrics_stats_sonarCritical" ng-model="qualityMetrics_stats_sonarCritical">
-				                </label>
-				                <label class="item item-input card" id="sonarmajor-input1">
-				                    <span class="input-label">Sonar Major</span>
-				                    <input type="number" placeholder="Sonar Major" required=""  name="qualityMetrics_stats_sonarMajor" ng-model="qualityMetrics_stats_sonarMajor">
-				                </label>
-				                <label class="item item-input card" id="defectssev1-input1">
-				                    <span class="input-label">Defects Sev 1</span>
-				                    <input type="number" placeholder="Defects Sev 1" required=""  name="qualityMetrics_stats_defectSev1" ng-model="qualityMetrics_stats_defectSev1">
-				                </label>
-				                <label class="item item-input card" id="defectssev2-input1">
-				                    <span class="input-label">Defects Sev 2</span>
-				                    <input type="number" placeholder="Defects Sev 2" required=""  name="qualityMetrics_stats_defectSev2" ng-model="qualityMetrics_stats_defectSev2">
-				                </label>
-				                <label class="item item-input card" id="defectssev3-input1">
-				                    <span class="input-label">Defects Sev 3</span>
-				                    <input type="number" placeholder="Defects Sev 3" required=""  name="qualityMetrics_stats_defectSev3" ng-model="qualityMetrics_stats_defectSev3">
-				                </label>
-				                <label class="item item-input card" id="defectssev4-input1">
-				                    <span class="input-label">Defects Sev 4</span>
-				                    <input type="number" placeholder="Defects Sev 4" required=""  name="qualityMetrics_stats_defectSev4" ng-model="qualityMetrics_stats_defectSev4">
-				                </label>
-				                <label class="item item-input card" id="defectdensity-input1">
-				                    <span class="input-label">Defect Density</span>
-				                    <input type="number" placeholder="Defect Density" required=""  name="qualityMetrics_stats_defectDensity" ng-model="qualityMetrics_stats_defectDensity">
-				                </label>
-				            </ion-list>
-				             <hr>
-				            <h1 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" id="projectDetails-heading12">Productivity Metrics
-				    		</h1>						
-							<h3 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" id="projectDetails-heading12">Stats</h3>
-							<hr>
-							<ion-list id="stats-list1" class=" ">
-				                <label class="item item-input card" id="storypoints-input1">
-				                    <span class="input-label">Storypoints</span>
-				                    <input type="number" placeholder="Storypoints" required=""  name="productivityMetrics_stats_storypoints" ng-model="productivityMetrics_stats_storypoints">
-				                </label>
-				                <label class="item item-input card" id="velocity-input1">
-				                    <span class="input-label">Velocity</span>
-				                    <input type="number" placeholder="Velocity" required=""  name="productivityMetrics_stats_velocity" ng-model="productivityMetrics_stats_velocity">
-				                </label>
-				            </ion-list>
-				  		</div>
-				  		<button class="button button-block button-positive" id="searchUser-button15" ng-click="projectSnapShot(id,sprint,isSprintActive,startDate,endDate,noOfSprint,userStoryCount,spentHours_requirements,spentHours_design,spentHours_build,spentHours_test,spentHours_support,spentHours_unproductive,remainingHours_requirements,remainingHours_design,remainingHours_build,remainingHours_test,remainingHours_support,remainingHours_unproductive,estimatedHours_requirements,estimatedHours_design,estimatedHours_build,estimatedHours_test,estimatedHours_support,estimatedHours_unproductive,qualityMetrics_stats_junit,qualityMetrics_stats_sonarCritical,qualityMetrics_stats_sonarMajor,qualityMetrics_stats_defectSev1,qualityMetrics_stats_defectSev2,qualityMetrics_stats_defectSev3,qualityMetrics_stats_defectSev4,qualityMetrics_stats_defectDensity,productivityMetrics_stats_storypoints,productivityMetrics_stats_velocity)">SUBMIT</button>
-			  		</ion-scroll>			  		
+				            <!-- </ion-list> -->
+				            <button class="button button-positive  button-block icon ion-arrow-right-c icon-right" style="font-weight:300;border-radius:10px 10px 10px 10px;" type="submit" id="addAccount-button4" ng-click="nextSlide()">Remaining Hours</button>
+				            <button class="button button-assertive  button-block icon ion-arrow-left-c icon-left" style="font-weight:300;border-radius:10px 10px 10px 10px;" type="submit" id="addAccount-button4" ng-click="previousSlide()">Add Team</button>
+						</div>
+				</ion-content>
+			</ion-slide>
+			<ion-slide style="height:600px;border-radius:20px 20px 20px 20px;">
+				<ion-content>
+					<div class="" style="">
+						<hr>
+						<h3 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" class="" id="projectDetails-heading12">Remaining Hours</h3>
+						<hr>
+						<ion-list id="spenthours-list1" class=" ">
+			                <label class="item item-input card" id="requirements-input1">
+			                    <span class="input-label">Requirements</span>
+			                    <input type="number" placeholder="Requirements" required=""  name="remainingHours_requirements" ng-model="remainingHours_requirements">
+			                </label>
+			                <label class="item item-input card" id="design-input1">
+			                    <span class="input-label">Design</span>
+			                    <input type="number" placeholder="Design" required="" name="remainingHours_design" ng-model="remainingHours_design">
+			                </label>
+			                <label class="item item-input card" id="build-input1">
+			                    <span class="input-label">Build</span>
+			                    <input type="number" placeholder="Build" required=""  name="remainingHours_build" ng-model="remainingHours_build">
+			                </label>
+			                <label class="item item-input card" id="test-input1">
+			                    <span class="input-label">Test</span>
+			                    <input type="number" placeholder="Test" required=""  name="remainingHours_test", ng-model="remainingHours_test">
+			                </label>
+			                <label class="item item-input card" id="support-input1">
+			                    <span class="input-label">Support</span>
+			                    <input type="number" placeholder="Support" required=""  name="remainingHours_support" ng-model="remainingHours_support">
+			                </label>
+			                <label class="item item-input card" id="unproductive-input1">
+			                    <span class="input-label">Unproductive</span>
+			                    <input type="number" placeholder="Unproductive" required=""  name="remainingHours_unproductive" ng-model="remainingHours_unproductive">
+			                </label>
+			                <!-- <label class="item item-input card" id="unproductive-input1">
+			                    <span class="input-label">Unproductive</span>
+			                    <input type="number" placeholder="Unproductive" required=""  name="remainingHours_unproductive" mg-model="remainingHours_unproductive">
+			                </label> -->
+			            </ion-list>
+			            <button class="button button-positive  button-block icon ion-arrow-right-c icon-right" style="font-weight:300;border-radius:10px 10px 10px 10px;" type="submit" id="addAccount-button4" ng-click="nextSlide()">Estimated Hours</button>
+			            <button class="button button-assertive  button-block icon ion-arrow-left-c icon-left" style="font-weight:300;border-radius:10px 10px 10px 10px;" type="submit" id="addAccount-button4" ng-click="previousSlide()">Spent Hours</button>
+			            <hr>
+		            </div>
+	            </ion-content>
+            </ion-slide>
+            <ion-slide style="height:600px;border-radius:20px 20px 20px 20px;">
+            	<ion-content>
+        			<div class="" style="">
+						<h3 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" class="" id="projectDetails-heading12">Estimated Hours</h3>
+						<hr>
+						<ion-list id="spenthours-list1" class=" ">
+			                <label class="item item-input card" id="requirements-input1">
+			                    <span class="input-label">Requirements</span>
+			                    <input type="number" placeholder="Requirements" required=""  name="estimatedHours_requirements" ng-model="estimatedHours_requirements">
+			                </label>
+			                <label class="item item-input card" id="design-input1">
+			                    <span class="input-label">Design</span>
+			                    <input type="number" placeholder="Design" required="" name="estimatedHours_design" ng-model="estimatedHours_design">
+			                </label>
+			                <label class="item item-input card" id="build-input1">
+			                    <span class="input-label">Build</span>
+			                    <input type="number" placeholder="Build" required=""  name="estimatedHours_build" ng-model="estimatedHours_build">
+			                </label>
+			                <label class="item item-input card" id="test-input1">
+			                    <span class="input-label">Test</span>
+			                    <input type="number" placeholder="Test" required=""  name="estimatedHours_test" ng-model="estimatedHours_test">
+			                </label>
+			                <label class="item item-input card" id="support-input1">
+			                    <span class="input-label">Support</span>
+			                    <input type="number" placeholder="Support" required=""  name="estimatedHours_support" ng-model="estimatedHours_support">
+			                </label>
+			                <label class="item item-input card" id="unproductive-input1">
+			                    <span class="input-label">Unproductive</span>
+			                    <input type="number" placeholder="Unproductive" required="" ng-model="estimatedHours_unproductive">
+			                </label>
+			            </ion-list>
+			            <hr>
+			            <button class="button button-positive  button-block icon ion-arrow-right-c icon-right" style="font-weight:300;border-radius:10px 10px 10px 10px;" type="submit" id="addAccount-button4" ng-click="nextSlide()">Quality Metrics Stats</button>
+			            <button class="button button-assertive  button-block icon ion-arrow-left-c icon-left" style="font-weight:300;border-radius:10px 10px 10px 10px;" type="submit" id="addAccount-button4" ng-click="previousSlide()">Remaining Hours</button>
+			        </div>
+		        </ion-content>
+	        </ion-slide>
+	        <ion-slide style="height:600px;border-radius:20px 20px 20px 20px;">
+	        	<ion-content>
+    				<div class="" style="">
+			            <h1 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" id="projectDetails-heading12">Quality Metrics
+			    		</h1>						
+						<h3 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" id="projectDetails-heading12">Stats</h3>
+						<hr>
+						<ion-list id="stats-list1" class=" ">
+			                <label class="item item-input card" id="junit-input1">
+			                    <span class="input-label">Junit</span>
+			                    <input type="number" placeholder="Junit" required=""  name="qualityMetrics_stats_junit" ng-model="qualityMetrics_stats_junit">
+			                </label>
+			                <label class="item item-input card" id="sonarcritical-input1">
+			                    <span class="input-label">Sonar Critical</span>
+			                    <input type="number" placeholder="Sonar Critical" required=""  name="qualityMetrics_stats_sonarCritical" ng-model="qualityMetrics_stats_sonarCritical">
+			                </label>
+			                <label class="item item-input card" id="sonarmajor-input1">
+			                    <span class="input-label">Sonar Major</span>
+			                    <input type="number" placeholder="Sonar Major" required=""  name="qualityMetrics_stats_sonarMajor" ng-model="qualityMetrics_stats_sonarMajor">
+			                </label>
+			                <label class="item item-input card" id="defectssev1-input1">
+			                    <span class="input-label">Defects Sev 1</span>
+			                    <input type="number" placeholder="Defects Sev 1" required=""  name="qualityMetrics_stats_defectSev1" ng-model="qualityMetrics_stats_defectSev1">
+			                </label>
+			                <label class="item item-input card" id="defectssev2-input1">
+			                    <span class="input-label">Defects Sev 2</span>
+			                    <input type="number" placeholder="Defects Sev 2" required=""  name="qualityMetrics_stats_defectSev2" ng-model="qualityMetrics_stats_defectSev2">
+			                </label>
+			                <label class="item item-input card" id="defectssev3-input1">
+			                    <span class="input-label">Defects Sev 3</span>
+			                    <input type="number" placeholder="Defects Sev 3" required=""  name="qualityMetrics_stats_defectSev3" ng-model="qualityMetrics_stats_defectSev3">
+			                </label>
+			                <label class="item item-input card" id="defectssev4-input1">
+			                    <span class="input-label">Defects Sev 4</span>
+			                    <input type="number" placeholder="Defects Sev 4" required=""  name="qualityMetrics_stats_defectSev4" ng-model="qualityMetrics_stats_defectSev4">
+			                </label>
+			                <label class="item item-input card" id="defectdensity-input1">
+			                    <span class="input-label">Defect Density</span>
+			                    <input type="number" placeholder="Defect Density" required=""  name="qualityMetrics_stats_defectDensity" ng-model="qualityMetrics_stats_defectDensity">
+			                </label>
+			            </ion-list>
+			             <hr>
+			             <button class="button button-positive  button-block icon ion-arrow-right-c icon-right" style="font-weight:300;border-radius:10px 10px 10px 10px;" type="submit" id="addAccount-button4" ng-click="nextSlide()">Productivity Metrics Stats</button>
+			            <button class="button button-assertive  button-block icon ion-arrow-left-c icon-left" style="font-weight:300;border-radius:10px 10px 10px 10px;" type="submit" id="addAccount-button4" ng-click="previousSlide()">Estimated Hours</button>
+		            </div>
+	            </ion-content>
+            </ion-slide>
+            <ion-slide style="height:600px;border-radius:20px 20px 20px 20px;">
+            	<ion-content>            		
+        			<div class="" style="">
+			            <h1 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" id="projectDetails-heading12">Productivity Metrics
+			    		</h1>						
+						<h3 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" id="projectDetails-heading12">Stats</h3>
+						<hr>
+						<ion-list id="stats-list1" class=" ">
+			                <label class="item item-input card" id="storypoints-input1">
+			                    <span class="input-label">Storypoints</span>
+			                    <input type="number" placeholder="Storypoints" required=""  name="productivityMetrics_stats_storypoints" ng-model="productivityMetrics_stats_storypoints">
+			                </label>
+			                <label class="item item-input card" id="velocity-input1">
+			                    <span class="input-label">Velocity</span>
+			                    <input type="number" placeholder="Velocity" required=""  name="productivityMetrics_stats_velocity" ng-model="productivityMetrics_stats_velocity">
+			                </label>
+			            </ion-list>
+			  		</div>
+  					<button class="button button-assertive  button-block icon ion-arrow-left-c icon-left" style="font-weight:300;border-radius:10px 10px 10px 10px;" type="submit" id="addAccount-button4" ng-click="previousSlide()">Quality Metrics Stats</button>
+  					<button class="button button-block button-positive" id="searchUser-button15" ng-click="projectSnapShot(id,sprint,isSprintActive,startDate,endDate,noOfSprint,userStoryCount,spentHours_requirements,spentHours_design,spentHours_build,spentHours_test,spentHours_support,spentHours_unproductive,remainingHours_requirements,remainingHours_design,remainingHours_build,remainingHours_test,remainingHours_support,remainingHours_unproductive,estimatedHours_requirements,estimatedHours_design,estimatedHours_build,estimatedHours_test,estimatedHours_support,estimatedHours_unproductive,qualityMetrics_stats_junit,qualityMetrics_stats_sonarCritical,qualityMetrics_stats_sonarMajor,qualityMetrics_stats_defectSev1,qualityMetrics_stats_defectSev2,qualityMetrics_stats_defectSev3,qualityMetrics_stats_defectSev4,qualityMetrics_stats_defectDensity,productivityMetrics_stats_storypoints,productivityMetrics_stats_velocity)">SUBMIT</button>			  					  		
 		  		</ion-content>
 		  	</ion-slide>
 		</ion-slide-box>

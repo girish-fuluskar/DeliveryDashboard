@@ -1,0 +1,50 @@
+<ion-modal-view>
+    <ion-header-bar class="bar bar-header bar-positive">
+      <h1 class="title">Set Details<br>
+      </h1>
+      <!-- <button class="button button-clear button-primary" ng-click="refineDashbaordModal.hide()">Cancel</button> -->
+    </ion-header-bar>
+    <ion-content class="padding" >
+    	<div style="height:auto;width:auto;padding:10px;margin:3px;">
+    		<div class="card" style="border-radius:10px 10px 10px 10px;">
+    			<h5>* These fields are required</h5>
+    			<div class="item item-select" id="programId-select1" style="border-radius:10px 10px 10px 10px;width:auto;">
+					<span class="input-label" style="font-weight:500;font-size:15px;text-align:left;">*Program</span>
+					<select style="font-weight:500;font-size:15px;width:90%;" ng-model="data.programSelect" ng-change="getProjectOnProgram(data.programSelect)">
+						<option value="">Select</option>
+						<option ng-repeat="prgLst in userProgramLst" value="{{prgLst.id}}">{{prgLst.name}}
+						</option>
+					</select>
+				</div>
+				<label class="item item-input" id="fromDate-input7" style="border-radius:10px 10px 10px 10px;width:auto;">
+                    <span class="input-label" style="font-weight:500;font-size:15px;text-align:left;">*From Date</span>
+                    <input type="date" placeholder="mm/dd/yyyy" ng-model="startDate" name="startDate">
+                </label> 
+                <label class="item item-input" id="toDate-input8" style="border-radius:10px 10px 10px 10px;width:auto;">
+                    <span class="input-label" style="font-weight:500;font-size:15px;text-align:left;">*To Date</span>
+                    <input type="date" placeholder="mm/dd/yyyy" ng-model="endDate" name="endDate">
+                </label>
+                <label class="item item-input" style="border-radius:10px 10px 10px 10px;width:auto;">
+					<span class="input-label" style="font-weight:500;font-size:15px;text-align:left;">Interval</span>
+		   			<input type="number" placeholder="In no of weeks" required="" name="account" ng-model="interval">
+				</label>
+            </div>
+        	<div class="card" style="border-radius:10px 10px 10px 10px;">
+        		<h5># These fields are optional</h5>
+				<div class="item item-select" id="projectId-select1" style="border-radius:10px 10px 10px 10px;width:auto;">
+					<span class="input-label" style="font-weight:500;font-size:15px;text-align:left;">Project</span>
+					<select style="font-weight:500;font-size:15px;width:90%;" ng-model="data.projectSelect">
+						<option value="">Select</option>
+						<option ng-repeat="projLst in userProjectLst" value="{{projLst.id}}">{{projLst.name}}
+						</option>
+					</select>
+				</div>				
+                <label class="item item-input" id="sprintId-select1" style="border-radius:10px 10px 10px 10px;width:auto;">
+					<span class="input-label" style="font-weight:500;font-size:15px;text-align:left;">Sprint</span>
+					<input type="number" placeholder="In numbers" required="" name="sprint" ng-model="sprint">
+				</label>				
+    		</div>
+    		<button class="button button-positive button-block" style="font-weight:300;border-radius:10px 10px 10px 10px;" type="submit" id="refineDashboard-button4" ng-click="setInitialDetails(data.programSelect,data.projectSelect,startDate,endDate,sprint,interval)">Set</button>
+    	</div>
+    </ion-content>
+</ion-modal-view>

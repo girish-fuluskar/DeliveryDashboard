@@ -1,10 +1,13 @@
+<script type="text/javascript">
+  openModal();
+</script>
 <ion-view style="background-color: rgb(26, 139, 171);" title="Project Dashboard" hide-back-button="true" id="page2" class=" ">
     <ion-content padding="true" class="has-header">    	    	
     </ion-content>    
     <ion-pane>
-			<ion-content ng-controller="dashboardCtrl">
+			<ion-content ng-controller="dashboardCtrl" elem-ready="load()">
 				<ion-list id="signIn-list2" class=" ">
-			        <button style="" class="button button-inline button-clear button-positive" ng-click="showPopup()" type="submit" id="submit4">Select projet and sprint</button>
+			        <button style="" class="button button-inline button-clear button-positive" ng-click="addProgramDetailsModal.show()" type="submit" id="submit4">Refine</button>
 	            </ion-list>
 	            <div id="chartSection" class="animate-show" ng-show="allCharts">
 	            	<!-- <label class="item" id="effortExtended" style="margin: auto;border-radius:10px 10px 10px 10px;width:90%;">

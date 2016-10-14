@@ -1,0 +1,51 @@
+
+
+<!-- <script id="templates/modal.html" type="text/ng-template"> -->
+      <ion-modal-view>
+        <ion-header-bar class="bar bar-header bar-assertive">
+          <h1 class="title">Add Project</h1>
+          <button class="button button-clear button-primary" ng-click="createProjectModal.hide()">Cancel</button>
+        </ion-header-bar>
+        <ion-content class="padding">
+          <div style="height:auto;width:auto;padding:10px;margin:3px;">
+			<div class="card" style="border-radius:10px 10px 10px 10px;">
+				<label class="item item-input" name="project" id="project-input10">
+					<span class="input-label">Project Name</span>
+		   			<input type="text" placeholder="Add Project" required="" name="project" ng-model="projectName">
+				</label>
+				<label class="item item-input" name="startDate" id="startDate-input10">
+					<span class="input-label">Start Date</span>
+		   			<input type="date" placeholder="Start Date" required="" name="startDate" ng-model="startDate">
+				</label>
+				<label class="item item-input" name="endDate" id="endDate-input10">
+					<span class="input-label">End Date</span>
+		   			<input type="date" placeholder="End Date" required="" name="endDate" ng-model="endDate">
+				</label>
+				<label class="item item-input" name="currentSprint" id="currentSprint-input10">
+					<span class="input-label">Current Sprint</span>
+		   			<input type="number" placeholder="Current Sprint" required="" name="currentSprint" ng-model="currentSprint">
+				</label>
+				<div id="technologies-input14" name="technologies" class="item item-input">
+		     		<input id="technologies" placeholder="Technologies" required=""  name="technologies" type="text" ng-model="technologies">
+		     		<button class="button button-assertive button-inline" style="font-weight:300;border-radius:10px 10px 10px 10px;" type="submit" id="signIn-button4" ng-click="addTechnologies(technologies)">Add</button>
+		     	</div>
+		     	<ion-list show-delete="true" can-swipe="true" can-scroll="true">
+						<ion-item ng-repeat="i in technologySelected">
+			            <!-- <div class="item item-avatar item-text-wrap in" style="transition-delay: 0.3s;"> -->
+			            	<span class="input-label" style="color: black; font-weight: 600;">{{i.name}}
+			            	</span>
+			            	<ion-delete-button class="ion-minus-circled" ng-click="deleteTechnologies(i)"></ion-delete-button>
+			               	<!-- <i class="icon ion-iphone assertive-900"> </i> {{userProfile.phone}}<br>
+			               	<i class="icon ion-ios-email assertive-900"> </i> {{userProfile.email}}<br>
+			               	<i class="icon ion-android-add-circle assertive-900"> </i> {{userProfile.designation.profession}}<br>
+			               	<br>
+			               	<i class="icon ion-android-add-circle assertive-900"> </i> {{userProfile.designation.specialization}}			                -->
+			            <!-- </div> -->
+		            </ion-item>
+				</ion-list>				
+			</div>
+			<button class="button button-assertive button-block" style="font-weight:300;border-radius:10px 10px 10px 10px;" type="submit" id="addProject-button4">Add Project</button>
+		</div>
+        </ion-content>
+      </ion-modal-view>
+  <!--   </script> -->
