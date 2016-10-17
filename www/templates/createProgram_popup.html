@@ -8,9 +8,8 @@
 			<div class="card" style="border-radius:10px 10px 10px 10px;">
 				<label class="item item-select" id="projectList-select1" style="border-radius:10px 10px 10px 10px;width:90%;">
 					<span class="input-label" style="font-weight:500;font-size:15px;text-align:left;">Project</span>
-					<select style="font-weight:500;font-size:15px;width:90%;" ng-model="data.projectSelect">
-						<option ng-repeat="lst in projectLst" value="{{lst.id}}">{{lst.name}}
-						</option>
+					<select style="font-weight:500;font-size:15px;width:90%;" ng-model="projectSelect" 
+                    ng-options="projLst.id as projLst.name for projLst in userProjectLst">
 					</select>
 				</label>
 				<label class="item item-input" name="programName" id="programName-input10">

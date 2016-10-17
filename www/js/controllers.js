@@ -1,10 +1,8 @@
 angular.module('app.controllers', [])
      
-.controller('dashboardCtrl', function($scope,$ionicPopup,$filter,$ionicListDelegate, $ionicModal, $ionicSlideBoxDelegate, $ionicLoading, 
+.controller('dashboardCtrl', function($scope,$ionicPopup,$filter, $ionicListDelegate,$ionicPlatform, $ionicModal, $ionicSlideBoxDelegate, $ionicLoading, 
   chartData, chartDataWithoutParam) {
-  var technologyList=[];
-  var teamListArray=[];
-  var finalTeamStructureList = [];
+  var technologyList=[]; 
 
    //slide out function
   /*$scope.isdiplayEffortMetrics = false;
@@ -22,7 +20,60 @@ angular.module('app.controllers', [])
     $scope.isdiplayProductivityMetrics = !$scope.isdiplayProductivityMetrics;
   }*/
 
-  //show popup on load if user came for the first time or no related data in localstorage 
+  $scope.getProjectsList = chartDataWithoutParam.getProjects();
+
+  //Getting inital values from storage to set to Modal
+  $scope.getInitialDetailsFromStoarage = chartDataWithoutParam.getUsersInitialDetails();
+    if($scope.getInitialDetailsFromStoarage!=null){
+      var usersInitialDataFromStorage = JSON.parse($scope.getInitialDetailsFromStoarage);
+      $scope.programSelect = usersInitialDataFromStorage[0].program;
+      $scope.programSelect = $scope.programSelect;
+      $scope.startDate = usersInitialDataFromStorage[0].startDate;
+      $scope.startDate = new Date($scope.startDate);
+      $scope.endDate = usersInitialDataFromStorage[0].endDate;
+      $scope.endDate = new Date($scope.endDate);
+      $scope.projectSelect = usersInitialDataFromStorage[0].project;
+      $scope.interval = usersInitialDataFromStorage[0].interval;
+      $scope.interval = $scope.interval;
+      $scope.sprint = usersInitialDataFromStorage[0].sprint;
+      $scope.userProjectLst = chartDataWithoutParam.getProjectForUser(usersInitialDataFromStorage[0].program);
+      if(usersInitialDataFromStorage[0].project===undefined){
+        $scope.userProjectLst = "";        
+      }
+      else{
+        $scope.userProjectLst = usersInitialDataFromStorage[0].project;
+      }
+    }
+
+    //Getting inital values from storage to set to Modal on Refine button click on dashboard.html
+    $scope.loadInitialDetailsFromStorage = function(){
+      $scope.getInitialDetailsFromStoarage = chartDataWithoutParam.getUsersInitialDetails();
+      if($scope.getInitialDetailsFromStoarage!=null){
+        var usersInitialDataFromStorage = JSON.parse($scope.getInitialDetailsFromStoarage);
+        $scope.programSelect = usersInitialDataFromStorage[0].program;
+        $scope.programSelect = $scope.programSelect;
+        $scope.startDate = usersInitialDataFromStorage[0].startDate;
+        $scope.startDate = new Date($scope.startDate);
+        $scope.endDate = usersInitialDataFromStorage[0].endDate;
+        $scope.endDate = new Date($scope.endDate);
+        $scope.projectSelect = usersInitialDataFromStorage[0].project;
+        $scope.interval = usersInitialDataFromStorage[0].interval;
+        $scope.interval = $scope.interval;
+        $scope.sprint = usersInitialDataFromStorage[0].sprint;
+
+        $scope.getProjectOnProgram(usersInitialDataFromStorage[0].program);
+        $scope.userProjectLst = chartDataWithoutParam.getProjectForUser(usersInitialDataFromStorage[0].program);
+        if(usersInitialDataFromStorage[0].project===undefined){
+          $scope.userProjectLst = "";        
+        }
+        else{
+          $scope.userProjectLst = usersInitialDataFromStorage[0].project;
+        }
+      }      
+    }
+
+
+  //show popup on load if user came for the first time or no related data in localstorage  
   $scope.$on('$ionicView.enter', function() {
     // Code you want executed every time view is opened
     $scope.getInitialDetailsFromStoarage = chartDataWithoutParam.getUsersInitialDetails();
@@ -31,19 +82,29 @@ angular.module('app.controllers', [])
     }
     else{
       var usersInitialDataFromStorage = JSON.parse($scope.getInitialDetailsFromStoarage);
-      $scope.program = usersInitialDataFromStorage[0].program;
+      $scope.programSelect = usersInitialDataFromStorage[0].program;
+      $scope.programSelect = $scope.programSelect;
       $scope.startDate = usersInitialDataFromStorage[0].startDate;
       $scope.endDate = usersInitialDataFromStorage[0].endDate;
-      $scope.project = usersInitialDataFromStorage[0].project;
+      $scope.projectSelect = usersInitialDataFromStorage[0].project;
       $scope.interval = usersInitialDataFromStorage[0].interval;
       $scope.interval = $scope.interval;
       $scope.sprint = usersInitialDataFromStorage[0].sprint;
 
       //$scope.chartsWithoutParam($scope.accountId, usersInitialDataFromStorage[0].project, usersInitialDataFromStorage[0].startDate, usersInitialDataFromStorage[0].endDate, usersInitialDataFromStorage[0].interval);
-      $scope.AllChrts($scope.accountId, $scope.program, $scope.sprint, $scope.project, $scope.startDate, $scope.endDate, $scope.interval);
+      $scope.AllChrts($scope.accountId, $scope.programSelect, $scope.sprint, $scope.projectSelect, $scope.startDate, $scope.endDate, $scope.interval);
+      $scope.startDate = new Date($scope.startDate);
+      $scope.endDate = new Date($scope.endDate);
+      //Loading projects on the basis of program on dashboard load
+      $scope.getProjectOnProgram(usersInitialDataFromStorage[0].program);
+      if(usersInitialDataFromStorage[0].project===undefined){
+        $scope.userProjectLst = "Select";        
+      }
+      else{
+        $scope.userProjectLst = usersInitialDataFromStorage[0].project;
+      }      
     }
   })
-  
 
   //Get Programs for user's account
   chartDataWithoutParam.getProgramForUser()
@@ -115,20 +176,6 @@ angular.module('app.controllers', [])
         });
       });
   }
-  //console.log(getUsrProjectList);
-  
-  
-      
-
-
-  //slide on button click
-  $scope.nextSlide = function() {
-    $ionicSlideBoxDelegate.next();
-  }
-
-  $scope.previousSlide = function() {
-    $ionicSlideBoxDelegate.previous();
-  }
 
   //Get User's Account
   $scope.accountId = chartDataWithoutParam.getUserAccount();
@@ -153,173 +200,6 @@ angular.module('app.controllers', [])
     $scope.addProgramDetailsModal.hide();
     //$scope.chartsWithoutParam($scope.accountId, programSelect, startDate, endDate, interval);
     $scope.AllChrts($scope.accountId, programSelect, sprint, projectSelect, startDate, endDate, interval);
-  }
-
-
-  $scope.teamList = [];
-
-  //Search team members
-  $scope.search = function(data){
-    /*$ionicLoading.show({
-        templateUrl: "templates/loading.html"
-    });*/
-      $scope.searchinput = "";
-      chartDataWithoutParam.search(data)
-        .then(function(searchedData) {
-          //$ionicLoading.hide();
-          $scope.showFilter = false;
-          if (searchedData !== undefined) {
-              $scope.showFilter = true;
-          }
-          if (searchedData === undefined) {
-              var alertPopup = $ionicPopup.alert({
-                  title: 'Search Failed!',
-                  template: 'No result found!',
-                  button:[
-                    {
-                      text: 'Ok',
-                      onTap: $scope.teamList = teamListArray
-                    }
-                  ]
-              });
-          }
-
-
-          var teamList={
-            id : searchedData[0].id,
-            firstname : searchedData[0].firstname,
-            lastname : searchedData[0].lastname,
-            phone : searchedData[0].phone,
-            email : searchedData[0].email,
-            profession:searchedData[0].designation.profession,
-            specialization:searchedData[0].designation.specialization
-          };
-
-          //Creating structure for API
-          var finalTeamStructList={
-            "user":{
-              "id" : searchedData[0].id,
-              "email" : searchedData[0].email
-            },
-            "role" : searchedData[0].designation.profession
-          };
-
-          finalTeamStructureList.push(finalTeamStructList);
-          console.log(finalTeamStructList);
-
-          $scope.teamListData = teamList;
-
-          var finalTeamList = {teamList:teamList};
-
-          teamListArray.push(finalTeamList);
-          $scope.teamList = teamListArray;
-
-          $scope.userProfiles = searchedData;
-        }, function(err) {
-          $ionicLoading.hide();
-          var alertPopup = $ionicPopup.alert({
-              title: 'Search Failed!',
-              text: 'err.data.message'
-          });
-      });
-      $scope.teamList = teamListArray;
-    }
-
-    //deleting items one by one from list
-  $scope.deleteTeamListItem = function (i){
-    teamListArray.splice(teamListArray.indexOf(i), 1);    
-    $ionicListDelegate.closeOptionButtons();
-  };
-
-  //create project snapshot API call
-  $scope.projectSnapShot = function(id,sprint,isSprintActive,startDate,endDate,noOfSprint,userStoryCount,spentHours_requirements,spentHours_design,spentHours_build,spentHours_test,spentHours_support,spentHours_unproductive,remainingHours_requirements,remainingHours_design,remainingHours_build,remainingHours_test,remainingHours_support,remainingHours_unproductive,estimatedHours_requirements,estimatedHours_design,estimatedHours_build,estimatedHours_test,estimatedHours_support,estimatedHours_unproductive,qualityMetrics_stats_junit,qualityMetrics_stats_sonarCritical,qualityMetrics_stats_sonarMajor,qualityMetrics_stats_defectSev1,qualityMetrics_stats_defectSev2,qualityMetrics_stats_defectSev3,qualityMetrics_stats_defectSev4,qualityMetrics_stats_defectDensity,productivityMetrics_stats_storypoints,productivityMetrics_stats_velocity){
-    var startDate = $filter('date')(startDate, "yyyy-MM-dd"+"T00:00:00.000+0530");
-    var endDate = $filter('date')(endDate, "yyyy-MM-dd"+"T00:00:00.000+0530");
-    console.log(id,sprint,isSprintActive,startDate,endDate,noOfSprint,userStoryCount,spentHours_requirements,spentHours_design,spentHours_build,spentHours_test,spentHours_support,spentHours_unproductive,remainingHours_requirements,remainingHours_design,remainingHours_build,remainingHours_test,remainingHours_support,remainingHours_unproductive,estimatedHours_requirements,estimatedHours_design,estimatedHours_build,estimatedHours_test,estimatedHours_support,estimatedHours_unproductive,qualityMetrics_stats_junit,qualityMetrics_stats_sonarCritical,qualityMetrics_stats_sonarMajor,qualityMetrics_stats_defectSev1,qualityMetrics_stats_defectSev2,qualityMetrics_stats_defectSev3,qualityMetrics_stats_defectSev4,qualityMetrics_stats_defectDensity,productivityMetrics_stats_storypoints,productivityMetrics_stats_velocity);
-
-    var sprintStatus;
-    if(isSprintActive==true)
-      {
-       sprintStatus= "ACTIVE"
-      }
-    else
-      {
-        sprintStatus="INACTIVE"
-      }
-
-    //Creating Snapshot structure for api
-    var projectSnapShot={
-      "logDate": $filter('date')(new Date(),"yyyy-MM-dd"+"T00:00:00.000+0530"),
-      "project":{
-        "id": id
-      },
-      "sprint":{
-        "id": id+sprint,
-        "sprintNumber": sprint,
-        "status": sprintStatus,
-        "startDate": startDate,
-        "endDate": endDate,
-        "userStoryCount": userStoryCount,
-        "teamMembers": finalTeamStructureList,
-        "effortMetrics":{
-          "spentHours":{
-            "requirements": spentHours_requirements,
-            "design": spentHours_design,
-            "build": spentHours_build,
-            "test": spentHours_test,
-            "support": spentHours_support,
-            "unproductive": spentHours_unproductive
-          },
-          "remainingHours":{
-            "requirements": remainingHours_requirements,
-            "design": remainingHours_design,
-            "build": remainingHours_build,
-            "test": remainingHours_test,
-            "support": remainingHours_support,
-            "unproductive": remainingHours_unproductive
-          },
-          "estimatedHours":{
-            "requirements": estimatedHours_requirements,
-            "design": estimatedHours_design,
-            "build": estimatedHours_build,
-            "test": estimatedHours_test,
-            "support": estimatedHours_support,
-            "unproductive": estimatedHours_unproductive
-          }
-        },
-        "qualityMetrics":{
-          "stats":{
-            "junit": qualityMetrics_stats_junit,
-            "sonarCritical": qualityMetrics_stats_sonarCritical,
-            "sonarMajor": qualityMetrics_stats_sonarMajor,
-            "DefectsSev1": qualityMetrics_stats_defectSev1,
-            "DefectsSev2": qualityMetrics_stats_defectSev2,
-            "DefectsSev3": qualityMetrics_stats_defectSev3,
-            "DefectsSev4": qualityMetrics_stats_defectSev4,
-            "defectDensity": qualityMetrics_stats_defectDensity
-          }
-        },
-        "productivityMetrics":{
-          "stats":{
-            "storyPoints": productivityMetrics_stats_storypoints,
-            "velocity": productivityMetrics_stats_velocity
-          }
-        }
-      }
-    };
-    console.log(projectSnapShot);
-    //calling API
-    chartDataWithoutParam.saveSnapShot(projectSnapShot, id)
-    .then(function(snapShot){
-      $scope.snapshotResponse = snapShot;
-      console.log($scope.snapshotResponse);
-      $scope.id="";
-    }, function(err){
-        var alertPopup = $ionicPopup.alert({
-          title: 'Search Failed!',
-          template: 'There was some problem with server.'
-      });
-    });
   }
 
   /*$scope.addAccount_popup = function(){
@@ -369,7 +249,8 @@ angular.module('app.controllers', [])
 
   $ionicModal.fromTemplateUrl('templates/addProgramDetails.html', {
     scope: $scope,
-    backdropClickToClose: false
+    backdropClickToClose: false,
+    hardwareBackButtonClose: false
   }).then(function(modal) {
     $scope.addProgramDetailsModal = modal;
   });
@@ -1268,9 +1149,9 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
           console.log($scope.effortExtended);
           var myConfig =     {
                 "type":"pie",              
-                "x":"0%",
+                "x":"-10%",
                 "y":"-20%",
-                "background-color":"#ffffff",
+                "background-color":"#fbffb9",
                 "border-radius":4,
                 "legend": {
                     "toggle-action": "remove",
@@ -1323,14 +1204,14 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
                     {
                         "values":[$scope.effortExtended[2].value],
                         "text":$scope.effortExtended[2].name + "- <br> " + $scope.effortExtended[2].value + " hrs",
-                        "background-color":"#00baf0",
+                        "background-color":"#c9ff00",
                         "border-width":"0px",
                         "shadow":0
                     },
                     {
                         "values":[$scope.effortExtended[0].value],
                         "text": $scope.effortExtended[0].name + "- <br> " + $scope.effortExtended[0].value + " hrs",
-                        "background-color":"#dadada",
+                        "background-color":"#57f22a",
                         "alpha":"0.5",
                         "border-color":"#dadada",
                         "border-width":"1px",
@@ -1341,7 +1222,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
             zingchart.render({ 
               id : 'myChart', 
               data : myConfig, 
-              height: 450, 
+              height: 350, 
               width: '100%'
             });
 
@@ -1374,7 +1255,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
         var effortDateSeries = [];
         var data1 = [];
         var seriesArry = [];
-        var seriesColor = ["#882cbb","#2d2c2f","#2f3eac","#54D1F1","#09f42f","#006eee","#f23209"];        
+        var seriesColor = ["#4bce25","#57f22a","#c9ff00","#ffb71f","#f2a400","#175c1c","#360065"];        
         for(var i=0;i<effortdata[0].buckets.length;i++){
           var a=[];
           effortDateLabel.push(new Date(effortdata[0].buckets[i].key_as_string).toISOString().slice(0,10));
@@ -1409,7 +1290,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
               "graphset": [
                   {
                     "type": "bar",
-                    "background-color": "white",
+                    "background-color": "#fbffb9",
                     "fill-angle": 55,
                     "stacked": true,
                     "stack-type": "normal",
@@ -1595,7 +1476,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
         var productivityDateSeries = [];
         var productivityDateData1 = [];
         var seriesArry = [];
-        var seriesColor = ["#882cbb","#2d2c2f","#2f3eac","#54D1F1","#09f42f","#006eee","#f23209"];
+        var seriesColor = ["#4bce25","#c9ff00","#57f22a","#ffb71f","#f2a400","#175c1c","#360065"];
         for(var k=0;k<productivityDate[0].buckets.length;k++){
           var b=[];
           productivityDateLabel.push(new Date(productivityDate[0].buckets[k].key_as_string).toISOString().slice(0,10));
@@ -1633,7 +1514,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
             "graphset": [
                 {
                   "type": "bar",
-                  "background-color": "white",
+                  "background-color": "#fbffb9",
                   "fill-angle": 55,
                   "stacked": true,
                   "stack-type": "normal",
@@ -1787,7 +1668,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
         var qualityDateSeries = [];
         var qualityDateData1 = [];
         var seriesArry = [];
-        var seriesColor = ["#882cbb","#2d2c2f","#2f3eac","#54D1F1","#09f42f","#006eee","#f23209"];
+        var seriesColor = ["#4bce25","#57f22a","#c9ff00","#ffb71f","#f2a400","#175c1c","#360065"];
         for(var k=0;k<qualityDate[0].buckets.length;k++){
           var b=[];
           qualityDateLabel.push(new Date(qualityDate[0].buckets[k].key_as_string).toISOString().slice(0,10));
@@ -1824,7 +1705,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
             "graphset": [
                 {
                   "type": "bar",
-                  "background-color": "white",
+                  "background-color": "#fbffb9",
                   "fill-angle": 55,
                   "stacked": true,
                   "stack-type": "normal",
@@ -1979,7 +1860,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
         var teamDateSeries = [];
         var teamDateData1 = [];
         var seriesArry = [];
-        var seriesColor = ["#882cbb","#2d2c2f","#2f3eac","#54D1F1","#09f42f","#006eee","#f23209"];
+        var seriesColor = ["#4bce25","#57f22a","#c9ff00","#ffb71f","#f2a400","#175c1c","#360065"];
         for(var k=0;k<teamDate[0].buckets.length;k++){
           var b=[];
           teamDateLabel.push(new Date(teamDate[0].buckets[k].key_as_string).toISOString().slice(0,10));
@@ -2016,7 +1897,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
             "graphset": [
                 {
                   "type": "bar",
-                  "background-color": "white",
+                  "background-color": "#fbffb9",
                   "fill-angle": 55,
                   "stacked": true,
                   "stack-type": "normal",
@@ -2305,10 +2186,196 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
     
 })
    
-.controller('addNewSprintCtrl', function($scope, chartDataWithoutParam ) {
+.controller('addNewSprintCtrl', function($scope, $ionicSlideBoxDelegate, $state, $filter, $ionicLoading, $ionicPopup, $ionicListDelegate, chartDataWithoutParam ) {
+  var finalTeamStructureList = [];
+  var teamListArray=[];
   //$scope.getUsrProjectDataList = function(){
     $scope.getProjectsList = chartDataWithoutParam.getProjects();  
   //}
+
+  $scope.teamList = [];
+
+  //slide on button click
+  $scope.nextSlide = function() {
+    $ionicSlideBoxDelegate.next();
+  }
+
+  $scope.previousSlide = function() {
+    $ionicSlideBoxDelegate.previous();
+  }
+  
+  //Search team members
+  $scope.search = function(data){
+    /*$ionicLoading.show({
+        templateUrl: "templates/loading.html"
+    });*/
+      $scope.searchinput = "";
+      chartDataWithoutParam.search(data)
+        .then(function(searchedData) {
+          //$ionicLoading.hide();
+          $scope.showFilter = false;
+          if (searchedData !== undefined) {
+              $scope.showFilter = true;
+          }
+          if (searchedData === undefined) {
+              var alertPopup = $ionicPopup.alert({
+                  title: 'Search Failed!',
+                  template: 'No result found!',
+                  button:[
+                    {
+                      text: 'Ok',
+                      onTap: $scope.teamList = teamListArray
+                    }
+                  ]
+              });
+          }
+          var teamList={
+            id : searchedData[0].id,
+            firstname : searchedData[0].firstname,
+            lastname : searchedData[0].lastname,
+            phone : searchedData[0].phone,
+            email : searchedData[0].email,
+            profession:searchedData[0].designation.profession,
+            specialization:searchedData[0].designation.specialization
+          };
+
+          //Creating structure for API
+          var finalTeamStructList={
+            "user":{
+              "id" : searchedData[0].id,
+              "email" : searchedData[0].email
+            },
+            "role" : searchedData[0].designation.profession
+          };
+
+          finalTeamStructureList.push(finalTeamStructList);
+          console.log(finalTeamStructList);
+          $scope.teamListData = teamList;
+          var finalTeamList = {teamList:teamList};
+          teamListArray.push(finalTeamList);
+          $scope.teamList = teamListArray;
+          $scope.userProfiles = searchedData;
+        }, function(err) {
+          $ionicLoading.hide();
+          var alertPopup = $ionicPopup.alert({
+              title: 'Search Failed!',
+              text: 'err.data.message'
+          });
+      });
+      $scope.teamList = teamListArray;
+    }
+
+    //deleting items one by one from list
+  $scope.deleteTeamListItem = function (i){
+    teamListArray.splice(teamListArray.indexOf(i), 1);    
+    $ionicListDelegate.closeOptionButtons();
+  };
+
+  //create project snapshot API call
+  $scope.projectSnapShot = function(id,sprint,isSprintActive,startDate,endDate,noOfSprint,userStoryCount,spentHours_requirements,spentHours_design,spentHours_build,spentHours_test,spentHours_support,spentHours_unproductive,remainingHours_requirements,remainingHours_design,remainingHours_build,remainingHours_test,remainingHours_support,remainingHours_unproductive,estimatedHours_requirements,estimatedHours_design,estimatedHours_build,estimatedHours_test,estimatedHours_support,estimatedHours_unproductive,qualityMetrics_stats_junit,qualityMetrics_stats_sonarCritical,qualityMetrics_stats_sonarMajor,qualityMetrics_stats_defectSev1,qualityMetrics_stats_defectSev2,qualityMetrics_stats_defectSev3,qualityMetrics_stats_defectSev4,qualityMetrics_stats_defectDensity,productivityMetrics_stats_storypoints,productivityMetrics_stats_velocity){
+    var startDate = $filter('date')(startDate, "yyyy-MM-dd"+"T00:00:00.000+0530");
+    var endDate = $filter('date')(endDate, "yyyy-MM-dd"+"T00:00:00.000+0530");
+    console.log(id,sprint,isSprintActive,startDate,endDate,noOfSprint,userStoryCount,spentHours_requirements,spentHours_design,spentHours_build,spentHours_test,spentHours_support,spentHours_unproductive,remainingHours_requirements,remainingHours_design,remainingHours_build,remainingHours_test,remainingHours_support,remainingHours_unproductive,estimatedHours_requirements,estimatedHours_design,estimatedHours_build,estimatedHours_test,estimatedHours_support,estimatedHours_unproductive,qualityMetrics_stats_junit,qualityMetrics_stats_sonarCritical,qualityMetrics_stats_sonarMajor,qualityMetrics_stats_defectSev1,qualityMetrics_stats_defectSev2,qualityMetrics_stats_defectSev3,qualityMetrics_stats_defectSev4,qualityMetrics_stats_defectDensity,productivityMetrics_stats_storypoints,productivityMetrics_stats_velocity);
+
+    var sprintStatus;
+    if(isSprintActive==true)
+      {
+       sprintStatus= "ACTIVE"
+      }
+    else
+      {
+        sprintStatus="INACTIVE"
+      }
+
+    //Creating Snapshot structure for api
+    var projectSnapShot={
+      "logDate": $filter('date')(new Date(),"yyyy-MM-dd"+"T00:00:00.000+0530"),
+      "project":{
+        "id": id
+      },
+      "sprint":{
+        "id": id+sprint,
+        "sprintNumber": sprint,
+        "status": sprintStatus,
+        "startDate": startDate,
+        "endDate": endDate,
+        "userStoryCount": userStoryCount,
+        "teamMembers": finalTeamStructureList,
+        "effortMetrics":{
+          "spentHours":{
+            "requirements": spentHours_requirements,
+            "design": spentHours_design,
+            "build": spentHours_build,
+            "test": spentHours_test,
+            "support": spentHours_support,
+            "unproductive": spentHours_unproductive
+          },
+          "remainingHours":{
+            "requirements": remainingHours_requirements,
+            "design": remainingHours_design,
+            "build": remainingHours_build,
+            "test": remainingHours_test,
+            "support": remainingHours_support,
+            "unproductive": remainingHours_unproductive
+          },
+          "estimatedHours":{
+            "requirements": estimatedHours_requirements,
+            "design": estimatedHours_design,
+            "build": estimatedHours_build,
+            "test": estimatedHours_test,
+            "support": estimatedHours_support,
+            "unproductive": estimatedHours_unproductive
+          }
+        },
+        "qualityMetrics":{
+          "stats":{
+            "junit": qualityMetrics_stats_junit,
+            "sonarCritical": qualityMetrics_stats_sonarCritical,
+            "sonarMajor": qualityMetrics_stats_sonarMajor,
+            "DefectsSev1": qualityMetrics_stats_defectSev1,
+            "DefectsSev2": qualityMetrics_stats_defectSev2,
+            "DefectsSev3": qualityMetrics_stats_defectSev3,
+            "DefectsSev4": qualityMetrics_stats_defectSev4,
+            "defectDensity": qualityMetrics_stats_defectDensity
+          }
+        },
+        "productivityMetrics":{
+          "stats":{
+            "storyPoints": productivityMetrics_stats_storypoints,
+            "velocity": productivityMetrics_stats_velocity
+          }
+        }
+      }
+    };
+    console.log(projectSnapShot);
+    //calling API
+    chartDataWithoutParam.saveSnapShot(projectSnapShot, id)
+    .then(function(snapShot){
+      $scope.snapshotResponse = snapShot;
+      console.log($scope.snapshotResponse);
+      var saveSanpshotPopup = $ionicPopup.show({
+                title: 'Success',
+                template: 'New Sprint Added Successfully',
+                scope: $scope,
+                buttons: [
+                  
+                  {
+                    text: '<b>To Dashboard</b>',
+                    type: 'button-positive',
+                    onTap: function(e) {
+                      $state.go('tabsController.dashboard');
+                    }
+                  }
+                ]
+        });
+      $scope.id="";
+    }, function(err){
+        var alertPopup = $ionicPopup.alert({
+          title: 'Search Failed!',
+          template: 'There was some problem with server.'
+      });
+    });
+  }
 })
  
  //Sign up controller     

@@ -1,33 +1,45 @@
 <ion-view style="background-color: transparent;" title="Add Account and details.." hide-back-button="true" id="page10" class=" ">
-    <ion-content padding="false" class="manual-ios-statusbar-padding" ng-controller="dashboardCtrl" style="" scroll="true" padding="false" class="manual-ios-statusbar-padding">
-	    <div class="">
-	    		<form id="signIn-form2" class="list" name="signinForm" novalidate>
-		    		<label class="item item-select card" name="id" id="accountList-select1" style="border-radius:10px 10px 10px 10px;width:90%;">
-			            <span class="input-label" style="font-weight:500;font-size:15px;text-align:left;">Accounts</span>
-			            <select id="accountList" style="font-weight:500;font-size:15px;width:90%;" ng-model="id">
-			            	<option ng-repeat="lst in projectLst" value="{{lst.id}}">{{lst.name}}</option>
-			            </select>
-			        </label>
+    <ion-content padding="false" class="manual-ios-statusbar-padding" ng-controller="dashboardCtrl" style="" scroll="true" padding="false" class="manual-ios-statusbar-padding modal_header">
+	    <div class="modal_header" style="width:auto;height:700px;">
+	    		<form id="signIn-form2" class="list modal_header" name="signinForm" novalidate>
+	    			<!-- <div class="card modal_background" style="border-radius:10px 10px 10px 10px;">
+			    		<label class="item item-select card modal_background" name="id" id="accountList-select1" style="border-radius:10px 10px 10px 10px;width:90%;">
+				            <span class="input-label" style="font-weight:500;font-size:15px;text-align:left;">Accounts</span>
+				            <select id="accountList" class="" style="font-weight:500;font-size:15px;width:90%;" ng-model="programId" ng-change="getProjectOnProgram(programId)" ng-options="prgLst.id as prgLst.name for prgLst in userProgramLst">
+				            </select>
+				        </label>				        
+				        <button class="button button-inline modal_header" style="font-weight:300;border-radius:50px 50px 50px 50px;float:right; margin-bottom: 5px; margin-right: 5px;" type="submit" id="addAccount-button4" ng-click="addAccountModal.show()">Add Account</button>
+			        </div> -->
+			        <div class="card modal_background" style="border-radius:10px 10px 10px 10px;">
+			        	<label class="item item-input card modal_background" name="id" id="accountList-select1" style="border-radius:10px 10px 10px 10px;width:90%;margin-bottom: 5px;">
+				            <span class="input-label" style="font-weight:500;font-size:15px;text-align:left;">Your Accounts : {{accountId}}</span>
+			            </label>
+			        </div>			       
+			        <div class="spacer" style="width: 250px; height: 50px;"></div>
+			        <div class="card modal_background" style="border-radius:10px 10px 10px 10px;">
+				        <label class="item item-select card modal_background"  name="id" id="programList-select1" style="border-radius:10px 10px 10px 10px;width:90%;">
+				            <span class="input-label" style="font-weight:500;font-size:15px;text-align:left;">Program</span>
+				            <select id="programList" style="font-weight:500;font-size:15px;width:90%;" ng-model="programSelect" 
+                    		ng-options="prgLst.id as prgLst.name for prgLst in userProgramLst" ng-change="getProjectOnProgram(programSelect)">
+                    			<option value="">Select</option>
+				            </select>
+				        </label>
+				        <!-- <ion-delete-button class="ion-plus-circled"></ion-delete-button> -->
+				        <button class="button button-inline modal_header" style="font-weight:500;border-radius:50px 50px 50px 50px;float:right;margin-bottom: 5px;margin-right: 5px;" type="submit" id="addProgram-button4" ng-click="createProgramModal.show()">Add Program</button>
+			        </div>
+		         	<div class="spacer" style="width: 250px; height: 50px;"></div>
+			        <div class="card modal_background" style="border-radius:10px 10px 10px 10px;">
+			        	<label class="item item-select card modal_background" name="id" id="projectList-select1" style="border-radius:10px 10px 10px 10px;width:90%;">
+			            	<span class="input-label" style="font-weight:500;font-size:15px;text-align:left;">Project</span>
+			            	<select id="projectList" style="font-weight:500;font-size:15px;width:90%;" ng-model="projectSelect" 
+                    		ng-options="projLst.id as projLst.name for projLst in getProjectsList">
+			            		<!-- <option ng-repeat="projLst in userProjectLst" value="{{lst.id}}">{{lst.name}}</option> -->
+			            		<option value="">Select</option>
+			            	</select>
+			        	</label>
 			        <!-- <ion-delete-button class="ion-plus-circled"></ion-delete-button> -->
-			        <button class="button button-assertive  button-block" style="font-weight:300;border-radius:50px 50px 50px 50px;float:right;" type="submit" id="addAccount-button4" ng-click="addAccountModal.show()">Add Account</button>
-			        <div class="spacer" style="width: 250px; height: 100px;"></div>
-			        <label class="item item-select card" name="id" id="projectList-select1" style="border-radius:10px 10px 10px 10px;width:90%;">
-			            <span class="input-label" style="font-weight:500;font-size:15px;text-align:left;">Project</span>
-			            <select id="accountList" style="font-weight:500;font-size:15px;width:90%;" ng-model="id">
-			            	<option></option>
-			            </select>
-			        </label>
-			        <!-- <ion-delete-button class="ion-plus-circled"></ion-delete-button> -->
-			        <button class="button button-assertive  button-block" style="font-weight:300;border-radius:50px 50px 50px 50px;float:right;" type="submit" id="addProject-button4" ng-click="createProjectModal.show()">Add Project</button>
-			        <div class="spacer" style="width: 250px; height: 100px;"></div>
-			        <label class="item item-select card" name="id" id="programList-select1" style="border-radius:10px 10px 10px 10px;width:90%;">
-			            <span class="input-label" style="font-weight:500;font-size:15px;text-align:left;">Program</span>
-			            <select id="programList" style="font-weight:500;font-size:15px;width:90%;" ng-model="id">
-			            	<option></option>
-			            </select>
-			        </label>
-			        <!-- <ion-delete-button class="ion-plus-circled"></ion-delete-button> -->
-			        <button class="button button-assertive  button-block" style="font-weight:300;border-radius:50px 50px 50px 50px;float:right;" type="submit" id="addProgram-button4" ng-click="createProgramModal.show()">Add Program</button>
+			        	<button class="button button-inline modal_header" style="font-weight:500;border-radius:50px 50px 50px 50px;float:right;margin-bottom: 5px;margin-right: 5px;" type="submit" id="addProject-button4" ng-click="createProjectModal.show()">Add Project</button>
+			        </div>
 	    		</form>
 		</div>	
     </ion-content>

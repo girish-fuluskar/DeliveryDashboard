@@ -424,37 +424,52 @@ angular.module('app.services', [])
 
     var token = window.localStorage.getItem('authToken');  
     this.getEffortExtended = function(accountId, programID, sprintNo, projectId, fromDate, toDate, interval) {
-      if(interval!=undefined && projectId!=undefined && sprintNo!=undefined){
-          var sprintId = projectId.concat(sprintNo);
+      if(interval!=undefined && (projectId!=undefined || projectId!=null)  && (sprintNo!=undefined || sprintNo!=null)){
+          if(projectId!=null){
+            var sprintId = projectId.concat(sprintNo);  
+          }
+          else{
+            var sprintId = "CI001"+ sprintNo;
+          }          
           var interval = interval+"w";
           var req={url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+accountId+'/'+programID+'/effort/extendedStats',method:'GET',headers : {'Accept':'application/json','Content-Type':'application/json','Authorization':'Basic '+token,'fromDate':fromDate,'toDate':toDate,'interval':interval},params:{projectId:projectId,sprintId:sprintId}}
         }
-        else if(interval===undefined && projectId===undefined && sprintNo===undefined){
+        else if(interval===undefined && (projectId===undefined || projectId===null)  && (sprintNo===undefined || sprintNo===null)){
           //var sprintId = projectId.concat(sprintNo);
           //var interval = interval+"w";
           var req={url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+accountId+'/'+programID+'/effort/extendedStats',method:'GET',headers : {'Accept':'application/json','Content-Type':'application/json','Authorization':'Basic '+token,'fromDate':fromDate,'toDate':toDate}}
         }
-        else if(interval!=undefined && projectId===undefined && sprintNo===undefined){
+        else if(interval!=undefined && (projectId===undefined || projectId===null)  && (sprintNo===undefined || sprintNo===null)){
           //var sprintId = projectId.concat(sprintNo);
           var interval = interval+"w";
           var req={url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+accountId+'/'+programID+'/effort/extendedStats',method:'GET',headers : {'Accept':'application/json','Content-Type':'application/json','Authorization':'Basic '+token,'fromDate':fromDate,'toDate':toDate,'interval':interval}}
         }
-        else if(interval===undefined && projectId!=undefined && sprintNo!=undefined){
-          var sprintId = projectId.concat(sprintNo);
+        else if(interval===undefined && (projectId!=undefined || projectId!=null)  && (sprintNo!=undefined || sprintNo!=null)){
+          if(projectId!=null){
+            var sprintId = projectId.concat(sprintNo);  
+          }
+          else{
+            var sprintId = "CI001"+ sprintNo;
+          }
           //var interval = interval+"w";
           var req={url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+accountId+'/'+programID+'/effort/extendedStats',method:'GET',headers : {'Accept':'application/json','Content-Type':'application/json','Authorization':'Basic '+token,'fromDate':fromDate,'toDate':toDate},params:{projectId:projectId,sprintId:sprintId}}      
         }
-        else if(interval!=undefined && projectId===undefined && sprintNo!=undefined){
-          var sprintId = projectId.concat(sprintNo);
+        else if(interval!=undefined && (projectId===undefined || projectId===null) && (sprintNo!=undefined || sprintNo!=null)){
+          if(projectId!=null){
+            var sprintId = projectId.concat(sprintNo);  
+          }
+          else{
+            var sprintId = "CI001"+ sprintNo;
+          }
           var interval = interval+"w";
           var req={url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+accountId+'/'+programID+'/effort/extendedStats',method:'GET',headers : {'Accept':'application/json','Content-Type':'application/json','Authorization':'Basic '+token,'fromDate':fromDate,'toDate':toDate,'interval':interval},params:{sprintId:sprintId}}      
         }
-        else if(interval!=undefined && projectId!=undefined && sprintNo===undefined){
+        else if(interval!=undefined && (projectId!=undefined || projectId!=null) && (sprintNo===undefined || sprintNo===null)){
           //var sprintId = projectId.concat(sprintNo);
           var interval = interval+"w";
           var req={url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+accountId+'/'+programID+'/effort/extendedStats',method:'GET',headers : {'Accept':'application/json','Content-Type':'application/json','Authorization':'Basic '+token,'fromDate':fromDate,'toDate':toDate,'interval':interval},params:{projectId:projectId}}      
         }
-        else if(interval===undefined && projectId!=undefined && sprintNo===undefined){
+        else if(interval===undefined && (projectId!=undefined || projectId!=null) && (sprintNo===undefined || sprintNo===null)){
           //var sprintId = projectId.concat(sprintNo);
           //var interval = interval+"w";
           var req={url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+accountId+'/'+programID+'/effort/extendedStats',method:'GET',headers : {'Accept':'application/json','Content-Type':'application/json','Authorization':'Basic '+token,'fromDate':fromDate,'toDate':toDate},params:{projectId:projectId}}      
@@ -494,7 +509,12 @@ angular.module('app.services', [])
     };
     this.getEffortDate = function(accountId, programID, sprintNo, projectId, fromDate, toDate, interval){
       if(interval!=undefined && projectId!=undefined && sprintNo!=undefined){
-          var sprintId = projectId.concat(sprintNo);
+          if(projectId!=null){
+            var sprintId = projectId.concat(sprintNo);  
+          }
+          else{
+            var sprintId = "CI001"+ sprintNo;
+          }
           var interval = interval+"w";
           var reqDate={url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+accountId+'/'+programID+'/spentEffort/dateHistogram',method:'GET',headers : {'Accept':'application/json','Content-Type':'application/json','Authorization':'Basic '+token,'fromDate':fromDate,'toDate':toDate,'interval':interval},params:{projectId:projectId,sprintId:sprintId}}
         }
@@ -509,12 +529,22 @@ angular.module('app.services', [])
           var reqDate={url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+accountId+'/'+programID+'/spentEffort/dateHistogram',method:'GET',headers : {'Accept':'application/json','Content-Type':'application/json','Authorization':'Basic '+token,'fromDate':fromDate,'toDate':toDate,'interval':interval}}
         }
         else if(interval===undefined && projectId!=undefined && sprintNo!=undefined){
-          var sprintId = projectId.concat(sprintNo);
+          if(projectId!=null){
+            var sprintId = projectId.concat(sprintNo);  
+          }
+          else{
+            var sprintId = "CI001"+ sprintNo;
+          }
           //var interval = interval+"w";
           var reqDate={url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+accountId+'/'+programID+'/spentEffort/dateHistogram',method:'GET',headers : {'Accept':'application/json','Content-Type':'application/json','Authorization':'Basic '+token,'fromDate':fromDate,'toDate':toDate},params:{projectId:projectId,sprintId:sprintId}}      
         }
         else if(interval!=undefined && projectId===undefined && sprintNo!=undefined){
-          var sprintId = projectId.concat(sprintNo);
+          if(projectId!=null){
+            var sprintId = projectId.concat(sprintNo);  
+          }
+          else{
+            var sprintId = "CI001"+ sprintNo;
+          }
           var interval = interval+"w";
           var reqDate={url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+accountId+'/'+programID+'/spentEffort/dateHistogram',method:'GET',headers : {'Accept':'application/json','Content-Type':'application/json','Authorization':'Basic '+token,'fromDate':fromDate,'toDate':toDate,'interval':interval},params:{sprintId:sprintId}}      
         }
@@ -563,7 +593,12 @@ angular.module('app.services', [])
     };    
     this.getBurndownData = function(accountId, programID, sprintNo, projectId, fromDate, toDate, interval){
       if(interval!=undefined && projectId!=undefined && sprintNo!=undefined){
-          var sprintId = projectId.concat(sprintNo);
+          if(projectId!=null){
+            var sprintId = projectId.concat(sprintNo);  
+          }
+          else{
+            var sprintId = "CI001"+ sprintNo;
+          }
           var interval = interval+"w";
           var reqBurnData={url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+accountId+'/'+programID+'/effort/burndown',method:'GET',headers : {'Accept':'application/json','Content-Type':'application/json','Authorization':'Basic '+token,'fromDate':fromDate,'toDate':toDate,'interval':interval},params:{projectId:projectId,sprintId:sprintId}}
         }
@@ -578,12 +613,22 @@ angular.module('app.services', [])
           var reqBurnData={url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+accountId+'/'+programID+'/effort/burndown',method:'GET',headers : {'Accept':'application/json','Content-Type':'application/json','Authorization':'Basic '+token,'fromDate':fromDate,'toDate':toDate,'interval':interval}}
         }
         else if(interval===undefined && projectId!=undefined && sprintNo!=undefined){
-          var sprintId = projectId.concat(sprintNo);
+          if(projectId!=null){
+            var sprintId = projectId.concat(sprintNo);  
+          }
+          else{
+            var sprintId = "CI001"+ sprintNo;
+          }
           //var interval = interval+"w";
           var reqBurnData={url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+accountId+'/'+programID+'/effort/burndown',method:'GET',headers : {'Accept':'application/json','Content-Type':'application/json','Authorization':'Basic '+token,'fromDate':fromDate,'toDate':toDate},params:{projectId:projectId,sprintId:sprintId}}      
         }
         else if(interval!=undefined && projectId===undefined && sprintNo!=undefined){
-          var sprintId = projectId.concat(sprintNo);
+          if(projectId!=null){
+            var sprintId = projectId.concat(sprintNo);  
+          }
+          else{
+            var sprintId = "CI001"+ sprintNo;
+          }
           var interval = interval+"w";
           var reqBurnData={url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+accountId+'/'+programID+'/effort/burndown',method:'GET',headers : {'Accept':'application/json','Content-Type':'application/json','Authorization':'Basic '+token,'fromDate':fromDate,'toDate':toDate,'interval':interval},params:{sprintId:sprintId}}      
         }
@@ -632,7 +677,12 @@ angular.module('app.services', [])
     };
     this.getProductivityDate = function(accountId, programID, sprintNo, projectId, fromDate, toDate, interval){
       if(interval!=undefined && projectId!=undefined && sprintNo!=undefined){
-          var sprintId = projectId.concat(sprintNo);
+          if(projectId!=null){
+            var sprintId = projectId.concat(sprintNo);  
+          }
+          else{
+            var sprintId = "CI001"+ sprintNo;
+          }
           var interval = interval+"w";
           var reqProdDate={url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+accountId+'/'+programID+'/productivity/dateHistogram',method:'GET',headers : {'Accept':'application/json','Content-Type':'application/json','Authorization':'Basic '+token,'fromDate':fromDate,'toDate':toDate,'interval':interval},params:{projectId:projectId,sprintId:sprintId}}
         }
@@ -647,12 +697,22 @@ angular.module('app.services', [])
           var reqProdDate={url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+accountId+'/'+programID+'/productivity/dateHistogram',method:'GET',headers : {'Accept':'application/json','Content-Type':'application/json','Authorization':'Basic '+token,'fromDate':fromDate,'toDate':toDate,'interval':interval}}
         }
         else if(interval===undefined && projectId!=undefined && sprintNo!=undefined){
-          var sprintId = projectId.concat(sprintNo);
+          if(projectId!=null){
+            var sprintId = projectId.concat(sprintNo);  
+          }
+          else{
+            var sprintId = "CI001"+ sprintNo;
+          }
           //var interval = interval+"w";
           var reqProdDate={url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+accountId+'/'+programID+'/productivity/dateHistogram',method:'GET',headers : {'Accept':'application/json','Content-Type':'application/json','Authorization':'Basic '+token,'fromDate':fromDate,'toDate':toDate},params:{projectId:projectId,sprintId:sprintId}}      
         }
         else if(interval!=undefined && projectId===undefined && sprintNo!=undefined){
-          var sprintId = projectId.concat(sprintNo);
+          if(projectId!=null){
+            var sprintId = projectId.concat(sprintNo);  
+          }
+          else{
+            var sprintId = "CI001"+ sprintNo;
+          }
           var interval = interval+"w";
           var reqProdDate={url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+accountId+'/'+programID+'/productivity/dateHistogram',method:'GET',headers : {'Accept':'application/json','Content-Type':'application/json','Authorization':'Basic '+token,'fromDate':fromDate,'toDate':toDate,'interval':interval},params:{sprintId:sprintId}}      
         }
@@ -701,7 +761,12 @@ angular.module('app.services', [])
     };
     this.getQualityDate = function(accountId, programID, sprintNo, projectId, fromDate, toDate, interval){
       if(interval!=undefined && projectId!=undefined && sprintNo!=undefined){
-          var sprintId = projectId.concat(sprintNo);
+          if(projectId!=null){
+            var sprintId = projectId.concat(sprintNo);  
+          }
+          else{
+            var sprintId = "CI001"+ sprintNo;
+          }
           var interval = interval+"w";
           var reqQualDate={url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+accountId+'/'+programID+'/quality/dateHistogram',method:'GET',headers : {'Accept':'application/json','Content-Type':'application/json','Authorization':'Basic '+token,'fromDate':fromDate,'toDate':toDate,'interval':interval},params:{projectId:projectId,sprintId:sprintId}}
         }
@@ -716,12 +781,22 @@ angular.module('app.services', [])
           var reqQualDate={url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+accountId+'/'+programID+'/quality/dateHistogram',method:'GET',headers : {'Accept':'application/json','Content-Type':'application/json','Authorization':'Basic '+token,'fromDate':fromDate,'toDate':toDate,'interval':interval}}
         }
         else if(interval===undefined && projectId!=undefined && sprintNo!=undefined){
-          var sprintId = projectId.concat(sprintNo);
+          if(projectId!=null){
+            var sprintId = projectId.concat(sprintNo);  
+          }
+          else{
+            var sprintId = "CI001"+ sprintNo;
+          }
           //var interval = interval+"w";
           var reqQualDate={url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+accountId+'/'+programID+'/quality/dateHistogram',method:'GET',headers : {'Accept':'application/json','Content-Type':'application/json','Authorization':'Basic '+token,'fromDate':fromDate,'toDate':toDate},params:{projectId:projectId,sprintId:sprintId}}      
         }
         else if(interval!=undefined && projectId===undefined && sprintNo!=undefined){
-          var sprintId = projectId.concat(sprintNo);
+          if(projectId!=null){
+            var sprintId = projectId.concat(sprintNo);  
+          }
+          else{
+            var sprintId = "CI001"+ sprintNo;
+          }
           var interval = interval+"w";
           var reqQualDate={url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+accountId+'/'+programID+'/quality/dateHistogram',method:'GET',headers : {'Accept':'application/json','Content-Type':'application/json','Authorization':'Basic '+token,'fromDate':fromDate,'toDate':toDate,'interval':interval},params:{sprintId:sprintId}}      
         }
@@ -770,7 +845,12 @@ angular.module('app.services', [])
     };
     this.getTeamDate = function(accountId, programID, sprintNo, projectId, fromDate, toDate, interval){
       if(interval!=undefined && projectId!=undefined && sprintNo!=undefined){
-          var sprintId = projectId.concat(sprintNo);
+          if(projectId!=null){
+            var sprintId = projectId.concat(sprintNo);  
+          }
+          else{
+            var sprintId = "CI001"+ sprintNo;
+          }
           var interval = interval+"w";
           var reqTeamDate={url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+accountId+'/'+programID+'/team/dateHistogram',method:'GET',headers : {'Accept':'application/json','Content-Type':'application/json','Authorization':'Basic '+token,'fromDate':fromDate,'toDate':toDate,'interval':interval},params:{projectId:projectId,sprintId:sprintId}}
         }
@@ -785,12 +865,22 @@ angular.module('app.services', [])
           var reqTeamDate={url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+accountId+'/'+programID+'/team/dateHistogram',method:'GET',headers : {'Accept':'application/json','Content-Type':'application/json','Authorization':'Basic '+token,'fromDate':fromDate,'toDate':toDate,'interval':interval}}
         }
         else if(interval===undefined && projectId!=undefined && sprintNo!=undefined){
-          var sprintId = projectId.concat(sprintNo);
+          if(projectId!=null){
+            var sprintId = projectId.concat(sprintNo);  
+          }
+          else{
+            var sprintId = "CI001"+ sprintNo;
+          }
           //var interval = interval+"w";
           var reqTeamDate={url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+accountId+'/'+programID+'/team/dateHistogram',method:'GET',headers : {'Accept':'application/json','Content-Type':'application/json','Authorization':'Basic '+token,'fromDate':fromDate,'toDate':toDate},params:{projectId:projectId,sprintId:sprintId}}      
         }
         else if(interval!=undefined && projectId===undefined && sprintNo!=undefined){
-          var sprintId = projectId.concat(sprintNo);
+          if(projectId!=null){
+            var sprintId = projectId.concat(sprintNo);  
+          }
+          else{
+            var sprintId = "CI001"+ sprintNo;
+          }
           var interval = interval+"w";
           var reqTeamDate={url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+accountId+'/'+programID+'/team/dateHistogram',method:'GET',headers : {'Accept':'application/json','Content-Type':'application/json','Authorization':'Basic '+token,'fromDate':fromDate,'toDate':toDate,'interval':interval},params:{sprintId:sprintId}}      
         }

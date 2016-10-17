@@ -10,7 +10,7 @@ angular.module('app.routes', [])
     
   
 
-      .state('tabsController.dashboard', {
+  .state('tabsController.dashboard', {
     url: '/dashboard',
     cache:false,
     views: {
