@@ -53,12 +53,12 @@ angular.module('app.controllers', [])
           break;
         }
       }
-      $scope.tabHeaderTitle = $scope.accountId + " Account Dashboard For " + $scope.programSelect;
+      $scope.tabHeaderTitle = $scope.accountId + " Account Dashboard For " + $scope.programSelect +" Program";
       if($scope.projectSelect != undefined){
-        $scope.tabHeaderTitle = $scope.tabHeaderTitle + ", For " + $scope.selectProjectName;
+        $scope.tabHeaderTitle = $scope.tabHeaderTitle + ", " + $scope.selectProjectName + " Project";
       }
       if($scope.sprint != undefined){
-        $scope.tabHeaderTitle = $scope.tabHeaderTitle + ", For Sprint " + $scope.sprint;
+        $scope.tabHeaderTitle = $scope.tabHeaderTitle + " For Sprint " + $scope.sprint;
       }
     }
 
