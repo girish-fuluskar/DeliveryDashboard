@@ -20,6 +20,19 @@
 					<span class="input-label">Tower</span>
 						<input type="text" placeholder="Tower" required="" name="tower" ng-model="tower">
 				</label>
+				<div class="item item-select" id="qualityMetricDefs-select1" style="border-radius:10px 10px 10px 10px;width:auto;margin-bottom: 5px;">
+					<span class="input-label" style="font-weight:500;font-size:15px;text-align:left;">Quality Metric Defs</span>
+					<!-- <select style="font-weight:500;font-size:15px;width:90%;">
+                        <option ng-repeat="prgLst in userProgramLst" value="{{prgLst.id}}">{{prgLst.name}}
+						</option>
+						<option value="">A</option>
+					</select> -->
+					<select multiple>
+				        <option>Blue</option>
+				        <option selected>Green</option>
+				        <option>Red</option>
+				   </select>
+				</div>
 			</div>
 			<button class="button button-assertive button-block" style="font-weight:300;border-radius:10px 10px 10px 10px;" type="submit" id="addProgram-button4">Add Program</button>
 		</div>

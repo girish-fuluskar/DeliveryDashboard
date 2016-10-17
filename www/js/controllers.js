@@ -1151,7 +1151,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
                 "type":"pie",              
                 "x":"-10%",
                 "y":"-20%",
-                "background-color":"#fbffb9",
+                "background-color":"#95a5a6",
                 "border-radius":4,
                 "legend": {
                     "toggle-action": "remove",
@@ -1290,7 +1290,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
               "graphset": [
                   {
                     "type": "bar",
-                    "background-color": "#fbffb9",
+                    "background-color": "#95a5a6",
                     "fill-angle": 55,
                     "stacked": true,
                     "stack-type": "normal",
@@ -1306,9 +1306,9 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
                       },
                     "legend": {
                       "toggle-action": "remove",
-                      "layout":"x3",
-                      "x":"12.5%",
-                      "y":"8.5%",
+                      "layout":"x7",
+                      "x":"5.5%",
+                      "y":"95%",
                       "shadow":false,
                       "background-color": "none",
                       "border-width": 0,
@@ -1353,7 +1353,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
                               "font-color": "black",
                               "font-family": "Arial",
                               "font-size": "10px",
-                              "font-angle": -48,
+                              "font-angle": 0,
                               "offset-x": "5px"
                           }
                       },
@@ -1514,7 +1514,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
             "graphset": [
                 {
                   "type": "bar",
-                  "background-color": "#fbffb9",
+                  "background-color": "#95a5a6",
                   "fill-angle": 55,
                   "stacked": true,
                   "stack-type": "normal",
@@ -1530,9 +1530,9 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
                     },
                   "legend": {
                     "toggle-action": "remove",
-                    "layout":"x3",
-                    "x":"12.5%",
-                    "y":"8.5%",
+                    "layout":"x7",
+                    "x":"5.5%",
+                    "y":"95%",
                     "shadow":false,
                     "background-color": "none",
                     "border-width": 0,
@@ -1577,7 +1577,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
                             "font-color": "black",
                             "font-family": "Arial",
                             "font-size": "10px",
-                            "font-angle": -48,
+                            "font-angle": 0,
                             "offset-x": "5px"
                         }
                     },
@@ -1705,7 +1705,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
             "graphset": [
                 {
                   "type": "bar",
-                  "background-color": "#fbffb9",
+                  "background-color": "#95a5a6",
                   "fill-angle": 55,
                   "stacked": true,
                   "stack-type": "normal",
@@ -1721,9 +1721,9 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
                     },
                   "legend": {
                     "toggle-action": "remove",
-                    "layout":"x3",
-                    "x":"12.5%",
-                    "y":"0.5%",
+                    "layout":"x7",
+                    "x":"5.5%",
+                    "y":"95%",
                     "shadow":false,
                     "background-color": "none",
                     "border-width": 0,
@@ -1768,7 +1768,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
                             "font-color": "black",
                             "font-family": "Arial",
                             "font-size": "10px",
-                            "font-angle": -48,
+                            "font-angle": 0,
                             "offset-x": "5px"
                         }
                     },
@@ -1897,7 +1897,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
             "graphset": [
                 {
                   "type": "bar",
-                  "background-color": "#fbffb9",
+                  "background-color": "#95a5a6",
                   "fill-angle": 55,
                   "stacked": true,
                   "stack-type": "normal",
@@ -1914,8 +1914,8 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
                   "legend": {
                     "toggle-action": "remove",
                     "layout":"x3",
-                    "x":"12.5%",
-                    "y":"0.5%",
+                    "x":"5.5%",
+                    "y":"95%",
                     "shadow":false,
                     "background-color": "none",
                     "border-width": 0,
@@ -1960,7 +1960,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
                             "font-color": "black",
                             "font-family": "Arial",
                             "font-size": "10px",
-                            "font-angle": -48,
+                            "font-angle": 0,
                             "offset-x": "5px"
                         }
                     },
