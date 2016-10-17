@@ -17,3 +17,12 @@ ion-scroll {
 .modal_background {
 	background-color:#95a5a6;
 }
+
+.tab_header {
+	background-color: #16174f;
+	color:#dfdfdf;
+}
+
+.side_menu {
+	background-color: #16174f;
+}

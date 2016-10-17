@@ -1,8 +1,9 @@
 angular.module('app.controllers', [])
      
-.controller('dashboardCtrl', function($scope,$ionicPopup,$filter, $ionicListDelegate,$ionicPlatform, $ionicModal, $ionicSlideBoxDelegate, $ionicLoading, 
+.controller('dashboardCtrl', function($scope,$ionicPopup,$filter,$state, $ionicListDelegate,$ionicPlatform, $ionicModal, $ionicSlideBoxDelegate, $ionicLoading, 
   chartData, chartDataWithoutParam) {
   var technologyList=[]; 
+
 
    //slide out function
   /*$scope.isdiplayEffortMetrics = false;
@@ -42,6 +43,22 @@ angular.module('app.controllers', [])
       }
       else{
         $scope.userProjectLst = usersInitialDataFromStorage[0].project;
+      }
+      //Get User's Account
+      $scope.accountId = chartDataWithoutParam.getUserAccount();
+      //Setting header title for dashboard tab
+      for(var t=0;t<$scope.getProjectsList.length;t++){
+        if(usersInitialDataFromStorage[0].project===$scope.getProjectsList[t].id){
+          $scope.selectProjectName = $scope.getProjectsList[t].name;
+          break;
+        }
+      }
+      $scope.tabHeaderTitle = $scope.accountId + " Account Dashboard For " + $scope.programSelect;
+      if($scope.projectSelect != undefined){
+        $scope.tabHeaderTitle = $scope.tabHeaderTitle + ", For " + $scope.selectProjectName;
+      }
+      if($scope.sprint != undefined){
+        $scope.tabHeaderTitle = $scope.tabHeaderTitle + ", For Sprint " + $scope.sprint;
       }
     }
 
@@ -182,6 +199,9 @@ angular.module('app.controllers', [])
 
   //Set User's initial details to localstoarage after login
   $scope.setInitialDetails = function(programSelect,projectSelect,startDate,endDate,sprint,interval){
+    //Reloading page on Set button click
+    $state.go($state.current, {}, { reload: true });
+
     var startDate = $filter('date')(startDate, "yyyy-MM-dd"+"T00:00:00.000+0530");
     var endDate = $filter('date')(endDate, "yyyy-MM-dd"+"T00:00:00.000+0530");
     var interval = interval;
