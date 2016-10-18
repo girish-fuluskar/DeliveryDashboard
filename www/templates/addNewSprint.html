@@ -117,7 +117,7 @@
 		      	</div>
 		  	</ion-slide>
 		  	<ion-slide style="height:800px;border-radius:20px 20px 20px 20px;">
-		  		<ion-content>
+		  		<!-- <ion-content> -->
 				  		<div class="" style="">
 				  			<!-- <h1 style="background-color: transparent;color: blue; font-weight: 300; text-align: right; padding-right: 20px;" id="projectDetails-heading12">Metrics</h1>
 					    	<hr> -->					    	
@@ -129,7 +129,7 @@
 							<!-- <ion-list id="spenthours-list1" class=" "> -->
 				                <label class="item item-input card" id="requirements-input1">
 				                    <span class="input-label">Requirements</span>
-				                    <input type="number" placeholder="Requirements" required="" name="spentHours_requirements" ng-model="spentHours_requirements">
+				                    <input type="number" placeholder="Requirements" required="" name="spentHours_requirements" ng-model="sptHours_requirements">
 				                </label>
 				                <label class="item item-input card" id="design-input1">
 				                    <span class="input-label">Design</span>
@@ -155,10 +155,10 @@
 				            <button class="button button-positive  button-block icon ion-arrow-right-c icon-right" style="font-weight:300;border-radius:10px 10px 10px 10px;" type="submit" id="addAccount-button4" ng-click="nextSlide()">Remaining Hours</button>
 				            <button class="button button-assertive  button-block icon ion-arrow-left-c icon-left" style="font-weight:300;border-radius:10px 10px 10px 10px;" type="submit" id="addAccount-button4" ng-click="previousSlide()">Add Team</button>
 						</div>
-				</ion-content>
+				<!-- </ion-content> -->
 			</ion-slide>
 			<ion-slide style="height:600px;border-radius:20px 20px 20px 20px;">
-				<ion-content>
+				<!-- <ion-content> -->
 					<div class="" style="">
 						<hr>
 						<h3 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" class="" id="projectDetails-heading12">Remaining Hours</h3>
@@ -197,10 +197,10 @@
 			            <button class="button button-assertive  button-block icon ion-arrow-left-c icon-left" style="font-weight:300;border-radius:10px 10px 10px 10px;" type="submit" id="addAccount-button4" ng-click="previousSlide()">Spent Hours</button>
 			            <hr>
 		            </div>
-	            </ion-content>
+	            <!-- </ion-content> -->
             </ion-slide>
             <ion-slide style="height:600px;border-radius:20px 20px 20px 20px;">
-            	<ion-content>
+            	<!-- <ion-content> -->
         			<div class="" style="">
 						<h3 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" class="" id="projectDetails-heading12">Estimated Hours</h3>
 						<hr>
@@ -234,10 +234,10 @@
 			            <button class="button button-positive  button-block icon ion-arrow-right-c icon-right" style="font-weight:300;border-radius:10px 10px 10px 10px;" type="submit" id="addAccount-button4" ng-click="nextSlide()">Quality Metrics Stats</button>
 			            <button class="button button-assertive  button-block icon ion-arrow-left-c icon-left" style="font-weight:300;border-radius:10px 10px 10px 10px;" type="submit" id="addAccount-button4" ng-click="previousSlide()">Remaining Hours</button>
 			        </div>
-		        </ion-content>
+		        <!-- </ion-content> -->
 	        </ion-slide>
 	        <ion-slide style="height:600px;border-radius:20px 20px 20px 20px;">
-	        	<ion-content>
+	        	<!-- <ion-content> -->
     				<div class="" style="">
 			            <h1 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" id="projectDetails-heading12">Quality Metrics
 			    		</h1>						
@@ -281,7 +281,7 @@
 			             <button class="button button-positive  button-block icon ion-arrow-right-c icon-right" style="font-weight:300;border-radius:10px 10px 10px 10px;" type="submit" id="addAccount-button4" ng-click="nextSlide()">Productivity Metrics Stats</button>
 			            <button class="button button-assertive  button-block icon ion-arrow-left-c icon-left" style="font-weight:300;border-radius:10px 10px 10px 10px;" type="submit" id="addAccount-button4" ng-click="previousSlide()">Estimated Hours</button>
 		            </div>
-	            </ion-content>
+	            <!-- </ion-content> -->
             </ion-slide>
             <ion-slide style="height:600px;border-radius:20px 20px 20px 20px;">
             	<ion-content>            		
@@ -302,7 +302,7 @@
 			            </ion-list>
 			  		</div>
   					<button class="button button-assertive  button-block icon ion-arrow-left-c icon-left" style="font-weight:300;border-radius:10px 10px 10px 10px;" type="submit" id="addAccount-button4" ng-click="previousSlide()">Quality Metrics Stats</button>
-  					<button class="button button-block button-positive" id="searchUser-button15" ng-click="projectSnapShot(id,sprint,isSprintActive,startDate,endDate,noOfSprint,userStoryCount,spentHours_requirements,spentHours_design,spentHours_build,spentHours_test,spentHours_support,spentHours_unproductive,remainingHours_requirements,remainingHours_design,remainingHours_build,remainingHours_test,remainingHours_support,remainingHours_unproductive,estimatedHours_requirements,estimatedHours_design,estimatedHours_build,estimatedHours_test,estimatedHours_support,estimatedHours_unproductive,qualityMetrics_stats_junit,qualityMetrics_stats_sonarCritical,qualityMetrics_stats_sonarMajor,qualityMetrics_stats_defectSev1,qualityMetrics_stats_defectSev2,qualityMetrics_stats_defectSev3,qualityMetrics_stats_defectSev4,qualityMetrics_stats_defectDensity,productivityMetrics_stats_storypoints,productivityMetrics_stats_velocity)">SUBMIT</button>			  					  		
+  					<button class="button button-block button-positive" id="searchUser-button15" ng-click="projectSnapShot(id,sprint,isSprintActive,startDate,endDate,noOfSprint,userStoryCount,sptHours_requirements,spentHours_design,spentHours_build,spentHours_test,spentHours_support,spentHours_unproductive,remainingHours_requirements,remainingHours_design,remainingHours_build,remainingHours_test,remainingHours_support,remainingHours_unproductive,estimatedHours_requirements,estimatedHours_design,estimatedHours_build,estimatedHours_test,estimatedHours_support,estimatedHours_unproductive,qualityMetrics_stats_junit,qualityMetrics_stats_sonarCritical,qualityMetrics_stats_sonarMajor,qualityMetrics_stats_defectSev1,qualityMetrics_stats_defectSev2,qualityMetrics_stats_defectSev3,qualityMetrics_stats_defectSev4,qualityMetrics_stats_defectDensity,productivityMetrics_stats_storypoints,productivityMetrics_stats_velocity)">SUBMIT</button>			  					  		
 		  		</ion-content>
 		  	</ion-slide>
 		</ion-slide-box>
