@@ -7,11 +7,26 @@
 			    	<hr>
 			    	<div style="width: 283px; height: 10px;" class="spacer"></div>
 			    	<label class="item item-select card" name="id" id="projectList-select1" style="border-radius:10px 10px 10px 10px;width:90%;">
-			            <span class="input-label" style="font-weight:500;font-size:15px;text-align:left;">Project</span>
+			    		<span class="input-label" style="font-weight:500;font-size:15px;text-align:left;">Program</span>
+						<select style="font-weight:500;font-size:15px;width:90%;" ng-model="programSelect" 
+                    		ng-options="prgLst.id as prgLst.name for prgLst in userProgramLst" ng-change="getProjectOnProgram(programSelect)">
+                    		<option value="">Select</option>
+                    	</select>
+                	</label>
+			    	<label class="item item-select card" name="id" id="projectList-select1" style="border-radius:10px 10px 10px 10px;width:90%;">
+			            <!-- <span class="input-label" style="font-weight:500;font-size:15px;text-align:left;">Project</span>
 			            <select id="projectList" style="font-weight:500;font-size:15px;width:90%;" ng-model="id">
 			            	<option value="Select">Select</option>
 			            	<option ng-repeat="lst in getProjectsList" value="{{lst.id}}">{{lst.name}}</option>
-			            </select>			            
+			            </select> -->			            
+			            <span class="input-label"  style="font-weight:500;font-size:15px;text-align:left;">Project</span>
+						<select style="font-weight:500;font-size:15px;width:90%;" ng-model="projectSelect" 
+	                    ng-options="projLst.id as projLst.name for projLst in userProjectLst">
+							<!-- <option value="">Select</option>
+							<option ng-repeat="projLst in userProjectLst" value="{{projLst.id}}">{{projLst.name}}
+							</option> -->
+	                        <option value="">Select</option>
+						</select>			            
 			        </label>
 			        
 			        
@@ -302,7 +317,7 @@
 			            </ion-list>
 			  		</div>
   					<button class="button button-assertive  button-block icon ion-arrow-left-c icon-left" style="font-weight:300;border-radius:10px 10px 10px 10px;" type="submit" id="addAccount-button4" ng-click="previousSlide()">Quality Metrics Stats</button>
-  					<button class="button button-block button-positive" id="searchUser-button15" ng-click="projectSnapShot(id,sprint,isSprintActive,startDate,endDate,noOfSprint,userStoryCount,sptHours_requirements,spentHours_design,spentHours_build,spentHours_test,spentHours_support,spentHours_unproductive,remainingHours_requirements,remainingHours_design,remainingHours_build,remainingHours_test,remainingHours_support,remainingHours_unproductive,estimatedHours_requirements,estimatedHours_design,estimatedHours_build,estimatedHours_test,estimatedHours_support,estimatedHours_unproductive,qualityMetrics_stats_junit,qualityMetrics_stats_sonarCritical,qualityMetrics_stats_sonarMajor,qualityMetrics_stats_defectSev1,qualityMetrics_stats_defectSev2,qualityMetrics_stats_defectSev3,qualityMetrics_stats_defectSev4,qualityMetrics_stats_defectDensity,productivityMetrics_stats_storypoints,productivityMetrics_stats_velocity)">SUBMIT</button>			  					  		
+  					<button class="button button-block button-positive" id="searchUser-button15" ng-click="projectSnapShot(programSelect,projectSelect,sprint,isSprintActive,startDate,endDate,noOfSprint,userStoryCount,sptHours_requirements,spentHours_design,spentHours_build,spentHours_test,spentHours_support,spentHours_unproductive,remainingHours_requirements,remainingHours_design,remainingHours_build,remainingHours_test,remainingHours_support,remainingHours_unproductive,estimatedHours_requirements,estimatedHours_design,estimatedHours_build,estimatedHours_test,estimatedHours_support,estimatedHours_unproductive,qualityMetrics_stats_junit,qualityMetrics_stats_sonarCritical,qualityMetrics_stats_sonarMajor,qualityMetrics_stats_defectSev1,qualityMetrics_stats_defectSev2,qualityMetrics_stats_defectSev3,qualityMetrics_stats_defectSev4,qualityMetrics_stats_defectDensity,productivityMetrics_stats_storypoints,productivityMetrics_stats_velocity)">SUBMIT</button>			  					  		
 		  		</ion-content>
 		  	</ion-slide>
 		</ion-slide-box>

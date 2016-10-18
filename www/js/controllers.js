@@ -2210,6 +2210,57 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
   var finalTeamStructureList = [];
   var teamListArray=[];
   //$scope.getUsrProjectDataList = function(){
+
+  //Get Programs for user's account on controller load
+  chartDataWithoutParam.getProgramForUser()
+    .then(function(userPrograms){
+      $scope.userProgramData = userPrograms;
+      console.log($scope.userProgramData);
+       var userProgramArr = [];
+      for(var k=0;k<$scope.userProgramData.data.response.length;k++){
+        var usrProg={
+          "id": $scope.userProgramData.data.response[k].id,
+          "name": $scope.userProgramData.data.response[k].name
+        };
+        userProgramArr.push(usrProg);
+      }
+
+      $scope.userProgramLst = userProgramArr;
+
+    }, function(err){
+      var alertPopup = $ionicPopup.alert({
+        title: 'Search Failed!',
+        template: 'There was some problem with server.'
+    });
+  });
+
+  //Get Project from Program user selected on new sprint screen
+  $scope.getProjectOnProgram = function(programId){
+    chartDataWithoutParam.getProjectForUser(programId)
+      .then(function(userProjects){
+          $scope.userProjectData = userProjects;
+          console.log($scope.userProjectData);
+           var userProjectArr = [];
+          for(var r=0;r<$scope.userProjectData.data.response.length;r++){
+            var usrProj={
+              "id": $scope.userProjectData.data.response[r].id,
+              "name": $scope.userProjectData.data.response[r].name
+            };
+            userProjectArr.push(usrProj);
+          }
+
+          $scope.userProjectLst = userProjectArr;
+
+          //$scope.getProjectsList(programId);
+
+        }, function(err){
+          var alertPopup = $ionicPopup.alert({
+            title: 'Search Failed!',
+            template: 'There was some problem with server.'
+        });
+    });
+  }  
+
     $scope.getProjectsList = chartDataWithoutParam.getProjects();  
   //}
 
@@ -2292,7 +2343,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
   };
 
   //create project snapshot API call
-  $scope.projectSnapShot = function(id,sprint,isSprintActive,startDate,endDate,noOfSprint,userStoryCount,spentHours_requirements,spentHours_design,spentHours_build,spentHours_test,spentHours_support,spentHours_unproductive,remainingHours_requirements,remainingHours_design,remainingHours_build,remainingHours_test,remainingHours_support,remainingHours_unproductive,estimatedHours_requirements,estimatedHours_design,estimatedHours_build,estimatedHours_test,estimatedHours_support,estimatedHours_unproductive,qualityMetrics_stats_junit,qualityMetrics_stats_sonarCritical,qualityMetrics_stats_sonarMajor,qualityMetrics_stats_defectSev1,qualityMetrics_stats_defectSev2,qualityMetrics_stats_defectSev3,qualityMetrics_stats_defectSev4,qualityMetrics_stats_defectDensity,productivityMetrics_stats_storypoints,productivityMetrics_stats_velocity){
+  $scope.projectSnapShot = function(programId, projectId,sprint,isSprintActive,startDate,endDate,noOfSprint,userStoryCount,spentHours_requirements,spentHours_design,spentHours_build,spentHours_test,spentHours_support,spentHours_unproductive,remainingHours_requirements,remainingHours_design,remainingHours_build,remainingHours_test,remainingHours_support,remainingHours_unproductive,estimatedHours_requirements,estimatedHours_design,estimatedHours_build,estimatedHours_test,estimatedHours_support,estimatedHours_unproductive,qualityMetrics_stats_junit,qualityMetrics_stats_sonarCritical,qualityMetrics_stats_sonarMajor,qualityMetrics_stats_defectSev1,qualityMetrics_stats_defectSev2,qualityMetrics_stats_defectSev3,qualityMetrics_stats_defectSev4,qualityMetrics_stats_defectDensity,productivityMetrics_stats_storypoints,productivityMetrics_stats_velocity){
     var startDate = $filter('date')(startDate, "yyyy-MM-dd"+"T00:00:00.000+0530");
     var endDate = $filter('date')(endDate, "yyyy-MM-dd"+"T00:00:00.000+0530");
     console.log(id,sprint,isSprintActive,startDate,endDate,noOfSprint,userStoryCount,spentHours_requirements,spentHours_design,spentHours_build,spentHours_test,spentHours_support,spentHours_unproductive,remainingHours_requirements,remainingHours_design,remainingHours_build,remainingHours_test,remainingHours_support,remainingHours_unproductive,estimatedHours_requirements,estimatedHours_design,estimatedHours_build,estimatedHours_test,estimatedHours_support,estimatedHours_unproductive,qualityMetrics_stats_junit,qualityMetrics_stats_sonarCritical,qualityMetrics_stats_sonarMajor,qualityMetrics_stats_defectSev1,qualityMetrics_stats_defectSev2,qualityMetrics_stats_defectSev3,qualityMetrics_stats_defectSev4,qualityMetrics_stats_defectDensity,productivityMetrics_stats_storypoints,productivityMetrics_stats_velocity);
@@ -2311,10 +2362,10 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
     var projectSnapShot={
       "logDate": $filter('date')(new Date(),"yyyy-MM-dd"+"T00:00:00.000+0530"),
       "project":{
-        "id": id
+        "id": projectId
       },
       "sprint":{
-        "id": id+sprint,
+        "id": projectId+sprint,
         "sprintNumber": sprint,
         "status": sprintStatus,
         "startDate": startDate,
@@ -2369,7 +2420,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
     };
     console.log(projectSnapShot);
     //calling API
-    chartDataWithoutParam.saveSnapShot(projectSnapShot, id)
+    chartDataWithoutParam.saveSnapShot(programId, projectSnapShot, projectId)
     .then(function(snapShot){
       $scope.snapshotResponse = snapShot;
       console.log($scope.snapshotResponse);
