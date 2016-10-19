@@ -272,6 +272,9 @@ angular.module('app.controllers', [])
     backdropClickToClose: false,
     hardwareBackButtonClose: false
   }).then(function(modal) {
+    var date = new Date();
+    $scope.startDate = new Date(date.getFullYear(), date.getMonth() - 3, date.getDate());
+    $scope.endDate = new Date();
     $scope.addProgramDetailsModal = modal;
   });
 
