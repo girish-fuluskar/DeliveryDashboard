@@ -5,7 +5,7 @@
     <ion-content padding="true" class="has-header">    	    	
     </ion-content>    
     <ion-pane>
-			<ion-content class="modal_header" ng-controller="dashboardCtrl" elem-ready="load()">
+			<ion-content class="modal_background" ng-controller="dashboardCtrl" elem-ready="load()">
 				<ion-list id="signIn-list2" class=" ">
 					<div style="margin-bottom:5px; margin-top:5px;">
 			        	<button style="background-color:#e62739;color:white;font-weight:500;margin:auto; border-radius:10px 10px 10px 10px;width:90%;" class="button button-block" ng-click="addProgramDetailsModal.show(); loadInitialDetailsFromStorage()" type="submit" id="submit4">Refine</button>
@@ -18,10 +18,10 @@
 			        <label class="item" id="maxEstimatedEffort" style="margin: auto;border-radius:10px 10px 10px 10px;width:90%;">
 			            <span class="" style="font-weight:500;font-size:15px;text-align:center;">Max Estimated Effort : <h1 style="color:blue">{{effortExtended[2].value}}<h3 style="color:blue">Hrs</h3></h1></span>
 			        </label> -->
-		        	<label class="item modal_background" id="effortExtended" style="margin:auto; border-radius:10px 10px 10px 10px;width:90%;">
+		        	<label class="item modal_header" id="effortExtended" style="margin:auto; border-radius:10px 10px 10px 10px;width:90%;">
 		        		<div id='myChart' style="margin:auto; border-radius:10px 10px 10px 10px;"></div>
 		        	</label>			       
-	        		<label class="item modal_background" id="effortExtended" style="margin:auto;border-radius:10px 10px 10px 10px;width:90%;">
+	        		<label class="item modal_header" id="effortExtended" style="margin:auto;border-radius:10px 10px 10px 10px;width:90%;">
 		        		<div class="">
 	        				<div id='spentEffortDate' style="margin:auto; border-radius:10px 10px 10px 10px;"></div>
 	        			</div>
@@ -32,7 +32,7 @@
 			              <canvas id="bar" class="chart chart-bar" chart-data="effortDateData" chart-labels="effortDateLabel" legend="effortDateSeries" chart-series="effortDateSeries" chart-options="{showTooltips: true}"></canvas>		              
 			          </div>
 			        </div> -->
-			        <div class="card modal_background" style="margin:auto;border-radius:10px 10px 10px 10px;width:90%;">
+			        <div class="card modal_header" style="margin:auto;border-radius:10px 10px 10px 10px;width:90%;">
 			        	<span class="" style="margin-left:10px; font-weight:500;font-size:15px;text-align:center;">
 			        		Burndown		              
 			          	</span>
@@ -40,7 +40,7 @@
 			              <canvas id="line" class="chart chart-line" chart-data="burndownData" chart-labels="burndownLabel" legend="burndownSeries" chart-series="burndownSeries" chart-options="{showTooltips: true}"></canvas>
 			          </div>
 			        </div>
-			        <label class="item modal_background" id="" style="margin:auto;border-radius:10px 10px 10px 10px;width:90%;">
+			        <label class="item modal_header" id="" style="margin:auto;border-radius:10px 10px 10px 10px;width:90%;">
 		        		<div class="">
 	        				<div id='productivityDate' style="margin:auto; border-radius:10px 10px 10px 10px;"></div>
 	        			</div>
@@ -61,7 +61,7 @@
 			              <canvas id="bar" class="chart chart-bar" chart-data="qualityDateData" chart-labels="qualityDateLabel" legend="qualityDateSeries" chart-series="qualityDateSeries" chart-options="{showTooltips: true}"></canvas>
 			          </div>
 			        </div> -->
-			        <label class="item modal_background" id="" style="margin: auto;border-radius:10px 10px 10px 10px;width:90%;">
+			        <label class="item modal_header" id="" style="margin: auto;border-radius:10px 10px 10px 10px;width:90%;">
 		        		<div class="">
 	        				<div id='quality' style="margin:auto; border-radius:10px 10px 10px 10px;"></div>
 	        			</div>
@@ -74,7 +74,7 @@
 			              <canvas id="bar" class="chart chart-bar" chart-data="teamDateData" chart-labels="teamDateLabel" legend="teamDateSeries" chart-series="teamDateSeries" chart-options="{showTooltips: true}"></canvas>
 			          </div>
 			        </div> -->
-			        <label class="item modal_background" id="" style="margin: auto;border-radius:10px 10px 10px 10px;width:90%;">
+			        <label class="item modal_header" id="" style="margin: auto;border-radius:10px 10px 10px 10px;width:90%;">
 		        		<div class="">
 	        				<div id='team' style="margin:auto; border-radius:10px 10px 10px 10px;"></div>
 	        			</div>

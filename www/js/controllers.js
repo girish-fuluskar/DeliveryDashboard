@@ -1171,7 +1171,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
                 "type":"pie",              
                 "x":"-10%",
                 "y":"-20%",
-                "background-color":"#95a5a6",
+                "background-color":"#dfdfdf",
                 "border-radius":4,
                 "legend": {
                     "toggle-action": "remove",
@@ -1294,14 +1294,16 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
         var realignData = _.unzip(data1);
 
         for(var m=1;m<=$scope.effortDateSeries.length;m++){
-          var seriesStruc = {
-            "text": $scope.effortDateSeries[m-1],
-            "values": realignData[m-1],
-            "background-color":seriesColor[m-1],
-            "legend-item":{
-              "order": ($scope.effortDateSeries.length+1)-m
-            }
-          };
+          if($scope.effortDateSeries[m-1] != "TotalSpentEffort"){
+            var seriesStruc = {
+              "text": $scope.effortDateSeries[m-1],
+              "values": realignData[m-1],
+              "background-color":seriesColor[m-1],
+              "legend-item":{
+                "order": ($scope.effortDateSeries.length+1)-m
+              }
+            };
+          }            
           seriesArry.push(seriesStruc);
         }
         console.log(seriesArry);
@@ -1310,7 +1312,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
               "graphset": [
                   {
                     "type": "bar",
-                    "background-color": "#95a5a6",
+                    "background-color": "#dfdfdf",
                     "fill-angle": 55,
                     "stacked": true,
                     "stack-type": "normal",
@@ -1390,7 +1392,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
                               "alpha": 0.4
                           },
                           "item": {
-                              "font-color": "#9a9cab",
+                              "font-color": "black",
                               "font-family": "Arial",
                               "font-size": "10px",
                               "padding": "3px"
@@ -1496,7 +1498,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
         var productivityDateSeries = [];
         var productivityDateData1 = [];
         var seriesArry = [];
-        var seriesColor = ["#4bce25","#c9ff00","#57f22a","#ffb71f","#f2a400","#175c1c","#360065"];
+        var seriesColor = ["#4bce25","#ffb71f","#c9ff00","#57f22a","#f2a400","#175c1c","#360065"];
         for(var k=0;k<productivityDate[0].buckets.length;k++){
           var b=[];
           productivityDateLabel.push(new Date(productivityDate[0].buckets[k].key_as_string).toISOString().slice(0,10));
@@ -1534,9 +1536,9 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
             "graphset": [
                 {
                   "type": "bar",
-                  "background-color": "#95a5a6",
+                  "background-color": "#dfdfdf",
                   "fill-angle": 55,
-                  "stacked": true,
+                  "stacked": false,
                   "stack-type": "normal",
                   "title": {
                       "text": "Productivity",
@@ -1614,7 +1616,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
                             "alpha": 0.4
                         },
                         "item": {
-                            "font-color": "#9a9cab",
+                            "font-color": "black",
                             "font-family": "Arial",
                             "font-size": "10px",
                             "padding": "3px"
@@ -1688,7 +1690,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
         var qualityDateSeries = [];
         var qualityDateData1 = [];
         var seriesArry = [];
-        var seriesColor = ["#4bce25","#57f22a","#c9ff00","#ffb71f","#f2a400","#175c1c","#360065"];
+        var seriesColor = ["#4bce25","#57f22a","#c9ff00","#ffb71f","#f2a400","#175c1c","#360065","#006783"];
         for(var k=0;k<qualityDate[0].buckets.length;k++){
           var b=[];
           qualityDateLabel.push(new Date(qualityDate[0].buckets[k].key_as_string).toISOString().slice(0,10));
@@ -1725,7 +1727,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
             "graphset": [
                 {
                   "type": "bar",
-                  "background-color": "#95a5a6",
+                  "background-color": "#dfdfdf",
                   "fill-angle": 55,
                   "stacked": true,
                   "stack-type": "normal",
@@ -1805,7 +1807,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
                             "alpha": 0.4
                         },
                         "item": {
-                            "font-color": "#9a9cab",
+                            "font-color": "black",
                             "font-family": "Arial",
                             "font-size": "10px",
                             "padding": "3px"
@@ -1879,7 +1881,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
         var teamDateLabel = [];
         var teamDateSeries = [];
         var teamDateData1 = [];
-        var seriesArry = [];
+        var teamSeriesArry = [];
         var seriesColor = ["#4bce25","#57f22a","#c9ff00","#ffb71f","#f2a400","#175c1c","#360065"];
         for(var k=0;k<teamDate[0].buckets.length;k++){
           var b=[];
@@ -1901,23 +1903,25 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
         $scope.teamDateData = realignTeamDateData;
         console.log($scope.teamDateData);
         for(var m=1;m<=$scope.teamDateSeries.length;m++){
-          var seriesStruc = {
-            "text": $scope.teamDateSeries[m-1],
-            "values": realignTeamDateData[m-1],
-            "background-color":seriesColor[m-1],
-            "legend-item":{
-              "order": ($scope.teamDateSeries.length+1)-m
-            }
-          };
-          seriesArry.push(seriesStruc);
+          if($scope.teamDateSeries[m-1] != "YrsOfExperience"){
+            var seriesStruct = {
+              "text": $scope.teamDateSeries[m-1],
+              "values": realignTeamDateData[m-1],
+              "background-color":seriesColor[m-1],
+              "legend-item":{
+                "order": ($scope.teamDateSeries.length+1)-m
+              }
+            };  
+          }
+          teamSeriesArry.push(seriesStruct);
         }
-        console.log(seriesArry);
+        console.log(teamSeriesArry);
         zingchart.THEME="classic";
         var myConfig = {
             "graphset": [
                 {
                   "type": "bar",
-                  "background-color": "#95a5a6",
+                  "background-color": "#dfdfdf",
                   "fill-angle": 55,
                   "stacked": true,
                   "stack-type": "normal",
@@ -1933,7 +1937,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
                     },
                   "legend": {
                     "toggle-action": "remove",
-                    "layout":"x3",
+                    "layout":"x7",
                     "x":"5.5%",
                     "y":"95%",
                     "shadow":false,
@@ -1986,7 +1990,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
                     },
                     "scale-y": {
                         "value":"",
-                        "line-color": "#53566f",
+                        "line-color": "black",
                         "tick": {
                             "line-color": "#53566f"
                         },
@@ -1997,7 +2001,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
                             "alpha": 0.4
                         },
                         "item": {
-                            "font-color": "#9a9cab",
+                            "font-color": "black",
                             "font-family": "Arial",
                             "font-size": "10px",
                             "padding": "3px"
@@ -2019,7 +2023,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
                         "border-width": 0,
                         "border-color": "none"
                     },
-                    "series": seriesArry 
+                    "series": teamSeriesArry 
                 }
             ]
         };         
