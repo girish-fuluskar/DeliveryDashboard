@@ -221,9 +221,10 @@ angular.module('app.services', [])
   }
 
   this.saveSnapShot = function(userSelectedProgramId, snapData, projectId){
+    var userAccount = window.localStorage.getItem('accountLst');
     return $q(function(resolve, reject) {
       var req = {
-          url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+userAccount+userSelectedProgramId+projectId+'/projectsnapshot',
+          url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+userAccount+"/"+userSelectedProgramId+"/"+projectId+'/projectsnapshot',
           method: 'POST',
           data: snapData,
           headers: {
