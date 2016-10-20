@@ -12,27 +12,24 @@
 			        </div>
 	            </ion-list>
 	            <div id="chartSection" style="margin-bottom:5px; margin-top:5px;" class="animate-show" ng-show="allCharts">
-	            	<!-- <label class="item" id="effortExtended" style="margin: auto;border-radius:10px 10px 10px 10px;width:90%;">
-			            <span class="" style="font-weight:500;font-size:15px;text-align:center;">Total Spent Effort : <h1 style="color:blue">{{effortExtended[0].value}}<h3 style="color:blue">Hrs</h3></h1></span>
+	            	<label class="item modal_header" id="effortExtended" style="margin: auto;border-radius:10px 10px 10px 10px;width:90%;font-weight: 500;">
+			            <span class="" style="font-weight:500;font-size:15px;text-align:center;"><b>Total Spent Effort : </b><h1 style="color:blue">{{effortExtended[0].value}}<h3 style="color:blue">Hrs</h3></h1></span>
 			        </label>
-			        <label class="item" id="maxEstimatedEffort" style="margin: auto;border-radius:10px 10px 10px 10px;width:90%;">
-			            <span class="" style="font-weight:500;font-size:15px;text-align:center;">Max Estimated Effort : <h1 style="color:blue">{{effortExtended[2].value}}<h3 style="color:blue">Hrs</h3></h1></span>
-			        </label> -->
-		        	<label class="item modal_header" id="effortExtended" style="margin:auto; border-radius:10px 10px 10px 10px;width:90%;">
+			        <div style="width: 283px; height: 10px;" class="spacer"></div>
+			        <label class="item modal_header" id="maxEstimatedEffort" style="margin: auto;border-radius:10px 10px 10px 10px;width:90%;font-weight: 500;">
+			            <span class="" style="font-weight:500;font-size:15px;text-align:center;"><b>Max Estimated Effort : </b><h1 style="color:blue">{{effortExtended[2].value}}<h3 style="color:blue">Hrs</h3></h1></span>
+			        </label>
+		        	<!-- <label class="item modal_header" id="effortExtended" style="margin:auto; border-radius:10px 10px 10px 10px;width:90%;">
 		        		<div id='myChart' style="margin:auto; border-radius:10px 10px 10px 10px;"></div>
-		        	</label>			       
+		        	</label> -->
+		        	<div style="width: 283px; height: 10px;" class="spacer"></div>			       
 	        		<label class="item modal_header" id="effortExtended" style="margin:auto;border-radius:10px 10px 10px 10px;width:90%;">
 		        		<div class="">
 	        				<div id='spentEffortDate' style="margin:auto; border-radius:10px 10px 10px 10px;"></div>
 	        			</div>
 	        		</label>
-			        <!-- <div class="card" style="width:90%;margin:20px;text-align:center;">
-		        		<span class="" style="margin:auto;font-weight:500;font-size:15px;text-align:center;">Spent Effort Date Histogram</span>
-			          <div class="">
-			              <canvas id="bar" class="chart chart-bar" chart-data="effortDateData" chart-labels="effortDateLabel" legend="effortDateSeries" chart-series="effortDateSeries" chart-options="{showTooltips: true}"></canvas>		              
-			          </div>
-			        </div> -->
-			        <div class="card modal_header" style="margin:auto;border-radius:10px 10px 10px 10px;width:90%;">
+	        		<div style="width: 283px; height: 10px;" class="spacer"></div>
+			        <!-- <div class="card modal_header" style="margin:auto;border-radius:10px 10px 10px 10px;width:90%;">
 			        	<span class="" style="margin-left:10px; font-weight:500;font-size:15px;text-align:center;">
 			        		Burndown		              
 			          	</span>
@@ -44,28 +41,19 @@
 		        		<div class="">
 	        				<div id='productivityDate' style="margin:auto; border-radius:10px 10px 10px 10px;"></div>
 	        			</div>
-	        		</label>
-			        <!-- <div class="card" style="width:90%;margin:20px;text-align:center;">
-			        	<span class="" style="margin:auto;font-weight:500;font-size:15px;text-align:center;">
-			          		Productivity		              
-			        	</span>
-			          <div class="">
-			              <canvas id="bar" class="chart chart-bar" chart-data="productivityDateData" chart-labels="productivityDateLabel" legend="productivityDateSeries" chart-series="productivityDateSeries" chart-options="{showTooltips: true}"></canvas>		              
-			          </div>
-			        </div> -->
-			        <!-- <div class="card" style="width:90%;margin:20px;text-align:center;">
-			        	<span class="" style="margin:auto;font-weight:500;font-size:15px;text-align:center;">
-			          		Quality		              
-			        	</span>
-			          <div class="">
-			              <canvas id="bar" class="chart chart-bar" chart-data="qualityDateData" chart-labels="qualityDateLabel" legend="qualityDateSeries" chart-series="qualityDateSeries" chart-options="{showTooltips: true}"></canvas>
-			          </div>
-			        </div> -->
+	        		</label> -->
+	        		<label class="item modal_header" id="" style="margin:auto;border-radius:10px 10px 10px 10px;width:90%;">
+				        <div class="">
+							<div id='myBurndownChart' style="margin:auto; border-radius:10px 10px 10px 10px;"></div>
+						</div>
+					</label>
+					<div style="width: 283px; height: 10px;" class="spacer"></div>
 			        <label class="item modal_header" id="" style="margin: auto;border-radius:10px 10px 10px 10px;width:90%;">
 		        		<div class="">
 	        				<div id='quality' style="margin:auto; border-radius:10px 10px 10px 10px;"></div>
 	        			</div>
 	        		</label>
+	        		<div style="width: 283px; height: 10px;" class="spacer"></div>
 			        <!-- <div class="card" style="width:90%;margin:20px;text-align:center;">
 			        	<span class="" style="margin:auto;font-weight:500;font-size:15px;text-align:center;">
 			          		Team		              
@@ -77,6 +65,24 @@
 			        <label class="item modal_header" id="" style="margin: auto;border-radius:10px 10px 10px 10px;width:90%;">
 		        		<div class="">
 	        				<div id='team' style="margin:auto; border-radius:10px 10px 10px 10px;"></div>
+	        			</div>
+	        		</label>
+	        		<div style="width: 283px; height: 10px;" class="spacer"></div>
+	        		<label class="item modal_header" id="" style="margin: auto;border-radius:10px 10px 10px 10px;width:90%;">
+		        		<div class="">
+	        				<div id='projectQualityStat' style="margin:auto; border-radius:10px 10px 10px 10px;"></div>
+	        			</div>
+	        		</label>
+	        		<div style="width: 283px; height: 10px;" class="spacer"></div>
+	        		<label class="item modal_header" id="" style="margin: auto;border-radius:10px 10px 10px 10px;width:90%;">
+		        		<div class="">
+	        				<div id='projectProductivityStat' style="margin:auto; border-radius:10px 10px 10px 10px;"></div>
+	        			</div>
+	        		</label>
+	        		<div style="width: 283px; height: 10px;" class="spacer"></div>
+	        		<label class="item modal_header" id="" style="margin: auto;border-radius:10px 10px 10px 10px;width:90%;">
+		        		<div class="">
+	        				<div id='projectSpentEffortsStat' style="margin:auto; border-radius:10px 10px 10px 10px;"></div>
 	        			</div>
 	        		</label>
 			        <!-- <div class="card" style="width:90%;">

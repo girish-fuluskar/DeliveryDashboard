@@ -336,9 +336,15 @@ angular.module('app.controllers', [])
   };
 
 
+  
+
+
+$scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, interval){
+  //Effort Extended chart without para$scope.accountId, $scope.getInitialDetailsFromStoarage.project, sprintNo, projectId, fromDate, toDate, intervalm 
+  $scope.allCharts = true;
+  
   //Effort Extended chart without param
-  /*$scope.allCharts = true;
-  $scope.effortExtended = chartDataWithoutParam.getEffortExtendedWithoutParam()
+  $scope.effortExtended = chartDataWithoutParam.getEffortExtendedWithoutParam(accountId, projectId, fromDate, toDate, interval)
   .then(function(effortExtendedDataWithoutParam) {
         $scope.effortExtended = effortExtendedDataWithoutParam;
         console.log($scope.effortExtended);
@@ -347,13 +353,8 @@ angular.module('app.controllers', [])
           title: 'Search Failed!',
           template: 'There was some problem with server.'
       });
-  });*/
-
-
-$scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, interval){
-  //Effort Extended chart without para$scope.accountId, $scope.getInitialDetailsFromStoarage.project, sprintNo, projectId, fromDate, toDate, intervalm 
-  $scope.allCharts = true;
-  $scope.effortExtended = chartDataWithoutParam.getEffortExtendedWithoutParam(accountId, projectId, fromDate, toDate, interval)
+  });
+  /*$scope.effortExtended = chartDataWithoutParam.getEffortExtendedWithoutParam(accountId, projectId, fromDate, toDate, interval)
     .then(function(effortExtendedDataWithoutParam) {
         $scope.effortExtended = effortExtendedDataWithoutParam;
         console.log($scope.effortExtended);
@@ -440,13 +441,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
           title: 'Search Failed!',
           template: 'There was some problem with server.'
       });
-  });
-
-  
-  
-
-
-
+  });*/
   //Spent Effort Date chart without param
     $scope.effortDate = chartDataWithoutParam.getEffortDateWithoutParam(accountId, projectId, fromDate, toDate, interval)
     .then(function(effortdata){
@@ -1470,6 +1465,8 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
         var burndownLabel = [];
         var burndownSeries = [];
         var data1 = [];
+        var seriesArry = [];
+        var seriesColor = ["#4bce25","#57f22a","#c9ff00","#ffb71f","#f2a400","#175c1c","#360065"];
         for(var i=0;i<burndowndata[0].buckets.length;i++){
           var a=[];
           burndownLabel.push(new Date(burndowndata[0].buckets[i].key_as_string).toISOString().slice(0,10));
@@ -1485,9 +1482,138 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
         }
         $scope.burndownLabel = burndownLabel;
         $scope.burndownSeries = burndownSeries;         
-        var realignBurndownData = _.unzip(data1);    
+        var realignBurndownData = _.unzip(data1);
+        for(var m=1;m<=$scope.burndownSeries.length;m++){          
+          var seriesStruc = {
+            "text": $scope.burndownSeries[m-1],
+            "values": realignBurndownData[m-1],
+            "background-color":seriesColor[m-1],
+            "legend-item":{
+              "order": ($scope.burndownSeries.length+1)-m
+            }
+          };                      
+          seriesArry.push(seriesStruc);
+        }
+
+
         $scope.burndownData = realignBurndownData;      
         console.log($scope.burndowndata);
+
+        zingchart.THEME="classic";
+        var myConfig = {
+            "graphset": [
+                {
+                  "type": "line",
+                  "background-color": "#dfdfdf",
+                  "fill-angle": 55,
+                  "stacked": false,
+                  "stack-type": "normal",
+                  "title": {
+                      "text": "Burndown",
+                      "text-align": "left",
+                      "font-family": "Arial",
+                      "font-size": "14px",
+                      "font-color": "black",
+                      "background-color": "none",
+                      "padding": "20px 0 0 20px",
+                      "height": "40px"
+                    },
+                  "legend": {
+                    "toggle-action": "remove",
+                    "layout":"x7",
+                    "x":"5.5%",
+                    "y":"95%",
+                    "shadow":false,
+                    "background-color": "none",
+                    "border-width": 0,
+                    "border-color": "none",
+                    "item": {
+                        "font-color": "black"
+                    },
+                    "marker":{
+                        "type":"circle",
+                        "border-width":0
+                      }
+                    },
+                    "plotarea": {
+                        "margin": "55px 55px 55px 55px"
+                    },
+                    "plot": {
+                      "alpha": 0.8,
+                      "bar-width": "25px",
+                      "hover-state": {
+                          "background-color": "#212339",
+                          "alpha": 1
+                        },
+                        "animation": {
+                            "delay": 350,
+                            "effect": 3,
+                            "speed": "1000",
+                            "method": "0",
+                            "sequence": "1"
+                        }
+                    },
+                    "scale-x": {
+                        "values": $scope.burndownLabel,
+                        "items-overlap": true,
+                        "line-color": "#53566f",
+                        "tick": {
+                            "line-color": "#53566f"
+                        },
+                        "guide": {
+                            "visible": false
+                        },
+                        "item": {
+                            "font-color": "black",
+                            "font-family": "Arial",
+                            "font-size": "10px",
+                            "font-angle": 0,
+                            "offset-x": "5px"
+                        }
+                    },
+                    "scale-y": {
+                        "value":"",
+                        "line-color": "#53566f",
+                        "tick": {
+                            "line-color": "#53566f"
+                        },
+                        "guide": {
+                            "line-style": "solid",
+                            "line-color": "#53566f",
+                            "line-width": "1px",
+                            "alpha": 0.4
+                        },
+                        "item": {
+                            "font-color": "black",
+                            "font-family": "Arial",
+                            "font-size": "10px",
+                            "padding": "3px"
+                        }
+                    },
+                    "tooltip": {
+                        "text": "<b>%t: %v hrs",
+                        "font-family": "Arial",
+                        "font-size": "10px",
+                        "font-weight": "normal",
+                        "font-color": "#fff",
+                        "decimals": 0,
+                        "text-align": "left",
+                        "border-radius": "8px",
+                        "padding": "10px 10px",
+                        "background-color": "#212339",
+                        "alpha": 0.95,
+                        "shadow": 0,
+                        "border-width": 0,
+                        "border-color": "none"
+                    },
+                    "series": seriesArry 
+                }
+            ]
+        };         
+        zingchart.render({ 
+          id : 'myBurndownChart', 
+          data : myConfig
+        });
       }, function(err){
       var alertPopup = $ionicPopup.alert({
           title: 'Search Failed!',
@@ -1732,7 +1858,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
                   "type": "bar",
                   "background-color": "#dfdfdf",
                   "fill-angle": 55,
-                  "stacked": true,
+                  "stacked": false,
                   "stack-type": "normal",
                   "title": {
                       "text": "Quality",
@@ -1746,7 +1872,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
                     },
                   "legend": {
                     "toggle-action": "remove",
-                    "layout":"x7",
+                    "layout":"x8",
                     "x":"5.5%",
                     "y":"95%",
                     "shadow":false,
@@ -1940,7 +2066,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
                     },
                   "legend": {
                     "toggle-action": "remove",
-                    "layout":"x7",
+                    "layout":"x8",
                     "x":"5.5%",
                     "y":"95%",
                     "shadow":false,
@@ -2034,6 +2160,489 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
           id : 'team', 
           data : myConfig
         });        
+      },function(err){
+        var alertPopup = $ionicPopup.alert({
+          title: 'Search Failed!',
+          template: 'There was some problem with server.'
+      });
+    });
+    // Project Quality Stats chart   
+    $scope.projectQualityStats = chartData.getProjectQualityStats(accountId, programID, fromDate, toDate)
+      .then(function(projectQualityStats){
+        var projectQualityLabel = [];
+        var projectQualitySeries = [];
+        var projectQualityData1 = [];
+        var seriesArry = [];
+        var seriesColor = ["#4bce25","#c9ff00","#57f22a","#ffb71f","#f2a400","#175c1c","#360065","#006783"];
+        for(var k=0;k<projectQualityStats[0].buckets.length;k++){
+          var b=[];
+          projectQualityLabel.push(projectQualityStats[0].buckets[k].key);
+
+          //loop for getting value with bucket                  
+          for(var j=0;j<projectQualityStats[0].buckets[k].aggregations.length;j++){
+            b.push(projectQualityStats[0].buckets[k].aggregations[j].value);                
+          }
+          projectQualityData1.push(b);        
+        }
+        //loop for names from bucket, which to take only once
+        for(var u=0;u<projectQualityStats[0].buckets[0].aggregations.length;u++){
+          projectQualitySeries.push(projectQualityStats[0].buckets[0].aggregations[u].name);            
+        }
+        $scope.projectQualityLabel = projectQualityLabel;
+        $scope.projectQualitySeries = projectQualitySeries;         
+        var realignProductQualityStatsData = _.unzip(projectQualityData1);    
+        $scope.productionQualityStatsData = realignProductQualityStatsData;
+        console.log($scope.productionQualityStatsData);
+        for(var m=1;m<=$scope.projectQualitySeries.length;m++){
+          var seriesStruc = {
+            "text": $scope.projectQualitySeries[m-1],
+            "values": realignProductQualityStatsData[m-1],
+            "background-color":seriesColor[m-1],
+            "legend-item":{
+              "order": ($scope.projectQualitySeries.length+1)-m
+            }
+          };
+          seriesArry.push(seriesStruc);
+        }
+        console.log(seriesArry);
+        zingchart.THEME="classic";
+        var myConfig = {
+            "graphset": [
+                {
+                  "type": "bar",
+                  "background-color": "#dfdfdf",
+                  "fill-angle": 55,
+                  "stacked": false,
+                  "stack-type": "normal",
+                  "title": {
+                      "text": "Project Quality Stats",
+                      "text-align": "left",
+                      "font-family": "Arial",
+                      "font-size": "14px",
+                      "font-color": "black",
+                      "background-color": "none",
+                      "padding": "20px 0 0 20px",
+                      "height": "40px"
+                    },
+                  "legend": {
+                    "toggle-action": "remove",
+                    "layout":"x8",
+                    "x":"5.5%",
+                    "y":"95%",
+                    "shadow":false,
+                    "background-color": "none",
+                    "border-width": 0,
+                    "border-color": "none",
+                    "item": {
+                        "font-color": "black"
+                    },
+                    "marker":{
+                        "type":"circle",
+                        "border-width":0
+                      }
+                    },
+                    "plotarea": {
+                        "margin": "55px 55px 55px 55px"
+                    },
+                    "plot": {
+                      "alpha": 0.8,
+                      "bar-width": "25px",
+                      "hover-state": {
+                          "background-color": "#212339",
+                          "alpha": 1
+                        },
+                        "animation": {
+                            "delay": 350,
+                            "effect": 3,
+                            "speed": "1000",
+                            "method": "0",
+                            "sequence": "1"
+                        }
+                    },
+                    "scale-x": {
+                        "values": $scope.projectQualityLabel,
+                        "items-overlap": true,
+                        "line-color": "#53566f",
+                        "tick": {
+                            "line-color": "#53566f"
+                        },
+                        "guide": {
+                            "visible": false
+                        },
+                        "item": {
+                            "font-color": "black",
+                            "font-family": "Arial",
+                            "font-size": "10px",
+                            "font-angle": 0,
+                            "offset-x": "5px"
+                        }
+                    },
+                    "scale-y": {
+                        "value":"",
+                        "line-color": "#53566f",
+                        "tick": {
+                            "line-color": "#53566f"
+                        },
+                        "guide": {
+                            "line-style": "solid",
+                            "line-color": "#53566f",
+                            "line-width": "1px",
+                            "alpha": 0.4
+                        },
+                        "item": {
+                            "font-color": "black",
+                            "font-family": "Arial",
+                            "font-size": "10px",
+                            "padding": "3px"
+                        }
+                    },
+                    "tooltip": {
+                        "text": "<b>%t: %v hrs",
+                        "font-family": "Arial",
+                        "font-size": "10px",
+                        "font-weight": "normal",
+                        "font-color": "#fff",
+                        "decimals": 0,
+                        "text-align": "left",
+                        "border-radius": "8px",
+                        "padding": "10px 10px",
+                        "background-color": "#212339",
+                        "alpha": 0.95,
+                        "shadow": 0,
+                        "border-width": 0,
+                        "border-color": "none"
+                    },
+                    "series": seriesArry 
+                }
+            ]
+        };         
+        zingchart.render({ 
+          id : 'projectQualityStat', 
+          data : myConfig
+        });
+
+      },function(err){
+        var alertPopup = $ionicPopup.alert({
+          title: 'Search Failed!',
+          template: 'There was some problem with server.'
+      });
+    });
+    // Project Productivity Stats chart   
+    $scope.projectProductivityStats = chartData.getProjectProductivityStats(accountId, programID, fromDate, toDate)
+      .then(function(projectProductivityStats){
+        var projectProductivityLabel = [];
+        var projectProductivitySeries = [];
+        var projectProductivityData1 = [];
+        var seriesArry = [];
+        var seriesColor = ["#4bce25","#57f22a","#c9ff00","#ffb71f","#f2a400","#175c1c","#360065","#006783"];
+        for(var k=0;k<projectProductivityStats[0].buckets.length;k++){
+          var b=[];
+          projectProductivityLabel.push(projectProductivityStats[0].buckets[k].key);
+
+          //loop for getting value with bucket                  
+          for(var j=0;j<projectProductivityStats[0].buckets[k].aggregations.length;j++){
+            b.push(projectProductivityStats[0].buckets[k].aggregations[j].value);                
+          }
+          projectProductivityData1.push(b);        
+        }
+        //loop for names from bucket, which to take only once
+        for(var u=0;u<projectProductivityStats[0].buckets[0].aggregations.length;u++){
+          projectProductivitySeries.push(projectProductivityStats[0].buckets[0].aggregations[u].name);            
+        }
+        $scope.projectProductivityLabel = projectProductivityLabel;
+        $scope.projectProductivitySeries = projectProductivitySeries;         
+        var realignProjectProductivityStatsData = _.unzip(projectProductivityData1);    
+        $scope.productionQualityStatsData = realignProjectProductivityStatsData;
+        console.log($scope.productionQualityStatsData);
+        for(var m=1;m<=$scope.projectProductivitySeries.length;m++){
+          var seriesStruc = {
+            "text": $scope.projectProductivitySeries[m-1],
+            "values": realignProjectProductivityStatsData[m-1],
+            "background-color":seriesColor[m-1],
+            "legend-item":{
+              "order": ($scope.projectProductivitySeries.length+1)-m
+            }
+          };
+          seriesArry.push(seriesStruc);
+        }
+        console.log(seriesArry);
+        zingchart.THEME="classic";
+        var myConfig = {
+            "graphset": [
+                {
+                  "type": "bar",
+                  "background-color": "#dfdfdf",
+                  "fill-angle": 55,
+                  "stacked": false,
+                  "stack-type": "normal",
+                  "title": {
+                      "text": "Project Productivity Stats",
+                      "text-align": "left",
+                      "font-family": "Arial",
+                      "font-size": "14px",
+                      "font-color": "black",
+                      "background-color": "none",
+                      "padding": "20px 0 0 20px",
+                      "height": "40px"
+                    },
+                  "legend": {
+                    "toggle-action": "remove",
+                    "layout":"x8",
+                    "x":"5.5%",
+                    "y":"95%",
+                    "shadow":false,
+                    "background-color": "none",
+                    "border-width": 0,
+                    "border-color": "none",
+                    "item": {
+                        "font-color": "black"
+                    },
+                    "marker":{
+                        "type":"circle",
+                        "border-width":0
+                      }
+                    },
+                    "plotarea": {
+                        "margin": "55px 55px 55px 55px"
+                    },
+                    "plot": {
+                      "alpha": 0.8,
+                      "bar-width": "25px",
+                      "hover-state": {
+                          "background-color": "#212339",
+                          "alpha": 1
+                        },
+                        "animation": {
+                            "delay": 350,
+                            "effect": 3,
+                            "speed": "1000",
+                            "method": "0",
+                            "sequence": "1"
+                        }
+                    },
+                    "scale-x": {
+                        "values": $scope.projectProductivityLabel,
+                        "items-overlap": true,
+                        "line-color": "#53566f",
+                        "tick": {
+                            "line-color": "#53566f"
+                        },
+                        "guide": {
+                            "visible": false
+                        },
+                        "item": {
+                            "font-color": "black",
+                            "font-family": "Arial",
+                            "font-size": "10px",
+                            "font-angle": 0,
+                            "offset-x": "5px"
+                        }
+                    },
+                    "scale-y": {
+                        "value":"",
+                        "line-color": "#53566f",
+                        "tick": {
+                            "line-color": "#53566f"
+                        },
+                        "guide": {
+                            "line-style": "solid",
+                            "line-color": "#53566f",
+                            "line-width": "1px",
+                            "alpha": 0.4
+                        },
+                        "item": {
+                            "font-color": "black",
+                            "font-family": "Arial",
+                            "font-size": "10px",
+                            "padding": "3px"
+                        }
+                    },
+                    "tooltip": {
+                        "text": "<b>%t: %v hrs",
+                        "font-family": "Arial",
+                        "font-size": "10px",
+                        "font-weight": "normal",
+                        "font-color": "#fff",
+                        "decimals": 0,
+                        "text-align": "left",
+                        "border-radius": "8px",
+                        "padding": "10px 10px",
+                        "background-color": "#212339",
+                        "alpha": 0.95,
+                        "shadow": 0,
+                        "border-width": 0,
+                        "border-color": "none"
+                    },
+                    "series": seriesArry 
+                }
+            ]
+        };         
+        zingchart.render({ 
+          id : 'projectProductivityStat', 
+          data : myConfig
+        });
+
+      },function(err){
+        var alertPopup = $ionicPopup.alert({
+          title: 'Search Failed!',
+          template: 'There was some problem with server.'
+      });
+    });
+    // Project Spent Effort Stats chart   
+    $scope.projectSpentEffortStats = chartData.getProjectSpentEffortsStats(accountId, programID, fromDate, toDate)
+      .then(function(projectSpentEffortStats){
+        var projectSpentEffortLabel = [];
+        var projectSpentEffortSeries = [];
+        var projectSpentEffortData1 = [];
+        var seriesArry = [];
+        var seriesColor = ["#4bce25","#57f22a","#c9ff00","#ffb71f","#f2a400","#175c1c","#360065","#006783"];
+        for(var k=0;k<projectSpentEffortStats[0].buckets.length;k++){
+          var b=[];
+          projectSpentEffortLabel.push(projectSpentEffortStats[0].buckets[k].key);
+
+          //loop for getting value with bucket                  
+          for(var j=0;j<projectSpentEffortStats[0].buckets[k].aggregations.length;j++){
+            b.push(projectSpentEffortStats[0].buckets[k].aggregations[j].value);                
+          }
+          projectSpentEffortData1.push(b);        
+        }
+        //loop for names from bucket, which to take only once
+        for(var u=0;u<projectSpentEffortStats[0].buckets[0].aggregations.length;u++){
+          projectSpentEffortSeries.push(projectSpentEffortStats[0].buckets[0].aggregations[u].name);            
+        }
+        $scope.projectSpentEffortLabel = projectSpentEffortLabel;
+        $scope.projectSpentEffortSeries = projectSpentEffortSeries;         
+        var realignProjectSpentEffortStatsData = _.unzip(projectSpentEffortData1);    
+        $scope.productionQualityStatsData = realignProjectSpentEffortStatsData;
+        console.log($scope.productionQualityStatsData);
+        for(var m=1;m<=$scope.projectSpentEffortSeries.length;m++){
+          var seriesStruc = {
+            "text": $scope.projectSpentEffortSeries[m-1],
+            "values": realignProjectSpentEffortStatsData[m-1],
+            "background-color":seriesColor[m-1],
+            "legend-item":{
+              "order": ($scope.projectSpentEffortSeries.length+1)-m
+            }
+          };
+          seriesArry.push(seriesStruc);
+        }
+        console.log(seriesArry);
+        zingchart.THEME="classic";
+        var myConfig = {
+            "graphset": [
+                {
+                  "type": "bar",
+                  "background-color": "#dfdfdf",
+                  "fill-angle": 55,
+                  "stacked": false,
+                  "stack-type": "normal",
+                  "title": {
+                      "text": "Project Spent Effort Stats",
+                      "text-align": "left",
+                      "font-family": "Arial",
+                      "font-size": "14px",
+                      "font-color": "black",
+                      "background-color": "none",
+                      "padding": "20px 0 0 20px",
+                      "height": "40px"
+                    },
+                  "legend": {
+                    "toggle-action": "remove",
+                    "layout":"x8",
+                    "x":"5.5%",
+                    "y":"95%",
+                    "shadow":false,
+                    "background-color": "none",
+                    "border-width": 0,
+                    "border-color": "none",
+                    "item": {
+                        "font-color": "black"
+                    },
+                    "marker":{
+                        "type":"circle",
+                        "border-width":0
+                      }
+                    },
+                    "plotarea": {
+                        "margin": "55px 55px 55px 55px"
+                    },
+                    "plot": {
+                      "alpha": 0.8,
+                      "bar-width": "25px",
+                      "hover-state": {
+                          "background-color": "#212339",
+                          "alpha": 1
+                        },
+                        "animation": {
+                            "delay": 350,
+                            "effect": 3,
+                            "speed": "1000",
+                            "method": "0",
+                            "sequence": "1"
+                        }
+                    },
+                    "scale-x": {
+                        "values": $scope.projectSpentEffortLabel,
+                        "items-overlap": true,
+                        "line-color": "#53566f",
+                        "tick": {
+                            "line-color": "#53566f"
+                        },
+                        "guide": {
+                            "visible": false
+                        },
+                        "item": {
+                            "font-color": "black",
+                            "font-family": "Arial",
+                            "font-size": "10px",
+                            "font-angle": 0,
+                            "offset-x": "5px"
+                        }
+                    },
+                    "scale-y": {
+                        "value":"",
+                        "line-color": "#53566f",
+                        "tick": {
+                            "line-color": "#53566f"
+                        },
+                        "guide": {
+                            "line-style": "solid",
+                            "line-color": "#53566f",
+                            "line-width": "1px",
+                            "alpha": 0.4
+                        },
+                        "item": {
+                            "font-color": "black",
+                            "font-family": "Arial",
+                            "font-size": "10px",
+                            "padding": "3px"
+                        }
+                    },
+                    "tooltip": {
+                        "text": "<b>%t: %v hrs",
+                        "font-family": "Arial",
+                        "font-size": "10px",
+                        "font-weight": "normal",
+                        "font-color": "#fff",
+                        "decimals": 0,
+                        "text-align": "left",
+                        "border-radius": "8px",
+                        "padding": "10px 10px",
+                        "background-color": "#212339",
+                        "alpha": 0.95,
+                        "shadow": 0,
+                        "border-width": 0,
+                        "border-color": "none"
+                    },
+                    "series": seriesArry 
+                }
+            ]
+        };         
+        zingchart.render({ 
+          id : 'projectSpentEffortsStat', 
+          data : myConfig
+        });
+
       },function(err){
         var alertPopup = $ionicPopup.alert({
           title: 'Search Failed!',
@@ -2350,10 +2959,10 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
   };
 
   //create project snapshot API call
-  $scope.projectSnapShot = function(programId, projectId,sprint,isSprintActive,startDate,endDate,noOfSprint,userStoryCount,spentHours_requirements,spentHours_design,spentHours_build,spentHours_test,spentHours_support,spentHours_unproductive,remainingHours_requirements,remainingHours_design,remainingHours_build,remainingHours_test,remainingHours_support,remainingHours_unproductive,estimatedHours_requirements,estimatedHours_design,estimatedHours_build,estimatedHours_test,estimatedHours_support,estimatedHours_unproductive,qualityMetrics_stats_junit,qualityMetrics_stats_sonarCritical,qualityMetrics_stats_sonarMajor,qualityMetrics_stats_defectSev1,qualityMetrics_stats_defectSev2,qualityMetrics_stats_defectSev3,qualityMetrics_stats_defectSev4,qualityMetrics_stats_defectDensity,productivityMetrics_stats_storypoints,productivityMetrics_stats_velocity){
+  $scope.projectSnapShot = function(programId, projectId,sprint,isSprintActive,startDate,endDate,userStoryCount,spentHours_requirements,spentHours_design,spentHours_build,spentHours_test,spentHours_support,spentHours_unproductive,remainingHours_requirements,remainingHours_design,remainingHours_build,remainingHours_test,remainingHours_support,remainingHours_unproductive,estimatedHours_requirements,estimatedHours_design,estimatedHours_build,estimatedHours_test,estimatedHours_support,estimatedHours_unproductive,qualityMetrics_stats_junit,qualityMetrics_stats_sonarCritical,qualityMetrics_stats_sonarMajor,qualityMetrics_stats_defectSev1,qualityMetrics_stats_defectSev2,qualityMetrics_stats_defectSev3,qualityMetrics_stats_defectSev4,qualityMetrics_stats_defectDensity,productivityMetrics_stats_storypoints,productivityMetrics_stats_velocity){
     var startDate = $filter('date')(startDate, "yyyy-MM-dd"+"T00:00:00.000+0530");
     var endDate = $filter('date')(endDate, "yyyy-MM-dd"+"T00:00:00.000+0530");
-    console.log(projectId,sprint,isSprintActive,startDate,endDate,noOfSprint,userStoryCount,spentHours_requirements,spentHours_design,spentHours_build,spentHours_test,spentHours_support,spentHours_unproductive,remainingHours_requirements,remainingHours_design,remainingHours_build,remainingHours_test,remainingHours_support,remainingHours_unproductive,estimatedHours_requirements,estimatedHours_design,estimatedHours_build,estimatedHours_test,estimatedHours_support,estimatedHours_unproductive,qualityMetrics_stats_junit,qualityMetrics_stats_sonarCritical,qualityMetrics_stats_sonarMajor,qualityMetrics_stats_defectSev1,qualityMetrics_stats_defectSev2,qualityMetrics_stats_defectSev3,qualityMetrics_stats_defectSev4,qualityMetrics_stats_defectDensity,productivityMetrics_stats_storypoints,productivityMetrics_stats_velocity);
+    console.log(projectId,sprint,isSprintActive,startDate,endDate,userStoryCount,spentHours_requirements,spentHours_design,spentHours_build,spentHours_test,spentHours_support,spentHours_unproductive,remainingHours_requirements,remainingHours_design,remainingHours_build,remainingHours_test,remainingHours_support,remainingHours_unproductive,estimatedHours_requirements,estimatedHours_design,estimatedHours_build,estimatedHours_test,estimatedHours_support,estimatedHours_unproductive,qualityMetrics_stats_junit,qualityMetrics_stats_sonarCritical,qualityMetrics_stats_sonarMajor,qualityMetrics_stats_defectSev1,qualityMetrics_stats_defectSev2,qualityMetrics_stats_defectSev3,qualityMetrics_stats_defectSev4,qualityMetrics_stats_defectDensity,productivityMetrics_stats_storypoints,productivityMetrics_stats_velocity);
 
     var sprintStatus;
     if(isSprintActive==true)
@@ -2433,7 +3042,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
       console.log($scope.snapshotResponse);
       var saveSanpshotPopup = $ionicPopup.show({
                 title: 'Success',
-                template: 'New Sprint Added Successfully',
+                template: 'Sprint Data Added Successfully',
                 scope: $scope,
                 buttons: [
                   

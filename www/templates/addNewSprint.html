@@ -1,4 +1,4 @@
-<ion-view style="background-color: transparent;" title="Add New Sprint" hide-back-button="true" id="page8" class=" ">
+<ion-view style="background-color: transparent;" title="Add Sprint Data" hide-back-button="true" id="page8" class=" ">
     <ion-content padding="false" class="manual-ios-statusbar-padding" style="" scroll="true" padding="false" class="manual-ios-statusbar-padding">
     	<ion-slide-box>
 		  	<ion-slide style="height:500px;">
@@ -58,11 +58,11 @@
 	                    <input type="number" placeholder="Sprint No" ng-model="sprint" required="">
 	                </label>
 	                <label class="item item-input card" id="sprintStartDate-input7" style="border-radius:10px 10px 10px 10px;width:90%;">
-	                    <span class="input-label">Start Date</span>
+	                    <span class="input-label">Sprint Start Date</span>
 	                    <input type="date" placeholder="mm/dd/yyyy" ng-model="startDate" name="startDate">
 	                </label> 
 	                <label class="item item-input card" id="sprintEndDate-input8" style="border-radius:10px 10px 10px 10px;width:90%;">
-	                    <span class="input-label">End Date</span>
+	                    <span class="input-label">Sprint End Date</span>
 	                    <input type="date" placeholder="mm/dd/yyyy" ng-model="endDate" name="endDate">
 	                </label>
 	                <!-- <div class = "item range range-positive" style="border-radius:10px 10px 10px 10px;width:90%;margin:10px;">
@@ -71,10 +71,10 @@
 				   	<label class="item item-input card" id="sprintStartDate-input7" style="border-radius:10px 10px 10px 10px;width:90%;">
 				   		Number of Sprints : {{sprint}}
 				   	</label> -->
-				   	<label class="item item-input card" id="numberofsprint-input2" style="border-radius:10px 10px 10px 10px;width:90%;">
+				   	<!-- <label class="item item-input card" id="numberofsprint-input2" style="border-radius:10px 10px 10px 10px;width:90%;">
 	                    <span class="input-label">Number of Sprint</span>
 	                    <input type="number" placeholder="Number of Sprint" required=""  name="noOfSprint" ng-model="noOfSprint">
-	                </label>
+	                </label> -->
 	                <label class="item item-input card" id="userstorycount-input2" style="border-radius:10px 10px 10px 10px;width:90%;">
 	                    <span class="input-label">User Story Count</span>
 	                    <input type="number" placeholder="User Story Count" required=""  name="userStoryCount" ng-model="userStoryCount">
@@ -317,7 +317,7 @@
 			            </ion-list>
 			  		</div>
   					<button class="button button-assertive  button-block icon ion-arrow-left-c icon-left" style="font-weight:300;border-radius:10px 10px 10px 10px;" type="submit" id="addAccount-button4" ng-click="previousSlide()">Quality Metrics Stats</button>
-  					<button class="button button-block button-positive" id="searchUser-button15" ng-click="projectSnapShot(programSelect,projectSelect,sprint,isSprintActive,startDate,endDate,noOfSprint,userStoryCount,sptHours_requirements,spentHours_design,spentHours_build,spentHours_test,spentHours_support,spentHours_unproductive,remainingHours_requirements,remainingHours_design,remainingHours_build,remainingHours_test,remainingHours_support,remainingHours_unproductive,estimatedHours_requirements,estimatedHours_design,estimatedHours_build,estimatedHours_test,estimatedHours_support,estimatedHours_unproductive,qualityMetrics_stats_junit,qualityMetrics_stats_sonarCritical,qualityMetrics_stats_sonarMajor,qualityMetrics_stats_defectSev1,qualityMetrics_stats_defectSev2,qualityMetrics_stats_defectSev3,qualityMetrics_stats_defectSev4,qualityMetrics_stats_defectDensity,productivityMetrics_stats_storypoints,productivityMetrics_stats_velocity)">SUBMIT</button>			  					  		
+  					<button class="button button-block button-positive" id="searchUser-button15" ng-click="projectSnapShot(programSelect,projectSelect,sprint,isSprintActive,startDate,endDate,userStoryCount,sptHours_requirements,spentHours_design,spentHours_build,spentHours_test,spentHours_support,spentHours_unproductive,remainingHours_requirements,remainingHours_design,remainingHours_build,remainingHours_test,remainingHours_support,remainingHours_unproductive,estimatedHours_requirements,estimatedHours_design,estimatedHours_build,estimatedHours_test,estimatedHours_support,estimatedHours_unproductive,qualityMetrics_stats_junit,qualityMetrics_stats_sonarCritical,qualityMetrics_stats_sonarMajor,qualityMetrics_stats_defectSev1,qualityMetrics_stats_defectSev2,qualityMetrics_stats_defectSev3,qualityMetrics_stats_defectSev4,qualityMetrics_stats_defectDensity,productivityMetrics_stats_storypoints,productivityMetrics_stats_velocity)">SUBMIT</button>			  					  		
 		  		</ion-content>
 		  	</ion-slide>
 		</ion-slide-box>

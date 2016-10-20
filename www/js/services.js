@@ -928,6 +928,111 @@ angular.module('app.services', [])
           });
       });
     };
+    this.getProjectQualityStats = function(accountId, programID, fromDate, toDate){      
+      var reqProductivityQualStats={url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+accountId+'/'+programID+'/productivity/stats',method:'GET',headers : {'Accept':'application/json','Content-Type':'application/json','Authorization':'Basic '+token,'fromDate':fromDate,'toDate':toDate}}
+      return $q(function(resolve, reject) {
+        /*var reqDate = {
+            url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+accountId+'/'+programID+'/quality/dateHistogram',
+            method:'GET',
+            headers : {
+              'Accept' : 'application/json',
+              'Content-Type':'application/json', 
+              'Authorization' : 'Basic ' + token,                                        
+              'fromDate' : fromDate, 
+              'toDate' : toDate,
+              'interval' : interval
+            },
+            params: {                    
+                      projectId: projectId,
+                      sprintId: sprintId
+                  }
+        }*/
+        reqProductivityQualStats
+        $http(reqProductivityQualStats)
+          .then(function(getProdQualityStats) {
+            console.log(getProdQualityStats);            
+            // function to retrive the response
+            if (getProdQualityStats.status == 200) {
+              resolve(getProdQualityStats.data.response);
+            } else {
+              reject('Update Expertise Failed!');
+            }
+          },
+          function(err) {
+            reject(err);
+          });
+      });
+    };
+    this.getProjectProductivityStats = function(accountId, programID, fromDate, toDate){      
+      var reqProjectProductivityStats={url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+accountId+'/'+programID+'/quality/stats',method:'GET',headers : {'Accept':'application/json','Content-Type':'application/json','Authorization':'Basic '+token,'fromDate':fromDate,'toDate':toDate}}
+      return $q(function(resolve, reject) {
+        /*var reqDate = {
+            url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+accountId+'/'+programID+'/quality/dateHistogram',
+            method:'GET',
+            headers : {
+              'Accept' : 'application/json',
+              'Content-Type':'application/json', 
+              'Authorization' : 'Basic ' + token,                                        
+              'fromDate' : fromDate, 
+              'toDate' : toDate,
+              'interval' : interval
+            },
+            params: {                    
+                      projectId: projectId,
+                      sprintId: sprintId
+                  }
+        }*/
+        reqProjectProductivityStats
+        $http(reqProjectProductivityStats)
+          .then(function(getProjProdStats) {
+            console.log(getProjProdStats);            
+            // function to retrive the response
+            if (getProjProdStats.status == 200) {
+              resolve(getProjProdStats.data.response);
+            } else {
+              reject('Update Expertise Failed!');
+            }
+          },
+          function(err) {
+            reject(err);
+          });
+      });
+    };
+    this.getProjectSpentEffortsStats = function(accountId, programID, fromDate, toDate){      
+      var reqProjectSpentEffortsStats={url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+accountId+'/'+programID+'/spentEffort/stats',method:'GET',headers : {'Accept':'application/json','Content-Type':'application/json','Authorization':'Basic '+token,'fromDate':fromDate,'toDate':toDate}}
+      return $q(function(resolve, reject) {
+        /*var reqDate = {
+            url: 'http://inmbz2239.in.dst.ibm.com:8090/deliverydashboard/'+accountId+'/'+programID+'/quality/dateHistogram',
+            method:'GET',
+            headers : {
+              'Accept' : 'application/json',
+              'Content-Type':'application/json', 
+              'Authorization' : 'Basic ' + token,                                        
+              'fromDate' : fromDate, 
+              'toDate' : toDate,
+              'interval' : interval
+            },
+            params: {                    
+                      projectId: projectId,
+                      sprintId: sprintId
+                  }
+        }*/
+        reqProjectSpentEffortsStats
+        $http(reqProjectSpentEffortsStats)
+          .then(function(getProjSpentEffortStats) {
+            console.log(getProjSpentEffortStats);            
+            // function to retrive the response
+            if (getProjSpentEffortStats.status == 200) {
+              resolve(getProjSpentEffortStats.data.response);
+            } else {
+              reject('Update Expertise Failed!');
+            }
+          },
+          function(err) {
+            reject(err);
+          });
+      });
+    };
 
     /*this.getProjectForUser = function(programID){
     var userAccount = window.localStorage.getItem('accountLst');
