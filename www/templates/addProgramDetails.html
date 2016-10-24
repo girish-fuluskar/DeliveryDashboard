@@ -1,15 +1,15 @@
-<ion-modal-view style="border-radius:10px 10px 10px 10px;">
+<ion-modal-view style="border-radius:10px 10px 10px 10px;height:79%;" id="addProgramDetails" class="">
     <ion-header-bar class="bar bar-header modal_header" style="border-radius:10px 10px 10px 10px;">
-      <h1 class="title">Set Details<br>
-      </h1>
+      <h1 class="title">Set Details<br></h1>
       <!-- <button class="button button-clear button-primary" ng-click="refineDashbaordModal.hide()">Cancel</button> -->
     </ion-header-bar>
     <ion-content class="padding modal_background">
-    	<div class="modal_background"  style="height:auto;width:auto;padding:10px;margin:3px;">
+    	<div class="modal_background" style="width:auto;margin:3px;">
     		<div class="card modal_header" style="border-radius:10px 10px 10px 10px;">
-    			<h5>* These fields are required</h5>
+    			<h5 style="color:red;margin-left: 10px;font-weight: 500;">(*) These fields are required</h5>
     			<div class="item item-select" id="programId-select1" style="border-radius:10px 10px 10px 10px;width:auto;margin-bottom: 5px;">
-					<span class="input-label" style="font-weight:500;font-size:15px;text-align:left;">*Program</span>
+					<span class="input-label" style="font-weight:500;font-size:15px;text-align:left;">
+                    <span style="color:red;">*</span>Program</span>
 					<select style="font-weight:500;font-size:15px;width:90%;" ng-model="programSelect" 
                     ng-options="prgLst.id as prgLst.name for prgLst in userProgramLst" ng-change="getProjectOnProgram(programSelect)">
                         <!-- <option ng-repeat="prgLst in userProgramLst" value="{{prgLst.id}}">{{prgLst.name}}
@@ -17,18 +17,17 @@
 					</select>
 				</div>
 				<label class="item item-input" id="fromDate-input7" style="border-radius:10px 10px 10px 10px;width:auto;margin-bottom: 5px;">
-                    <span class="input-label" style="font-weight:500;font-size:15px;text-align:left;">*From Date</span>
+                    <span class="input-label" style="font-weight:500;font-size:15px;text-align:left;"><span style="color:red;">*</span>From Date</span>
                     <input type="date" placeholder="yyyy-MM-dd" value="{{date}}" ng-model="startDate" name="startDate">
                 </label> 
                 <label class="item item-input" id="toDate-input8" style="border-radius:10px 10px 10px 10px;width:auto;margin-bottom: 5px;">
-                    <span class="input-label" style="font-weight:500;font-size:15px;text-align:left;">*To Date</span>
+                    <span class="input-label" style="font-weight:500;font-size:15px;text-align:left;"><span style="color:red;">*</span>To Date</span>
                     <input type="date" placeholder="mm/dd/yyyy" ng-model="endDate" name="endDate">
                 </label>
                 <label class="item item-input" style="border-radius:10px 10px 10px 10px;width:auto;margin-bottom: 5px;">
-					<span class="input-label" style="font-weight:500;font-size:15px;text-align:left;">Interval</span>
+					<span class="input-label" style="font-weight:500;font-size:15px;text-align:left;"><span style="color:red;">*</span>Interval</span>
 		   			<input type="number" min="1" placeholder="In no of weeks" required="" name="account" ng-model="interval">
 				</label>
-        		<h5># These fields are optional</h5>
 				<div class="item item-select" id="projectId-select1" style="border-radius:10px 10px 10px 10px;width:auto;margin-bottom: 5px;">
 					<span class="input-label"  style="font-weight:500;font-size:15px;text-align:left;">Project</span>
 					<select style="font-weight:500;font-size:15px;width:90%;" ng-model="projectSelect" 
@@ -39,7 +38,7 @@
                         <option value="">Select</option>
 					</select>
 				</div>				
-                <label class="item item-input" id="sprintId-select1" style="border-radius:10px 10px 10px 10px;width:auto;margin-bottom: 5px;">
+                <label class="item item-input" id="sprintId-select1" style="border-radius:10px 10px 10px 10px;width:auto;margin-bottom: 0px;">
 					<span class="input-label" style="font-weight:500;font-size:15px;text-align:left;">Sprint</span>
 					<input type="number" placeholder="In numbers" required="" name="sprint" ng-model="sprint">
 				</label>				

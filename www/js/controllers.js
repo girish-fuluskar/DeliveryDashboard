@@ -199,27 +199,33 @@ angular.module('app.controllers', [])
 
   //Set User's initial details to localstoarage after login
   $scope.setInitialDetails = function(programSelect,projectSelect,startDate,endDate,sprint,interval){
-    //Reloading page on Set button click
-    $state.go($state.current, {}, { reload: true });
+    if(programSelect===undefined|| startDate===undefined || endDate===undefined || interval===undefined){
+      $("#addProgramDetails").effect("shake");      
+      //document.getElementById("addProgramDetails").className="shake-horizontal"; //.effect("shake");
+    }
+    else{  
+      //Reloading page on Set button click
+      $state.go($state.current, {}, { reload: true });
 
-    var startDate = $filter('date')(startDate, "yyyy-MM-dd"+"T00:00:00.000+0530");
-    var endDate = $filter('date')(endDate, "yyyy-MM-dd"+"T00:00:00.000+0530");
-    var interval = interval;
-    var initialDetailsArr=[];
-    var initialDetails={
-      program:programSelect,
-      project:projectSelect,
-      startDate:startDate,
-      endDate:endDate,
-      sprint:sprint,
-      interval:interval
-    };
-    initialDetailsArr.push(initialDetails);
-    $scope.initialDeatils = initialDetailsArr;
-    chartDataWithoutParam.setUsersInitialDetails(initialDetailsArr);
-    $scope.addProgramDetailsModal.hide();
-    //$scope.chartsWithoutParam($scope.accountId, programSelect, startDate, endDate, interval);
-    $scope.AllChrts($scope.accountId, programSelect, sprint, projectSelect, startDate, endDate, interval);
+      var startDate = $filter('date')(startDate, "yyyy-MM-dd"+"T00:00:00.000+0530");
+      var endDate = $filter('date')(endDate, "yyyy-MM-dd"+"T00:00:00.000+0530");
+      var interval = interval;
+      var initialDetailsArr=[];
+      var initialDetails={
+        program:programSelect,
+        project:projectSelect,
+        startDate:startDate,
+        endDate:endDate,
+        sprint:sprint,
+        interval:interval
+      };
+      initialDetailsArr.push(initialDetails);
+      $scope.initialDeatils = initialDetailsArr;
+      chartDataWithoutParam.setUsersInitialDetails(initialDetailsArr);
+      $scope.addProgramDetailsModal.hide();
+      //$scope.chartsWithoutParam($scope.accountId, programSelect, startDate, endDate, interval);
+      $scope.AllChrts($scope.accountId, programSelect, sprint, projectSelect, startDate, endDate, interval);
+    }
   }
 
   /*$scope.addAccount_popup = function(){
