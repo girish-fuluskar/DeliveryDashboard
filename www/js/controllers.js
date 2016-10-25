@@ -3046,12 +3046,26 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
     .then(function(snapShot){
       $scope.snapshotResponse = snapShot;
       console.log($scope.snapshotResponse);
+
+      //Set sprint details to localstoarage for dashboard after sprint created sucessfully
+      var interval = 1; //setting 1 as default, no interval input coming during sprint data
+      var initialDetailsArr=[];
+      var initialDetails={
+        program:programId,
+        project:projectId,
+        startDate:startDate,
+        endDate:endDate,
+        sprint:sprint,
+        interval:interval
+      };
+      initialDetailsArr.push(initialDetails);
+      chartDataWithoutParam.setUsersInitialDetails(initialDetailsArr);
+
       var saveSanpshotPopup = $ionicPopup.show({
                 title: 'Success',
                 template: 'Sprint Data Added Successfully',
                 scope: $scope,
-                buttons: [
-                  
+                buttons: [                  
                   {
                     text: '<b>To Dashboard</b>',
                     type: 'button-positive',
