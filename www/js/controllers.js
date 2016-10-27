@@ -4,6 +4,8 @@ angular.module('app.controllers', [])
   chartData, chartDataWithoutParam) {
   var technologyList=[]; 
 
+  $scope.tabHeaderTitle = "Delivery Dashboard App";
+
 
    //slide out function
   /*$scope.isdiplayEffortMetrics = false;
@@ -95,6 +97,11 @@ angular.module('app.controllers', [])
     // Code you want executed every time view is opened
     $scope.getInitialDetailsFromStoarage = chartDataWithoutParam.getUsersInitialDetails();
     if($scope.getInitialDetailsFromStoarage===null){
+      if($scope.addProgramDetailsModal===undefined) {
+          console.log("Undefined, so reloading");
+          //Reloading page on Set button click
+          $state.go($state.current, {}, { reload: true });
+      }
       $scope.addProgramDetailsModal.show();
     }
     else{
@@ -352,8 +359,14 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
   //Effort Extended chart without param
   $scope.effortExtended = chartDataWithoutParam.getEffortExtendedWithoutParam(accountId, projectId, fromDate, toDate, interval)
   .then(function(effortExtendedDataWithoutParam) {
-        $scope.effortExtended = effortExtendedDataWithoutParam;
+    if(effortExtendedDataWithoutParam!="-Infinity"){
+      $scope.effortExtended = effortExtendedDataWithoutParam;
         console.log($scope.effortExtended);
+    }
+    else{
+      $scope.effortExtended = "0";
+    }
+        
   }, function(err) {            
       var alertPopup = $ionicPopup.alert({
           title: 'Search Failed!',
@@ -1162,93 +1175,32 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
     //alert($scope.accountLst);
     $scope.allCharts = true;
     /*var fromDate = $filter('date')(fromDate, "yyyy-MM-dd"+"T00:00:00.000+0530");
-    var toDate = $filter('date')(toDate, "yyyy-MM-dd"+"T00:00:00.000+0530");*/
+    va0ter('date')(toDate, "yyyy-MM-dd"+"T00:00:00.000+0530");*/
 
   //Effort Extended chart with param
   $scope.allCharts = true;
   $scope.effortExtended = '';
   $scope.effortExtended = chartData.getEffortExtended(accountId, programID, sprintNo, projectId, fromDate, toDate, interval)
     .then(function(effortExtendedDataWithoutParam) {
-          $scope.effortExtended = effortExtendedDataWithoutParam;
-          console.log($scope.effortExtended);
-          var myConfig =     {
-                "type":"pie",              
-                "x":"-10%",
-                "y":"-20%",
-                "background-color":"#dfdfdf",
-                "border-radius":4,
-                "legend": {
-                    "toggle-action": "remove",
-                    "layout":"x5",
-                    "x":"10%",
-                    "y":"20%",
-                    "shadow":false,
-                    "background-color": "none",
-                    "border-width": 0,
-                    "border-color": "none",
-                    "item": {
-                        "font-color": "black"
-                    },
-                    "marker":{
-                        "type":"circle",
-                        "border-width":0
-                    }
-                },
-                "value-box":{
-                    "visible":true
-                },
-                "plotarea":{
-                    "margin":"40% 0% 0% 0%"
-                },
-                "plot":{
-                    "slice":50,
-                    "ref-angle":270,
-                    "detach":false,
-                    "hover-state":{
-                        "visible":false
-                    },
-                    "value-box":{
-                        "visible":true,
-                        "type":"first",
-                        "connected":false,
-                        "placement":"center",
-                        "text":"Total Spent<br>"+  $scope.effortExtended[0].value+" hrs<br>Max Estimate<br>"+ $scope.effortExtended[2].value +" hrs",
-                        "font-color":"#000000",
-                        "font-size":"10px"
-                    },
-                    "animation":{
-                        "delay":0,
-                        "effect":2,
-                        "speed":"600",
-                        "method":"0",
-                        "sequence":"1"
-                    }
-                },
-                "series":[
-                    {
-                        "values":[$scope.effortExtended[2].value],
-                        "text":$scope.effortExtended[2].name + "- <br> " + $scope.effortExtended[2].value + " hrs",
-                        "background-color":"#c9ff00",
-                        "border-width":"0px",
-                        "shadow":0
-                    },
-                    {
-                        "values":[$scope.effortExtended[0].value],
-                        "text": $scope.effortExtended[0].name + "- <br> " + $scope.effortExtended[0].value + " hrs",
-                        "background-color":"#57f22a",
-                        "alpha":"0.5",
-                        "border-color":"#dadada",
-                        "border-width":"1px",
-                        "shadow":0
-                    }
-                ]
-            };     
-            zingchart.render({ 
-              id : 'myChart', 
-              data : myConfig, 
-              height: 350, 
-              width: '100%'
-            });
+        var effortExtendDataArr=[];
+        for(var k=0;k<effortExtendedDataWithoutParam.length;k++){
+          if(effortExtendedDataWithoutParam[k].value!="-Infinity"){
+            var effortExtendDataStruc = {
+              name:effortExtendedDataWithoutParam[k].name,
+              value:effortExtendedDataWithoutParam[k].value
+            };
+            effortExtendDataArr.push(effortExtendDataStruc);
+          }
+          else{
+            var effortExtendDataStruc = {
+              name:effortExtendedDataWithoutParam[k].name,
+              value:0
+            };
+            effortExtendDataArr.push(effortExtendDataStruc);
+          }
+        }
+        $scope.effortExtended = effortExtendDataArr;
+        console.log($scope.effortExtended);
 
     }, function(err) {            
         var alertPopup = $ionicPopup.alert({
@@ -1949,7 +1901,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
                         }
                     },
                     "tooltip": {
-                        "text": "<b>%t: %v hrs",
+                        "text": "<b>%t: %v",
                         "font-family": "Arial",
                         "font-size": "10px",
                         "font-weight": "normal",
@@ -2030,14 +1982,19 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
         }
         //loop for names from bucket, which to take only once
         for(var u=0;u<teamDate[0].buckets[0].aggregations.length;u++){
-          teamDateSeries.push(teamDate[0].buckets[0].aggregations[u].name);            
+          if(teamDateSeries.includes(teamDate[0].buckets[0].aggregations[u].name)){
+            //do nothing
+          }
+          else{
+            teamDateSeries.push(teamDate[0].buckets[0].aggregations[u].name);
+          }
         }
         $scope.teamDateLabel = teamDateLabel;
         $scope.teamDateSeries = teamDateSeries;         
         var realignTeamDateData = _.unzip(teamDateData1);    
         $scope.teamDateData = realignTeamDateData;
         console.log($scope.teamDateData);
-        for(var m=1;m<=$scope.teamDateSeries.length;m++){
+        for(var m=1;m<=$scope.teamDateSeries.length-1;m++){
           if($scope.teamDateSeries[m-1] != "YrsOfExperience"){
             var seriesStruct = {
               "text": $scope.teamDateSeries[m-1],
@@ -2172,7 +2129,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
           template: 'There was some problem with server.'
       });
     });
-    // Project Quality Stats chart   
+    // Projectwise Productivity Chart  
     $scope.projectQualityStats = chartData.getProjectQualityStats(accountId, programID, fromDate, toDate)
       .then(function(projectQualityStats){
         var projectQualityLabel = [];
@@ -2221,7 +2178,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
                   "stacked": false,
                   "stack-type": "normal",
                   "title": {
-                      "text": "Project Quality Stats",
+                      "text": "Project-wise Productivity Chart",
                       "text-align": "left",
                       "font-family": "Arial",
                       "font-size": "14px",
@@ -2333,7 +2290,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
           template: 'There was some problem with server.'
       });
     });
-    // Project Productivity Stats chart   
+    // Projectwise Quality Chart   
     $scope.projectProductivityStats = chartData.getProjectProductivityStats(accountId, programID, fromDate, toDate)
       .then(function(projectProductivityStats){
         var projectProductivityLabel = [];
@@ -2382,7 +2339,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
                   "stacked": false,
                   "stack-type": "normal",
                   "title": {
-                      "text": "Project Productivity Stats",
+                      "text": "Project-wise Quality Chart",
                       "text-align": "left",
                       "font-family": "Arial",
                       "font-size": "14px",
@@ -2494,7 +2451,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
           template: 'There was some problem with server.'
       });
     });
-    // Project Spent Effort Stats chart   
+    // Projectwise Spent Effort Chart   
     $scope.projectSpentEffortStats = chartData.getProjectSpentEffortsStats(accountId, programID, fromDate, toDate)
       .then(function(projectSpentEffortStats){
         var projectSpentEffortLabel = [];
@@ -2514,7 +2471,9 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
         }
         //loop for names from bucket, which to take only once
         for(var u=0;u<projectSpentEffortStats[0].buckets[0].aggregations.length;u++){
-          projectSpentEffortSeries.push(projectSpentEffortStats[0].buckets[0].aggregations[u].name);            
+          if(projectSpentEffortStats[0].buckets[0].aggregations[u].name!="TotalSpentEffort"){
+            projectSpentEffortSeries.push(projectSpentEffortStats[0].buckets[0].aggregations[u].name);
+          }
         }
         $scope.projectSpentEffortLabel = projectSpentEffortLabel;
         $scope.projectSpentEffortSeries = projectSpentEffortSeries;         
@@ -2543,7 +2502,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
                   "stacked": false,
                   "stack-type": "normal",
                   "title": {
-                      "text": "Project Spent Effort Stats",
+                      "text": "Project-wise Spent Effort Chart",
                       "text-align": "left",
                       "font-family": "Arial",
                       "font-size": "14px",
@@ -2831,6 +2790,43 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
 .controller('addNewSprintCtrl', function($scope, $ionicSlideBoxDelegate, $state, $filter, $ionicLoading, $ionicPopup, $ionicListDelegate, chartDataWithoutParam ) {
   var finalTeamStructureList = [];
   var teamListArray=[];
+  var optionsArr=[];
+  $scope.mainSlide = function(){
+    $ionicSlideBoxDelegate.slide(0);
+  }
+
+  $("#example_id").ionRangeSlider({
+      min: 0,
+      max: 100000,
+      from:0,
+      to:100000,
+      from_min: 0,
+      from_max: 100000,
+      postfix:" hrs",
+      prettify_separator:",",
+      step:"1",
+      type: 'single',
+      keyboard: true,
+      keyboard_step: 1,
+      prefix: "",
+      grid: true,
+      onFinish: updateInputs
+  });
+  var $values = $("#spentHrs");
+
+  function updateInputs (data) {
+    $values.prop("value", data.from);
+    console.log(data.from);
+  }
+
+  $scope.onSpentHrsChange = function(sptHours_input){
+    //alert("hi");
+    data.from = sptHours_input;
+    /*slider.update({
+        from: sptHours_input
+    });*/
+  }
+
   //$scope.getUsrProjectDataList = function(){
 
   //Get Programs for user's account on controller load
@@ -2888,6 +2884,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
 
   $scope.teamList = [];
 
+
   //slide on button click
   $scope.nextSlide = function() {
     $ionicSlideBoxDelegate.next();
@@ -2932,6 +2929,18 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
             specialization:searchedData[0].designation.specialization
           };
 
+          var obTemp={
+            prof:"Tester"
+          };
+          optionsArr.push(obTemp);
+          var options={
+            prof:searchedData[0].designation.profession
+          };
+
+          optionsArr.push(options);
+          console.log(optionsArr);
+
+
           //Creating structure for API
           var finalTeamStructList={
             "user":{
@@ -2944,6 +2953,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
           finalTeamStructureList.push(finalTeamStructList);
           console.log(finalTeamStructList);
           $scope.teamListData = teamList;
+          $scope.options = optionsArr;
           var finalTeamList = {teamList:teamList};
           teamListArray.push(finalTeamList);
           $scope.teamList = teamListArray;

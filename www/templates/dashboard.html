@@ -8,17 +8,17 @@
 			<ion-content class="modal_background" ng-controller="dashboardCtrl" elem-ready="load()">
 				<ion-list id="signIn-list2" class=" ">
 					<div style="margin-bottom:5px; margin-top:5px;">
-			        	<button style="background-color:#e62739;color:white;font-weight:500;margin:auto; border-radius:10px 10px 10px 10px;width:90%;" class="button button-block" ng-click="addProgramDetailsModal.show(); loadInitialDetailsFromStorage()" type="submit" id="submit4">Refine</button>
+			        	<button style="background-color:#e62739;color:white;font-weight:500;margin:auto; border-radius:10px 10px 10px 10px;width:90%;" class="button button-block" ng-click="addProgramDetailsModal.show(); loadInitialDetailsFromStorage()" type="submit" id="submit4">Refine Dashboard Criteria</button>
 			        </div>
 	            </ion-list>
 	            <div id="chartSection" style="margin-bottom:5px; margin-top:5px;" class="animate-show" ng-show="allCharts">
 	            	<label class="item modal_header" id="effortExtended" style="margin: auto;border-radius:10px 10px 10px 10px;width:90%;font-weight: 500;">
 			            <span class="" style="font-weight:500;font-size:15px;text-align:center;"><b>Total Spent Effort : </b><h1 style="color:blue">{{effortExtended[0].value}}<h3 style="color:blue">Hrs</h3></h1></span>
 			        </label>
-			        <div style="width: 283px; height: 10px;" class="spacer"></div>
+			        <!-- <div style="width: 283px; height: 10px;" class="spacer"></div>
 			        <label class="item modal_header" id="maxEstimatedEffort" style="margin: auto;border-radius:10px 10px 10px 10px;width:90%;font-weight: 500;">
 			            <span class="" style="font-weight:500;font-size:15px;text-align:center;"><b>Total Remaining Effort : </b><h1 style="color:blue">{{effortExtended[1].value}}<h3 style="color:blue">Hrs</h3></h1></span>
-			        </label>
+			        </label> -->
 			        <div style="width: 283px; height: 10px;" class="spacer"></div>
 			        <label class="item modal_header" id="maxEstimatedEffort" style="margin: auto;border-radius:10px 10px 10px 10px;width:90%;font-weight: 500;">
 			            <span class="" style="font-weight:500;font-size:15px;text-align:center;"><b> Estimated Effort : </b><h1 style="color:blue">{{effortExtended[2].value}}<h3 style="color:blue">Hrs</h3></h1></span>
@@ -89,6 +89,7 @@
 	        				<div id='projectSpentEffortsStat' style="margin:auto; border-radius:10px 10px 10px 10px;"></div>
 	        			</div>
 	        		</label>
+
 			        <!-- <div class="card" style="width:90%;">
 			        	<div class="item item-divider">
 				        	Team Date Histogram		              
@@ -104,7 +105,10 @@
 			        		<hc-pie-chart title="Browser usage" style="width:90%;" data="pieData">Placeholder for pie chart</hc-pie-chart>
 			        	</div>
 		        	</div> -->
-			    </div>		        				        		        
+			    </div>	
+			    <div class="bar-footer">
+				   <h4 class="" style="color:black;float:right;">* Please select your critieria to create the dashboard</h4>
+				</div>		    	        				        		        
 		    </ion-content>
-		</ion-pane>
+		</ion-pane>	
 </ion-view>

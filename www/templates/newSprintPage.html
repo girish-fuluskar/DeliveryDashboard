@@ -1,0 +1,90 @@
+<ion-view style="background-color: transparent;" title="Add Sprint Data" hide-back-button="true" id="page8" class=" ">
+    <ion-content padding="false" class="manual-ios-statusbar-padding" style="" scroll="true" padding="false" class="manual-ios-statusbar-padding">
+    	<div class="card row" style="border-radius:10px 10px 10px 10px;width:99%;background-color: transparent;">
+    		<div class="col col-50">
+		    	<label class="item card" name="id" id="projectList-select1" style="border-radius:10px 10px 10px 10px;margin-right: 5px;">
+		    		<h1 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" id="projectDetails-heading12">Fill Project Details</h1>
+			    	<hr>
+		    		<label class="item item-select card col" name="id" id="programList-select1" style="border-radius:10px 10px 10px 10px;width:100%;">
+			    		<span class="input-label" style="font-weight:500;font-size:15px;text-align:left;">Program</span>
+						<select style="font-weight:500;font-size:15px;width:100%;" ng-model="programSelect" 
+		            		ng-options="prgLst.id as prgLst.name for prgLst in userProgramLst" ng-change="getProjectOnProgram(programSelect)">
+		            		<option value="">Select</option>
+		            	</select>
+		        	</label>
+		        	<label class="item item-select card col" name="id" id="projectList-select1" style="border-radius:10px 10px 10px 10px;width:100%;margin-bottom: 10px;">            
+			            <span class="input-label"  style="font-weight:500;font-size:15px;text-align:left;">Project</span>
+						<select style="font-weight:500;font-size:15px;width:100%;" ng-model="projectSelect" 
+	                    ng-options="projLst.id as projLst.name for projLst in userProjectLst">
+	                        <option value="">Select</option>
+						</select>			            
+			        </label>
+		    	</label>
+	    	</div>	    	
+	    	<div class="col col-50">
+		    	<label class="item card" name="id" id="projectList-select1" style="border-radius:10px 10px 10px 10px;margin-right: 5px;">
+		    		<h1 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" id="projectDetails-heading12">Fill Sprint Details</h1>
+			    	<hr>
+		    		<ion-toggle ng-model="isSprintActive" name="isSprintActive" toggle-class="toggle-calm card" style="border-radius:10px 10px 10px 10px;width:100%;">Is Sprint Active?</ion-toggle>
+			    	<label class="item item-input card" id="sprint-input2" name="sprint" style="border-radius:10px 10px 10px 10px;width:100%;">
+		                <span class="input-label">Sprint</span>
+		                <input type="number" placeholder="Sprint No" ng-model="sprint" required="">
+		            </label>
+		            <label class="item item-input card" id="sprintStartDate-input7" style="border-radius:10px 10px 10px 10px;width:100%;">
+		                <span class="input-label">Sprint Start Date</span>
+		                <input type="date" placeholder="mm/dd/yyyy" ng-model="startDate" name="startDate">
+		            </label> 
+		            <label class="item item-input card" id="sprintEndDate-input8" style="border-radius:10px 10px 10px 10px;width:100%;">
+		                <span class="input-label">Sprint End Date</span>
+		                <input type="date" placeholder="mm/dd/yyyy" ng-model="endDate" name="endDate">
+		            </label>
+		            <label class="item item-input card" id="userstorycount-input2" style="border-radius:10px 10px 10px 10px;width:100%;margin-bottom: 10px;">
+		                <span class="input-label">User Story Count</span>
+		                <input type="number" placeholder="User Story Count" required=""  name="userStoryCount" ng-model="userStoryCount">
+		            </label>
+		    	</label>
+    		</div>
+		</div>
+		<div class="card row" style="border-radius:10px 10px 10px 10px;width:99%;height:auto;background-color: transparent;">
+			<div class="col card" style="height:auto;">
+	    		<form class="list animated bounceIn " name="searchform" class="css-form" novalidate id="searchUser-form6" ng-submit="searchform.$valid && search(searchinput)">
+		    		<h1 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" id="projectDetails-heading12">Add Team</h1>
+			    	<hr>
+		        	<label id="searchUser-input14" class="item item-input ">
+		         		<input placeholder="Search User" required=""  name="searchinput" type="text" ng-model="searchinput">
+		         	</label>
+		         	<div ng-show="searchform.$submitted || searchform.searchinput.$touched">
+		            	<div style="color:red;margin:5px;padding:5px;" ng-show="searchform.searchinput.$error.required">Please enter input to search.</div>
+		         	</div>
+		         	<button class="button button-assertive-900 button-block button-positive" id="searchUser-button15" style="font-weight:300;border-radius:10px 10px 10px 10px;">SUBMIT</button>
+		      	</form>
+	         	<div ng-show='showFilter && searchinput'>			         	
+		         	<ion-list show-delete="true" can-swipe="true">
+         				<ion-item ng-repeat="i in teamList">					            
+				            <span class="input-label" style="color: black; font-weight: 600;">				{{i.teamList.firstname}} {{i.teamList.lastname}}<br>
+					            	{{i.teamList.phone}}<br>
+					            	{{i.teamList.email}}<br>
+					            	{{i.teamList.profession}}<br>
+				            </span>
+			            	<ion-delete-button class="ion-minus-circled" ng-click="deleteTeamListItem(i)"></ion-delete-button>					               	
+			            </ion-item>			            
+         			</ion-list>
+	         	</div>		    	
+	    	</div>
+    	</div>
+		<div class="card row" style="border-radius:10px 10px 10px 10px;background-color: transparent;">
+			<!-- <label class="item item-input card col col-90" id="userstorycount-input2" style="border-radius:10px 10px 10px 10px;"> -->
+				<h1 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" id="projectDetails-heading12">Effort Metrics
+    			</h1>
+				<hr>
+				<div class="col col-10">
+					Spent Effort
+				</div>
+				<div class="col col-80">
+					<input type="text" id="example_id" name="example_name" value="" grid=true />
+					<input type="number" id="spentHrs" ng-model="sptHours_input" ng-change="onSpentHrsChange(sptHours_input)">
+				</div>
+			<!-- </label> -->
+		</div>
+    </ion-content>
+</ion-view>

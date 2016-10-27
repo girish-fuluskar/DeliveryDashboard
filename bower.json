@@ -8,6 +8,7 @@
     "ionic-filter-bar": "^1.1.1",
     "highcharts": "^5.0.0",
     "highcharts-ng": "^0.0.13",
-    "rangeslider.js": "^2.2.1"
+    "rangeslider.js": "^2.2.1",
+    "nouislider": "^9.0.0"
   }
 }
