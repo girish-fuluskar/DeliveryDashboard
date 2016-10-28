@@ -102,32 +102,36 @@ angular.module('app.services', [])
   this.getProgramForUser = function(){
     var userAccount = window.localStorage.getItem('accountLst');
     console.log("User Account " + userAccount);
-    return $q(function(resolve, reject){
-      var req = {
-        url: 'http://inmbz2239.in.dst.ibm.com:11090/deliverydashboard/'+userAccount+'/programs',
-        method:'GET',
-        headers : {
-          'Authorization' : 'Basic '+ token
-        }            
-      }
-      $http(req)
-        .then(function(programData) {           
-          // function to retrive the response
-          if (programData != "") {
-            resolve(programData);
-          } else {
-            reject('No Program found for user');
-          }
-        },
-        function(err) {
-          reject(err);
-        });  
-    });
+    var token = window.localStorage.getItem('authToken');
+    if(userAccount!=null){
+      return $q(function(resolve, reject){
+        var req = {
+          url: 'http://inmbz2239.in.dst.ibm.com:11090/deliverydashboard/'+userAccount+'/programs',
+          method:'GET',
+          headers : {
+            'Authorization' : 'Basic '+ token
+          }            
+        }
+        $http(req)
+          .then(function(programData) {           
+            // function to retrive the response
+            if (programData != "") {
+              resolve(programData);
+            } else {
+              reject('No Program found for user');
+            }
+          },
+          function(err) {
+            reject(err);
+          });  
+      });
+    }
   }
 
   //Get Projects on the basis of user selected Program
   this.getProjectForUser = function(programID){
     var userAccount = window.localStorage.getItem('accountLst');
+    var token = window.localStorage.getItem('authToken');
     return $q(function(resolve, reject){
       var req = {
         url: 'http://inmbz2239.in.dst.ibm.com:11090/deliverydashboard/'+userAccount+'/'+programID+'/projects',
@@ -216,7 +220,8 @@ angular.module('app.services', [])
                 reject('Search Failed!');
             }
         }, function(err) {
-            reject(err);
+            //reject(err);
+            resolve(err);
         });
     });
   }

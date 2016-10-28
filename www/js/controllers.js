@@ -1796,7 +1796,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
         $scope.qualityDateSeries = qualityDateSeries;         
         var realignQualityDateData = _.unzip(qualityDateData1);    
         $scope.qualityDateData = realignQualityDateData;
-        console.log($scope.qualityyDateData);
+        console.log($scope.qualityDateData);
         for(var m=1;m<=$scope.qualityDateSeries.length;m++){
           var seriesStruc = {
             "text": $scope.qualityDateSeries[m-1],
@@ -2790,6 +2790,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
 .controller('addNewSprintCtrl', function($scope, $ionicSlideBoxDelegate, $state, $filter, $ionicLoading, $ionicPopup, $ionicListDelegate, chartDataWithoutParam ) {
   var finalTeamStructureList = [];
   var teamListArray=[];
+  var searchedTeamListArray=[];
   var optionsArr=[];
   $scope.mainSlide = function(){
     $ionicSlideBoxDelegate.slide(0);
@@ -2832,19 +2833,20 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
   //Get Programs for user's account on controller load
   chartDataWithoutParam.getProgramForUser()
     .then(function(userPrograms){
-      $scope.userProgramData = userPrograms;
-      console.log($scope.userProgramData);
-       var userProgramArr = [];
-      for(var k=0;k<$scope.userProgramData.data.response.length;k++){
-        var usrProg={
-          "id": $scope.userProgramData.data.response[k].id,
-          "name": $scope.userProgramData.data.response[k].name
-        };
-        userProgramArr.push(usrProg);
+      if(userPrograms!=null || userPrograms!= undefined){
+        $scope.userProgramData = userPrograms;
+        console.log($scope.userProgramData);
+        var userProgramArr = [];
+        for(var k=0;k<$scope.userProgramData.data.response.length;k++){
+          var usrProg={
+            "id": $scope.userProgramData.data.response[k].id,
+            "name": $scope.userProgramData.data.response[k].name
+          };
+          userProgramArr.push(usrProg);
+        }
+
+        $scope.userProgramLst = userProgramArr;
       }
-
-      $scope.userProgramLst = userProgramArr;
-
     }, function(err){
       var alertPopup = $ionicPopup.alert({
         title: 'Search Failed!',
@@ -2893,6 +2895,29 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
   $scope.previousSlide = function() {
     $ionicSlideBoxDelegate.previous();
   }
+
+  //add searched team member
+  $scope.searchedTeamMember = function(fName,lName,phone,email,profession){
+    var searchedTeamList={
+      firstname : fName,
+      lastname : lName,
+      phone : phone,
+      email : email,
+      profession: profession
+    };
+
+    var finalSearchedTeamList = {searchedTeamList:searchedTeamList};
+    searchedTeamListArray.push(finalSearchedTeamList);
+    $scope.searchedTeamLists = searchedTeamListArray;
+  }
+
+
+
+  //deleting items one by one from list
+  $scope.deleteTeamListItem = function (i){
+    searchedTeamListArray.splice(searchedTeamListArray.indexOf(i), 1);    
+    $ionicListDelegate.closeOptionButtons();
+  };
   
   //Search team members
   $scope.search = function(data){
@@ -2903,76 +2928,97 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
       chartDataWithoutParam.search(data)
         .then(function(searchedData) {
           //$ionicLoading.hide();
-          $scope.showFilter = false;
-          if (searchedData !== undefined) {
-              $scope.showFilter = true;
+          if(data!=null || data!=undefined){
+            if(searchedData!=null || searchedData!=undefined){
+              if(searchedData.status==400){
+                $scope.teamList="";  
+              }
+              else{
+                teamListArray=[];
+                $scope.showFilter = false;
+                if (searchedData !== undefined) {
+                    $scope.showFilter = true;
+                }
+
+                for(var b=0;b<searchedData.length;b++){
+                  var searchTeamList={
+                    id : searchedData[b].id,
+                    firstname : searchedData[b].firstname,
+                    lastname : searchedData[b].lastname,
+                    phone : searchedData[b].phone,
+                    email : searchedData[b].email,
+                    profession:searchedData[b].designation.profession,
+                    specialization:searchedData[b].designation.specialization
+                  };
+                  var finalTeamList = {searchTeamList:searchTeamList};
+                  teamListArray.push(finalTeamList);
+
+                  /*var obTemp={
+                    prof:"Tester"
+                  };
+                  optionsArr.push(obTemp);
+                  var options={
+                    prof:searchedData[b].designation.profession
+                  };
+
+                  optionsArr.push(options);
+                  console.log(optionsArr);
+
+
+                  //Creating structure for API
+                  var finalTeamStructList={
+                    "user":{
+                      "id" : searchedData[b].id,
+                      "email" : searchedData[b].email
+                    },
+                    "role" : searchedData[b].designation.profession
+                  };
+
+                  finalTeamStructureList.push(finalTeamStructList);
+                  console.log(finalTeamStructList);*/  
+
+
+
+                }
+                
+
+                
+                //$scope.teamListData = teamList;
+                //$scope.options = optionsArr;
+                //var finalTeamList = {teamList:teamList};
+                //teamListArray=[];
+                //teamListArray.push(finalTeamList);
+                $scope.teamList = teamListArray;
+                $scope.userProfiles = searchedData;                
+              }              
+            }
+            else{
+              $scope.teamList="";
+              $scope.searchedTeamList = searchedTeamListArray;
+            }  
           }
-          if (searchedData === undefined) {
-              var alertPopup = $ionicPopup.alert({
-                  title: 'Search Failed!',
-                  template: 'No result found!',
-                  button:[
-                    {
-                      text: 'Ok',
-                      onTap: $scope.teamList = teamListArray
-                    }
-                  ]
-              });
+          else{
+            if(searchedTeamListArray.length!=0){
+              $scope.searchedTeamLists = searchedTeamListArray;  
+            }
+            $scope.teamList="";
+            
           }
-          var teamList={
-            id : searchedData[0].id,
-            firstname : searchedData[0].firstname,
-            lastname : searchedData[0].lastname,
-            phone : searchedData[0].phone,
-            email : searchedData[0].email,
-            profession:searchedData[0].designation.profession,
-            specialization:searchedData[0].designation.specialization
-          };
-
-          var obTemp={
-            prof:"Tester"
-          };
-          optionsArr.push(obTemp);
-          var options={
-            prof:searchedData[0].designation.profession
-          };
-
-          optionsArr.push(options);
-          console.log(optionsArr);
-
-
-          //Creating structure for API
-          var finalTeamStructList={
-            "user":{
-              "id" : searchedData[0].id,
-              "email" : searchedData[0].email
-            },
-            "role" : searchedData[0].designation.profession
-          };
-
-          finalTeamStructureList.push(finalTeamStructList);
-          console.log(finalTeamStructList);
-          $scope.teamListData = teamList;
-          $scope.options = optionsArr;
-          var finalTeamList = {teamList:teamList};
-          teamListArray.push(finalTeamList);
-          $scope.teamList = teamListArray;
-          $scope.userProfiles = searchedData;
+                    
         }, function(err) {
           $ionicLoading.hide();
-          var alertPopup = $ionicPopup.alert({
-              title: 'Search Failed!',
-              text: 'err.data.message'
-          });
+          if(data===null || data===undefined){
+            //teamListArray=[];  
+          }
+          /*if(searchedData===null || searchedData===undefined){
+            var alertPopup = $ionicPopup.alert({
+                title: 'Search Failed!',
+                text: 'err.data.message'
+            });
+          }*/
       });
-      $scope.teamList = teamListArray;
+      //$scope.teamList = teamListArray;
     }
-
-    //deleting items one by one from list
-  $scope.deleteTeamListItem = function (i){
-    teamListArray.splice(teamListArray.indexOf(i), 1);    
-    $ionicListDelegate.closeOptionButtons();
-  };
 
   //create project snapshot API call
   $scope.projectSnapShot = function(programId, projectId,sprint,isSprintActive,startDate,endDate,userStoryCount,spentHours_requirements,spentHours_design,spentHours_build,spentHours_test,spentHours_support,spentHours_unproductive,remainingHours_requirements,remainingHours_design,remainingHours_build,remainingHours_test,remainingHours_support,remainingHours_unproductive,estimatedHours_requirements,estimatedHours_design,estimatedHours_build,estimatedHours_test,estimatedHours_support,estimatedHours_unproductive,qualityMetrics_stats_junit,qualityMetrics_stats_sonarCritical,qualityMetrics_stats_sonarMajor,qualityMetrics_stats_defectSev1,qualityMetrics_stats_defectSev2,qualityMetrics_stats_defectSev3,qualityMetrics_stats_defectSev4,qualityMetrics_stats_defectDensity,productivityMetrics_stats_storypoints,productivityMetrics_stats_velocity){
