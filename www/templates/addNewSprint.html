@@ -24,7 +24,7 @@
 					        </label>
 			        	</div>
 			        	<div class="col col-10">
-			        		<button class="button button-positive  button-inline icon ion-arrow-right-c icon-right" style="font-weight:300;border-radius:10px 10px 10px 10px;height:150px;float: right;" type="submit" id="addAccount-button4" ng-click="nextSlide()"></button>
+			        		<button class="button button-positive  button-inline icon ion-arrow-right-c icon-right" style="font-weight:300;border-radius:10px 10px 10px 10px;height:100%;float: right;" type="submit" id="addAccount-button4" ng-click="nextSlide()"></button>
 			        	</div>
                 	</div>
 			    </div>	    
@@ -36,29 +36,34 @@
 			    	<div style="width: 283px; height: 10px;" class="spacer"></div>
 			    	<div class="row" style="background-color: transparent;">
 			    		<div class="col col-10">
-			    			<button class="button button-assertive  button-inline icon ion-arrow-left-c icon-left" style="font-weight:300;border-radius:10px 10px 10px 10px;height: 350px;float: left;" type="submit" id="addAccount-button4" ng-click="previousSlide()"></button>
+			    			<button class="button button-assertive  button-inline icon ion-arrow-left-c icon-left" style="font-weight:300;border-radius:10px 10px 10px 10px;height:100%;float: left;" type="submit" id="addAccount-button4" ng-click="previousSlide()"></button>
 			    		</div>
 			    		<div class="col col-80">
 			    			<ion-toggle ng-model="isSprintActive" name="isSprintActive" toggle-class="toggle-calm card" style="border-radius:10px 10px 10px 10px;width:90%;margin:10px;background-color:#95a5a6;">Is Sprint Active?</ion-toggle>
-					    	<label class="item item-input card" id="sprint-input2" name="sprint" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;">
+					    	<label class="item item-input card" id="sprint-input2" name="sprint" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;margin-left: 10px;">
 			                    <span class="input-label" style="background-color:#95a5a6;">Sprint</span>
 			                    <input type="number" placeholder="Sprint No" ng-model="sprint" style="background-color:#95a5a6;" required="">
 			                </label>
-			                <label class="item item-input card" id="sprintStartDate-input7" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;">
+			                <label class="item item-input card" id="sprintStartDate-input7" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;margin-left: 10px;">
 			                    <span class="input-label" style="background-color:#95a5a6;">Sprint Start Date</span>
 			                    <input type="date" placeholder="mm/dd/yyyy" ng-model="startDate" style="background-color:#95a5a6;" name="startDate">
 			                </label> 
-			                <label class="item item-input card" id="sprintEndDate-input8" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;">
+			                <label class="item item-input card" id="sprintEndDate-input8" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;margin-left: 10px;">
 			                    <span class="input-label" style="background-color:#95a5a6;">Sprint End Date</span>
 			                    <input type="date" placeholder="mm/dd/yyyy" ng-model="endDate" style="background-color:#95a5a6;" name="endDate">
 			                </label>
-			                <label class="item item-input card" id="userstorycount-input2" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;">
+			                <ion-toggle ng-change="showLogDate(isBackDatedEntry)" ng-model="isBackDatedEntry" name="isBackDatedEntry" toggle-class="toggle-calm card" style="border-radius:10px 10px 10px 10px;width:90%;margin:10px;background-color:#95a5a6;">Is this a back-dated entry?</ion-toggle>
+			                <label class="item item-input card" ng-hide=isHidden id="logDate-input8" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;margin-left: 10px;">
+			                    <span class="input-label" style="background-color:#95a5a6;">Log Date</span>
+			                    <input type="date" placeholder="mm/dd/yyyy" ng-model="logDate" style="background-color:#95a5a6;" name="logDate">
+			                </label>
+			                <label class="item item-input card" id="userstorycount-input2" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;margin-left: 10px;">
 			                    <span class="input-label" style="background-color:#95a5a6;">User Story Count</span>
 			                    <input type="number" placeholder="User Story Count" required=""  name="userStoryCount" style="background-color:#95a5a6;" ng-model="userStoryCount">
 			                </label>
 			    		</div>
 			    		<div class="col col-10">
-			    			<button class="button button-positive  button-inline icon ion-arrow-right-c icon-right" style="font-weight:300;border-radius:10px 10px 10px 10px;height: 350px;float: right;" type="submit" id="addAccount-button4" ng-click="nextSlide()"></button>
+			    			<button class="button button-positive  button-inline icon ion-arrow-right-c icon-right" style="font-weight:300;border-radius:10px 10px 10px 10px;height: 100%;float: right;" type="submit" id="addAccount-button4" ng-click="nextSlide()"></button>
 			    		</div>
 			    	</div>
 			    </div>
@@ -70,7 +75,7 @@
 				    	<hr>
 				    	<div class="row" style="background-color: transparent;">
 				    		<div class="col col-10">
-				    			<button class="button button-assertive  button-inline icon ion-arrow-left-c icon-left" style="font-weight:300;border-radius:10px 10px 10px 10px;height: 350px;float: left;" type="submit" id="addAccount-button4" ng-click="previousSlide()"></button>
+				    			<button class="button button-assertive  button-inline icon ion-arrow-left-c icon-left" style="font-weight:300;border-radius:10px 10px 10px 10px;height: 100%;float: left;" type="submit" id="addAccount-button4" ng-click="previousSlide()"></button>
 				    		</div>
 				    		<div class="col col-80">
 				    			<div id="searchUser-input14" class="item item-input card">
@@ -107,7 +112,7 @@
 			         			</ion-list>
 				    		</div>
 				    		<div class="col col-10">
-				    			<button class="button button-positive  button-inline icon ion-arrow-right-c icon-right" style="font-weight:300;border-radius:10px 10px 10px 10px;height: 350px;float: right;" type="submit" id="addAccount-button4" ng-click="nextSlide()"></button>
+				    			<button class="button button-positive  button-inline icon ion-arrow-right-c icon-right" style="font-weight:300;border-radius:10px 10px 10px 10px;height: 100%;float: right;" type="submit" id="addAccount-button4" ng-click="nextSlide()"></button>
 				    		</div>
 				    	</div>
 		    		</div>
@@ -122,7 +127,7 @@
 					<hr>
 					<div class="row" style="background-color: transparent;">
 						<div class="col col-10">
-							<button class="button button-assertive  button-inline icon ion-arrow-left-c icon-left" style="font-weight:300;border-radius:10px 10px 10px 10px;height: 450px;float: left;" type="submit" id="addAccount-button4" ng-click="previousSlide()"></button>
+							<button class="button button-assertive  button-inline icon ion-arrow-left-c icon-left" style="font-weight:300;border-radius:10px 10px 10px 10px;height: 100%;float: left;" type="submit" id="addAccount-button4" ng-click="previousSlide()"></button>
 						</div>
 						<div class="col col-80">
 							<label class="item item-input card" id="requirements-input1" style="background-color:#95a5a6;">
@@ -151,7 +156,7 @@
 			                </label>
 						</div>
 						<div class="col col-10">
-							<button class="button button-positive  button-inline icon ion-arrow-right-c icon-right" style="font-weight:300;border-radius:10px 10px 10px 10px;height: 450px;float: right;" type="submit" id="addAccount-button4" ng-click="nextSlide()"></button>
+							<button class="button button-positive  button-inline icon ion-arrow-right-c icon-right" style="font-weight:300;border-radius:10px 10px 10px 10px;height: 100%;float: right;" type="submit" id="addAccount-button4" ng-click="nextSlide()"></button>
 						</div>
 					</div>
 				</div>
@@ -164,7 +169,7 @@
 					<hr>
 					<div class="row" style="background-color: transparent;">
 						<div class="col col-10">
-							<button class="button button-assertive  button-inline icon ion-arrow-left-c icon-left" style="font-weight:300;border-radius:10px 10px 10px 10px;height: 450px;float: left;" type="submit" id="addAccount-button4" ng-click="previousSlide()"></button>
+							<button class="button button-assertive  button-inline icon ion-arrow-left-c icon-left" style="font-weight:300;border-radius:10px 10px 10px 10px;height: 100%;float: left;" type="submit" id="addAccount-button4" ng-click="previousSlide()"></button>
 						</div>
 						<div class="col col-80">
 							<label class="item item-input card" style="background-color:#95a5a6;" id="requirements-input1">
@@ -193,7 +198,7 @@
 			                </label>
 						</div>
 						<div class="col col-10">
-							<button class="button button-positive  button-inline icon ion-arrow-right-c icon-right" style="font-weight:300;border-radius:10px 10px 10px 10px;height: 450px;float: right;" type="submit" id="addAccount-button4" ng-click="nextSlide()"></button>
+							<button class="button button-positive  button-inline icon ion-arrow-right-c icon-right" style="font-weight:300;border-radius:10px 10px 10px 10px;height: 100%;float: right;" type="submit" id="addAccount-button4" ng-click="nextSlide()"></button>
 						</div>
 					</div>
 	            </div>
@@ -206,7 +211,7 @@
 					<hr>
 					<div class="row" style="background-color: transparent;">
 						<div class="col col-10">
-							<button class="button button-assertive  button-inline icon ion-arrow-left-c icon-left" style="font-weight:300;border-radius:10px 10px 10px 10px;height: 450px;float: left;" type="submit" id="addAccount-button4" ng-click="previousSlide()"></button>
+							<button class="button button-assertive  button-inline icon ion-arrow-left-c icon-left" style="font-weight:300;border-radius:10px 10px 10px 10px;height: 100%;float: left;" type="submit" id="addAccount-button4" ng-click="previousSlide()"></button>
 						</div>
 						<div class="col col-80">
 							<label class="item item-input card" style="background-color:#95a5a6;" id="requirements-input1">
@@ -235,7 +240,7 @@
 			                </label>								
 						</div>
 						<div class="col col-10">
-							<button class="button button-positive  button-inline icon ion-arrow-right-c icon-right" style="font-weight:300;border-radius:10px 10px 10px 10px; height: 450px;float: right;" type="submit" id="addAccount-button4" ng-click="nextSlide()"></button>
+							<button class="button button-positive  button-inline icon ion-arrow-right-c icon-right" style="font-weight:300;border-radius:10px 10px 10px 10px; height: 100%;float: right;" type="submit" id="addAccount-button4" ng-click="nextSlide()"></button>
 						</div>
 					</div>
 		        </div>
@@ -248,7 +253,7 @@
 					<hr>
 					<div class="row" style="background-color: transparent;">
 						<div class="col col-10">
-							<button class="button button-assertive  button-inline icon ion-arrow-left-c icon-left" style="font-weight:300;border-radius:10px 10px 10px 10px;height: 550px;float: left;" type="submit" id="addAccount-button4" ng-click="previousSlide()"></button>
+							<button class="button button-assertive  button-inline icon ion-arrow-left-c icon-left" style="font-weight:300;border-radius:10px 10px 10px 10px;height: 100%;float: left;" type="submit" id="addAccount-button4" ng-click="previousSlide()"></button>
 						</div>
 						<div class="col col-80">
 							<label class="item item-input card" style="background-color:#95a5a6;" id="junit-input1">
@@ -285,7 +290,7 @@
 			                </label>
 						</div>
 						<div class="col col-10">
-							<button class="button button-positive  button-inline icon ion-arrow-right-c icon-right" style="font-weight:300;border-radius:10px 10px 10px 10px;height: 550px;float: right;" type="submit" id="addAccount-button4" ng-click="nextSlide()"></button>
+							<button class="button button-positive  button-inline icon ion-arrow-right-c icon-right" style="font-weight:300;border-radius:10px 10px 10px 10px;height: 100%;float: right;" type="submit" id="addAccount-button4" ng-click="nextSlide()"></button>
 						</div>
 					</div>
 	            </div>
@@ -299,7 +304,7 @@
 						<hr>
 						<div class="row" style="background-color: transparent;">
 							<div class="col col-10">
-								<button class="button button-assertive  button-inline icon ion-arrow-left-c icon-left" style="font-weight:300;border-radius:10px 10px 10px 10px;height: 150px;float: left;" type="submit" id="addAccount-button4" ng-click="previousSlide()"></button>
+								<button class="button button-assertive  button-inline icon ion-arrow-left-c icon-left" style="font-weight:300;border-radius:10px 10px 10px 10px;height: 100%;float: left;" type="submit" id="addAccount-button4" ng-click="previousSlide()"></button>
 							</div>
 							<div class="col col-90">
 								<label class="item item-input card" style="background-color:#95a5a6;" id="storypoints-input1">
@@ -312,7 +317,7 @@
 				                </label>
 							</div>
 						</div>
-						<button class="button button-block button-positive" style="font-weight:300;border-radius:10px 10px 10px 10px;" id="searchUser-button15" ng-click="projectSnapShot(programSelect,projectSelect,sprint,isSprintActive,startDate,endDate,userStoryCount,sptHours_requirements,spentHours_design,spentHours_build,spentHours_test,spentHours_support,spentHours_unproductive,remainingHours_requirements,remainingHours_design,remainingHours_build,remainingHours_test,remainingHours_support,remainingHours_unproductive,estimatedHours_requirements,estimatedHours_design,estimatedHours_build,estimatedHours_test,estimatedHours_support,estimatedHours_unproductive,qualityMetrics_stats_junit,qualityMetrics_stats_sonarCritical,qualityMetrics_stats_sonarMajor,qualityMetrics_stats_defectSev1,qualityMetrics_stats_defectSev2,qualityMetrics_stats_defectSev3,qualityMetrics_stats_defectSev4,qualityMetrics_stats_defectDensity,productivityMetrics_stats_storypoints,productivityMetrics_stats_velocity)">SUBMIT</button>
+						<button class="button button-block button-positive" style="font-weight:300;border-radius:10px 10px 10px 10px;" id="searchUser-button15" ng-click="projectSnapShot(programSelect,projectSelect,sprint,isSprintActive,startDate,endDate,isBackDatedEntry,logDate,userStoryCount,sptHours_requirements,spentHours_design,spentHours_build,spentHours_test,spentHours_support,spentHours_unproductive,remainingHours_requirements,remainingHours_design,remainingHours_build,remainingHours_test,remainingHours_support,remainingHours_unproductive,estimatedHours_requirements,estimatedHours_design,estimatedHours_build,estimatedHours_test,estimatedHours_support,estimatedHours_unproductive,qualityMetrics_stats_junit,qualityMetrics_stats_sonarCritical,qualityMetrics_stats_sonarMajor,qualityMetrics_stats_defectSev1,qualityMetrics_stats_defectSev2,qualityMetrics_stats_defectSev3,qualityMetrics_stats_defectSev4,qualityMetrics_stats_defectDensity,productivityMetrics_stats_storypoints,productivityMetrics_stats_velocity)">SUBMIT</button>
 			  		</div>  								  					  		
 		  		</ion-content>
 		  	</ion-slide>
