@@ -2911,8 +2911,6 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
     $scope.searchedTeamLists = searchedTeamListArray;
   }
 
-
-
   //deleting items one by one from list
   $scope.deleteTeamListItem = function (i){
     searchedTeamListArray.splice(searchedTeamListArray.indexOf(i), 1);    
@@ -2952,42 +2950,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
                   };
                   var finalTeamList = {searchTeamList:searchTeamList};
                   teamListArray.push(finalTeamList);
-
-                  /*var obTemp={
-                    prof:"Tester"
-                  };
-                  optionsArr.push(obTemp);
-                  var options={
-                    prof:searchedData[b].designation.profession
-                  };
-
-                  optionsArr.push(options);
-                  console.log(optionsArr);
-
-
-                  //Creating structure for API
-                  var finalTeamStructList={
-                    "user":{
-                      "id" : searchedData[b].id,
-                      "email" : searchedData[b].email
-                    },
-                    "role" : searchedData[b].designation.profession
-                  };
-
-                  finalTeamStructureList.push(finalTeamStructList);
-                  console.log(finalTeamStructList);*/  
-
-
-
                 }
-                
-
-                
-                //$scope.teamListData = teamList;
-                //$scope.options = optionsArr;
-                //var finalTeamList = {teamList:teamList};
-                //teamListArray=[];
-                //teamListArray.push(finalTeamList);
                 $scope.teamList = teamListArray;
                 $scope.userProfiles = searchedData;                
               }              
@@ -3001,10 +2964,8 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
             if(searchedTeamListArray.length!=0){
               $scope.searchedTeamLists = searchedTeamListArray;  
             }
-            $scope.teamList="";
-            
-          }
-                    
+            $scope.teamList="";            
+          }                    
         }, function(err) {
           $ionicLoading.hide();
           if(data===null || data===undefined){
