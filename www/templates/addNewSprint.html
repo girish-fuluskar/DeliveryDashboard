@@ -73,11 +73,11 @@
 				    			<button class="button button-assertive  button-inline icon ion-arrow-left-c icon-left" style="font-weight:300;border-radius:10px 10px 10px 10px;height: 350px;float: left;" type="submit" id="addAccount-button4" ng-click="previousSlide()"></button>
 				    		</div>
 				    		<div class="col col-80">
-				    			<label id="searchUser-input14" class="item item-input card">
-					         		<input type="search" id="searchTeam" placeholder="Search User" required=""  name="searchinput" type="text" ng-model="searchinput" ng-change="search(searchinput)">
-					         	</label>
+				    			<div id="searchUser-input14" class="item item-input card">
+					         		<input class="" type="search" id="searchTeam" placeholder="Search User" required=""  name="searchinput" type="text" ng-model="searchinput" value="" ng-change="search(searchinput)">
+					         	</div>
 					         	<div class="list">
-						        	<li class="item" ng-repeat="i in teamList" ng-click="searchedTeamMember(i.searchTeamList.firstname,i.searchTeamList.lastname,i.searchTeamList.phone,i.searchTeamList.email,i.searchTeamList.profession)">
+						        	<li class="item" ng-repeat="i in suggestionTeamList" ng-click="searchedTeamMember(i.searchTeamList.firstname,i.searchTeamList.lastname,i.searchTeamList.phone,i.searchTeamList.email,i.searchTeamList.profession)">
 						        		{{i.searchTeamList.firstname}} {{i.searchTeamList.lastname}}<br>
 							            {{i.searchTeamList.phone}}<br>
 							            {{i.searchTeamList.email}}<br>
@@ -87,23 +87,24 @@
 					         	<!-- <div ng-show="searchform.$submitted || searchform.searchinput.$touched">
 					            	<div style="color:red;margin:5px;padding:5px;" ng-show="searchform.searchinput.$error.required">Please enter input to search.</div>
 					         	</div> -->
-					         	<button class="button button-assertive-900 button-block button-positive" id="searchUser-button15" style="font-weight:300;border-radius:10px 10px 10px 10px;">SUBMIT</button>
+
+					         	<!-- <button class="button button-assertive-900 button-block button-positive" id="searchUser-button15" style="font-weight:300;border-radius:10px 10px 10px 10px;">SUBMIT</button> -->
 					         	<div ng-show='showFilter && searchinput'>
 						      		<label id="searchUser-input14" class="item item-input ">
 						         		<input  class="card" placeholder="Filter Result" type="text" ng-model="filterResult">
 						         	</label>
-						         	<ion-list show-delete="true" can-swipe="true">
-				         				<ion-item ng-repeat="k in searchedTeamLists | filter:filterResult">
-								            <span class="input-label" style="color: black; font-weight: 600;">
-								            	{{k.searchedTeamList.firstname}} 	{{k.searchedTeamList.lastname}}<br>
-								            	{{k.searchedTeamList.phone}}<br>
-								            	{{k.searchedTeamList.email}}<br>
-								            	{{k.searchedTeamList.profession}}<br>
-								            </span>
-							            	<ion-delete-button class="ion-minus-circled" ng-click="deleteTeamListItem(i)"></ion-delete-button>
-							            </ion-item>			            
-				         			</ion-list>
 					         	</div>
+					         	<ion-list show-delete="true" can-swipe="true">
+			         				<ion-item ng-repeat="k in selectedTeamLists | filter:filterResult">
+							            <span class="input-label" style="color: black; font-weight: 600;">
+							            	{{k.selectedTeamList.firstname}} 	{{k.selectedTeamList.lastname}}<br>
+							            	{{k.selectedTeamList.phone}}<br>
+							            	{{k.selectedTeamList.email}}<br>
+							            	{{k.selectedTeamList.profession}}<br>
+							            </span>
+						            	<ion-delete-button class="ion-minus-circled" ng-click="deleteTeamListItem(i)"></ion-delete-button>
+						            </ion-item>			            
+			         			</ion-list>
 				    		</div>
 				    		<div class="col col-10">
 				    			<button class="button button-positive  button-inline icon ion-arrow-right-c icon-right" style="font-weight:300;border-radius:10px 10px 10px 10px;height: 350px;float: right;" type="submit" id="addAccount-button4" ng-click="nextSlide()"></button>
