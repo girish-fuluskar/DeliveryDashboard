@@ -2911,8 +2911,6 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
     $scope.selectedTeamLists = selectedTeamListArray;
     //clear suggestion list
     $scope.suggestionTeamList="";
-    $scope.searchinput="";
-    $('searchTeam').attr('value') == '';
   }
 
   //deleting items one by one from list
