@@ -26,3 +26,15 @@ ion-scroll {
 .side_menu {
 	background-color: #16174f;
 }
+
+.background-image {
+  background-image: url('../img/background/image.jpg');
+  width: 100vw;
+  height: 100vh;
+
+  -webkit-filter: blur(10px);
+  -moz-filter: blur(10px);
+  -o-filter: blur(10px);
+  -ms-filter: blur(10px);
+  filter: blur(10px);
+}

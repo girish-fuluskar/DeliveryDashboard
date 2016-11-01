@@ -2260,7 +2260,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
                         }
                     },
                     "tooltip": {
-                        "text": "<b>%t: %v hrs",
+                        "text": "<b>%t: %v",
                         "font-family": "Arial",
                         "font-size": "10px",
                         "font-weight": "normal",
@@ -2421,7 +2421,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
                         }
                     },
                     "tooltip": {
-                        "text": "<b>%t: %v hrs",
+                        "text": "<b>%t: %v",
                         "font-family": "Arial",
                         "font-size": "10px",
                         "font-weight": "normal",
@@ -2792,6 +2792,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
   var teamListArray=[];
   var selectedTeamListArray=[];
   var optionsArr=[];
+  var roleArray=[];
   //setting log date hidden on load
   $scope.isHidden=true;
 
@@ -2900,9 +2901,43 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
     $ionicSlideBoxDelegate.previous();
   }
 
-  //add searched team member
-  $scope.searchedTeamMember = function(fName,lName,phone,email,profession){
+  //add role changed team member to searched member list
+  $scope.roleChange = function(id,fName,lName,phone,email,selectRole){
     var selectedTeamList={
+      id : id,
+      firstname : fName,
+      lastname : lName,
+      phone : phone,
+      email : email,
+      profession: selectRole.trim()
+    };
+    
+    var finalRoleSelectedTeamList = {selectedTeamList:selectedTeamList};
+    //finalRoleSelectedTeamList.roleSelectedTeamList.profession.trim();
+    for(var u=0;u<selectedTeamListArray.length;u++){
+      if(selectedTeamListArray[u].selectedTeamList.id===finalRoleSelectedTeamList.selectedTeamList.id){
+        selectedTeamListArray[u].selectedTeamList.profession===selectRole;
+      }
+    }
+    $scope.selectedTeamLists = selectedTeamListArray; 
+  }
+
+  //Array list for added team members role
+  $scope.teamMemberRoleList=["SM","Designer","Developer","BuildLead","Tester"];
+  for(var t=0;t<$scope.teamMemberRoleList.length;t++){
+    var teamRole={
+      role: $scope.teamMemberRoleList[t]
+    };
+    var roleListObj = {teamRole:teamRole};
+    roleArray.push(teamRole);
+  }
+
+  $scope.roleList = roleArray; 
+
+  //add searched team member
+  $scope.searchedTeamMember = function(id,fName,lName,phone,email,profession){
+    var selectedTeamList={
+      id : id,
       firstname : fName,
       lastname : lName,
       phone : phone,
@@ -2915,6 +2950,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
     $scope.selectedTeamLists = selectedTeamListArray;
     //clear suggestion list
     $scope.suggestionTeamList="";
+
   }
 
   //deleting items one by one from list
@@ -2954,7 +2990,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
           $scope.suggestionTeamList = teamListArray;
           $scope.userProfiles = searchedData;
         }
-        else{
+        else{;
           //clear suggestion list
           $scope.suggestionTeamList="";
           console.log(selectedTeamListArray);
@@ -3005,6 +3041,22 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
       else{
         var logDate = $filter('date')(new Date(),"yyyy-MM-dd"+"T00:00:00.000+0530"); 
       }
+
+      console.log($scope.selectedTeamLists);
+      
+      for(var q=0;q<$scope.selectedTeamLists.length;q++){
+        //Creating structure for API
+        var finalTeamStructList={
+          "user":{
+            "id" : $scope.selectedTeamLists[q].selectedTeamList.id,
+            "email" : $scope.selectedTeamLists[q].selectedTeamList.email
+          },
+          "role" : $scope.selectedTeamLists[q].selectedTeamList.profession
+        };
+        finalTeamStructureList.push(finalTeamStructList);
+        console.log(finalTeamStructList);   
+      }
+      
 
     //Creating Snapshot structure for api
     var projectSnapShot={

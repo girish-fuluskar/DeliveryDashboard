@@ -78,11 +78,11 @@
 				    			<button class="button button-assertive  button-inline icon ion-arrow-left-c icon-left" style="font-weight:300;border-radius:10px 10px 10px 10px;height: 100%;float: left;" type="submit" id="addAccount-button4" ng-click="previousSlide()"></button>
 				    		</div>
 				    		<div class="col col-80">
-				    			<div id="searchUser-input14" class="item item-input card">
+				    			<div id="searchUser-input14" style="border-radius:10px 10px 10px 10px;width:90%;margin-left: 10px;" class="item item-input card">
 					         		<input class="" type="search" id="searchTeam" placeholder="Search User" required=""  name="searchinput" type="text" ng-model="searchinput" value="" ng-change="search(searchinput)">
 					         	</div>
 					         	<div class="list">
-						        	<li class="item" ng-repeat="i in suggestionTeamList" ng-click="searchedTeamMember(i.searchTeamList.firstname,i.searchTeamList.lastname,i.searchTeamList.phone,i.searchTeamList.email,i.searchTeamList.profession)">
+						        	<li class="item" ng-repeat="i in suggestionTeamList" ng-click="searchedTeamMember(i.searchTeamList.id,i.searchTeamList.firstname,i.searchTeamList.lastname,i.searchTeamList.phone,i.searchTeamList.email,i.searchTeamList.profession)">
 						        		{{i.searchTeamList.firstname}} {{i.searchTeamList.lastname}}<br>
 							            {{i.searchTeamList.phone}}<br>
 							            {{i.searchTeamList.email}}<br>
@@ -99,17 +99,24 @@
 						         		<input  class="card" placeholder="Filter Result" type="text" ng-model="filterResult">
 						         	</label>
 					         	</div>
-					         	<ion-list show-delete="true" can-swipe="true">
-			         				<ion-item ng-repeat="k in selectedTeamLists | filter:filterResult">
-							            <span class="input-label" style="color: black; font-weight: 600;">
+					         	<!-- <ion-list show-delete="true" can-swipe="true"> -->
+			         				<li class="item" ng-repeat="k in selectedTeamLists | filter:filterResult">
+							            <!-- <span class="input-label card" style="color: black; font-weight: 600;width: 90%;"> -->
 							            	{{k.selectedTeamList.firstname}} 	{{k.selectedTeamList.lastname}}<br>
 							            	{{k.selectedTeamList.phone}}<br>
 							            	{{k.selectedTeamList.email}}<br>
-							            	{{k.selectedTeamList.profession}}<br>
-							            </span>
-						            	<ion-delete-button class="ion-minus-circled" ng-click="deleteTeamListItem(i)"></ion-delete-button>
-						            </ion-item>			            
-			         			</ion-list>
+							            	<!-- {{k.selectedTeamList.profession}}<br> -->
+							            	<!-- <span> -->
+									            <select style="font-weight:500;font-size:15px;width:90%;" ng-model="k.selectedTeamList.profession" ng-options="i.role as i.role for i in roleList" ng-change="roleChange(k.selectedTeamList.id,k.selectedTeamList.firstname,k.selectedTeamList.lastname,k.selectedTeamList.phone,k.selectedTeamList.email,k.selectedTeamList.profession)">
+									            	<option value="">select Role</option>
+												</select>										
+								            <!-- </span> -->
+								            <br>
+								            <br>
+							            <!-- </span> -->							        	    
+						            	<button class="button button-assertive icon ion-minus-circled" ng-click="deleteTeamListItem(i)"></button>
+						            </li>
+			         			<!-- </ion-list> -->
 				    		</div>
 				    		<div class="col col-10">
 				    			<button class="button button-positive  button-inline icon ion-arrow-right-c icon-right" style="font-weight:300;border-radius:10px 10px 10px 10px;height: 100%;float: right;" type="submit" id="addAccount-button4" ng-click="nextSlide()"></button>
@@ -130,27 +137,27 @@
 							<button class="button button-assertive  button-inline icon ion-arrow-left-c icon-left" style="font-weight:300;border-radius:10px 10px 10px 10px;height: 100%;float: left;" type="submit" id="addAccount-button4" ng-click="previousSlide()"></button>
 						</div>
 						<div class="col col-80">
-							<label class="item item-input card" id="requirements-input1" style="background-color:#95a5a6;">
+							<label class="item item-input card" id="requirements-input1" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;margin-left: 10px;">
 			                    <span class="input-label" style="background-color:#95a5a6;">Requirements</span>
 			                    <input type="number" placeholder="Requirements" required="" style="background-color:#95a5a6;" name="spentHours_requirements" ng-model="sptHours_requirements">
 			                </label>
-			                <label class="item item-input card" style="background-color:#95a5a6;" id="design-input1">
+			                <label class="item item-input card" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;margin-left: 10px;" id="design-input1">
 			                    <span class="input-label" style="background-color:#95a5a6;">Design</span>
 			                    <input type="number" placeholder="Design" required="" style="background-color:#95a5a6;" name="spentHours_design" ng-model="spentHours_design">
 			                </label>
-			                <label class="item item-input card" style="background-color:#95a5a6;" id="build-input1">
+			                <label class="item item-input card" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;margin-left: 10px;" id="build-input1">
 			                    <span class="input-label" style="background-color:#95a5a6;">Build</span>
 			                    <input type="number" placeholder="Build" required="" style="background-color:#95a5a6;"  name="spentHours_build" ng-model="spentHours_build">
 			                </label>
-			                <label class="item item-input card" style="background-color:#95a5a6;" id="test-input1">
+			                <label class="item item-input card" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;margin-left: 10px;" id="test-input1">
 			                    <span class="input-label" style="background-color:#95a5a6;">Test</span>
 			                    <input type="number" placeholder="Test" required="" style="background-color:#95a5a6;" name="spentHours_test" ng-model="spentHours_test">
 			                </label>
-			                <label class="item item-input card" style="background-color:#95a5a6;" id="support-input1">
+			                <label class="item item-input card" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;margin-left: 10px;" id="support-input1">
 			                    <span class="input-label" style="background-color:#95a5a6;">Support</span>
 			                    <input type="number" placeholder="Support" required="" style="background-color:#95a5a6;" name="spentHours_support" ng-model="spentHours_support">
 			                </label>
-			                <label class="item item-input card" style="background-color:#95a5a6;" id="unproductive-input1">
+			                <label class="item item-input card" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;margin-left: 10px;" id="unproductive-input1">
 			                    <span class="input-label" style="background-color:#95a5a6;">Unproductive</span>
 			                    <input type="number" placeholder="Unproductive" required="" style="background-color:#95a5a6;" name="spentHours_unproductive" ng-model="spentHours_unproductive">
 			                </label>
@@ -172,27 +179,27 @@
 							<button class="button button-assertive  button-inline icon ion-arrow-left-c icon-left" style="font-weight:300;border-radius:10px 10px 10px 10px;height: 100%;float: left;" type="submit" id="addAccount-button4" ng-click="previousSlide()"></button>
 						</div>
 						<div class="col col-80">
-							<label class="item item-input card" style="background-color:#95a5a6;" id="requirements-input1">
+							<label class="item item-input card" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;margin-left: 10px;" id="requirements-input1">
 			                    <span class="input-label" style="background-color:#95a5a6;">Requirements</span>
 			                    <input type="number" placeholder="Requirements" required="" style="background-color:#95a5a6;"  name="remainingHours_requirements" ng-model="remainingHours_requirements">
 			                </label>
-			                <label class="item item-input card" style="background-color:#95a5a6;" id="design-input1">
+			                <label class="item item-input card" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;margin-left: 10px;" id="design-input1">
 			                    <span class="input-label" style="background-color:#95a5a6;">Design</span>
 			                    <input type="number" placeholder="Design" required="" style="background-color:#95a5a6;" name="remainingHours_design" ng-model="remainingHours_design">
 			                </label>
-			                <label class="item item-input card" style="background-color:#95a5a6;" id="build-input1">
+			                <label class="item item-input card" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;margin-left: 10px;" id="build-input1">
 			                    <span class="input-label" style="background-color:#95a5a6;">Build</span>
 			                    <input type="number" placeholder="Build" required="" style="background-color:#95a5a6;" name="remainingHours_build" ng-model="remainingHours_build">
 			                </label>
-			                <label class="item item-input card" style="background-color:#95a5a6;" id="test-input1">
+			                <label class="item item-input card" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;margin-left: 10px;" id="test-input1">
 			                    <span class="input-label" style="background-color:#95a5a6;">Test</span>
 			                    <input type="number" placeholder="Test" style="background-color:#95a5a6;" required=""  name="remainingHours_test", ng-model="remainingHours_test">
 			                </label>
-			                <label class="item item-input card" style="background-color:#95a5a6;" id="support-input1">
+			                <label class="item item-input card" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;margin-left: 10px;" id="support-input1">
 			                    <span class="input-label" style="background-color:#95a5a6;">Support</span>
 			                    <input type="number" placeholder="Support" required="" style="background-color:#95a5a6;" name="remainingHours_support" ng-model="remainingHours_support">
 			                </label>
-			                <label class="item item-input card" style="background-color:#95a5a6;" id="unproductive-input1">
+			                <label class="item item-input card" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;margin-left: 10px;" id="unproductive-input1">
 			                    <span class="input-label" style="background-color:#95a5a6;">Unproductive</span>
 			                    <input type="number" placeholder="Unproductive" required="" style="background-color:#95a5a6;"  name="remainingHours_unproductive" ng-model="remainingHours_unproductive">
 			                </label>
@@ -214,27 +221,27 @@
 							<button class="button button-assertive  button-inline icon ion-arrow-left-c icon-left" style="font-weight:300;border-radius:10px 10px 10px 10px;height: 100%;float: left;" type="submit" id="addAccount-button4" ng-click="previousSlide()"></button>
 						</div>
 						<div class="col col-80">
-							<label class="item item-input card" style="background-color:#95a5a6;" id="requirements-input1">
+							<label class="item item-input card" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;margin-left: 10px;" id="requirements-input1">
 			                    <span class="input-label" style="background-color:#95a5a6;">Requirements</span>
 			                    <input type="number" placeholder="Requirements" required="" style="background-color:#95a5a6;" name="estimatedHours_requirements" ng-model="estimatedHours_requirements">
 			                </label>
-			                <label class="item item-input card" style="background-color:#95a5a6;" id="design-input1">
+			                <label class="item item-input card" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;margin-left: 10px;" id="design-input1">
 			                    <span class="input-label" style="background-color:#95a5a6;">Design</span>
 			                    <input type="number" placeholder="Design" required="" style="background-color:#95a5a6;" name="estimatedHours_design" ng-model="estimatedHours_design">
 			                </label>
-			                <label class="item item-input card" style="background-color:#95a5a6;" id="build-input1">
+			                <label class="item item-input card" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;margin-left: 10px;" id="build-input1">
 			                    <span class="input-label" style="background-color:#95a5a6;">Build</span>
 			                    <input type="number" placeholder="Build" required="" style="background-color:#95a5a6;" name="estimatedHours_build" ng-model="estimatedHours_build">
 			                </label>
-			                <label class="item item-input card" style="background-color:#95a5a6;" id="test-input1">
+			                <label class="item item-input card" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;margin-left: 10px;" id="test-input1">
 			                    <span class="input-label" style="background-color:#95a5a6;">Test</span>
 			                    <input type="number" placeholder="Test" required="" style="background-color:#95a5a6;" name="estimatedHours_test" ng-model="estimatedHours_test">
 			                </label>
-			                <label class="item item-input card" style="background-color:#95a5a6;" id="support-input1">
+			                <label class="item item-input card" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;margin-left: 10px;" id="support-input1">
 			                    <span class="input-label" style="background-color:#95a5a6;">Support</span>
 			                    <input type="number" placeholder="Support" required="" style="background-color:#95a5a6;" name="estimatedHours_support" ng-model="estimatedHours_support">
 			                </label>
-			                <label class="item item-input card" style="background-color:#95a5a6;" id="unproductive-input1">
+			                <label class="item item-input card" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;margin-left: 10px;" id="unproductive-input1">
 			                    <span class="input-label" style="background-color:#95a5a6;">Unproductive</span>
 			                    <input type="number" placeholder="Unproductive" required="" style="background-color:#95a5a6;" ng-model="estimatedHours_unproductive">
 			                </label>								
@@ -256,35 +263,35 @@
 							<button class="button button-assertive  button-inline icon ion-arrow-left-c icon-left" style="font-weight:300;border-radius:10px 10px 10px 10px;height: 100%;float: left;" type="submit" id="addAccount-button4" ng-click="previousSlide()"></button>
 						</div>
 						<div class="col col-80">
-							<label class="item item-input card" style="background-color:#95a5a6;" id="junit-input1">
+							<label class="item item-input card" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;margin-left: 10px;" id="junit-input1">
 			                    <span class="input-label" style="background-color:#95a5a6;">Junit</span>
 			                    <input type="number" placeholder="Junit" required="" style="background-color:#95a5a6;" name="qualityMetrics_stats_junit" ng-model="qualityMetrics_stats_junit">
 			                </label>
-			                <label class="item item-input card" style="background-color:#95a5a6;" id="sonarcritical-input1">
+			                <label class="item item-input card" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;margin-left: 10px;" id="sonarcritical-input1">
 			                    <span class="input-label" style="background-color:#95a5a6;">Sonar Critical</span>
 			                    <input type="number" placeholder="Sonar Critical" required="" style="background-color:#95a5a6;"  name="qualityMetrics_stats_sonarCritical" ng-model="qualityMetrics_stats_sonarCritical">
 			                </label>
-			                <label class="item item-input card" style="background-color:#95a5a6;" id="sonarmajor-input1">
+			                <label class="item item-input card" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;margin-left: 10px;" id="sonarmajor-input1">
 			                    <span class="input-label" style="background-color:#95a5a6;">Sonar Major</span>
 			                    <input type="number" placeholder="Sonar Major" required="" style="background-color:#95a5a6;" name="qualityMetrics_stats_sonarMajor" ng-model="qualityMetrics_stats_sonarMajor">
 			                </label>
-			                <label class="item item-input card" style="background-color:#95a5a6;" id="defectssev1-input1">
+			                <label class="item item-input card" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;margin-left: 10px;" id="defectssev1-input1">
 			                    <span class="input-label" style="background-color:#95a5a6;">Defects Sev 1</span>
 			                    <input type="number" placeholder="Defects Sev 1" required="" style="background-color:#95a5a6;"  name="qualityMetrics_stats_defectSev1" ng-model="qualityMetrics_stats_defectSev1">
 			                </label>
-			                <label class="item item-input card" style="background-color:#95a5a6;" id="defectssev2-input1">
+			                <label class="item item-input card" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;margin-left: 10px;" id="defectssev2-input1">
 			                    <span class="input-label" style="background-color:#95a5a6;">Defects Sev 2</span>
 			                    <input type="number" placeholder="Defects Sev 2" required="" style="background-color:#95a5a6;" name="qualityMetrics_stats_defectSev2" ng-model="qualityMetrics_stats_defectSev2">
 			                </label>
-			                <label class="item item-input card" style="background-color:#95a5a6;" id="defectssev3-input1">
+			                <label class="item item-input card" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;margin-left: 10px;" id="defectssev3-input1">
 			                    <span class="input-label" style="background-color:#95a5a6;">Defects Sev 3</span>
 			                    <input type="number" placeholder="Defects Sev 3" required="" style="background-color:#95a5a6;"  name="qualityMetrics_stats_defectSev3" ng-model="qualityMetrics_stats_defectSev3">
 			                </label>
-			                <label class="item item-input card" style="background-color:#95a5a6;" id="defectssev4-input1">
+			                <label class="item item-input card" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;margin-left: 10px;" id="defectssev4-input1">
 			                    <span class="input-label" style="background-color:#95a5a6;">Defects Sev 4</span>
 			                    <input type="number" placeholder="Defects Sev 4" required="" style="background-color:#95a5a6;"  name="qualityMetrics_stats_defectSev4" ng-model="qualityMetrics_stats_defectSev4">
 			                </label>
-			                <label class="item item-input card" style="background-color:#95a5a6;" id="defectdensity-input1">
+			                <label class="item item-input card" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;margin-left: 10px;" id="defectdensity-input1">
 			                    <span class="input-label" style="background-color:#95a5a6;">Defect Density</span>
 			                    <input type="number" placeholder="Defect Density" required="" style="background-color:#95a5a6;"  name="qualityMetrics_stats_defectDensity" ng-model="qualityMetrics_stats_defectDensity">
 			                </label>
@@ -307,11 +314,11 @@
 								<button class="button button-assertive  button-inline icon ion-arrow-left-c icon-left" style="font-weight:300;border-radius:10px 10px 10px 10px;height: 100%;float: left;" type="submit" id="addAccount-button4" ng-click="previousSlide()"></button>
 							</div>
 							<div class="col col-90">
-								<label class="item item-input card" style="background-color:#95a5a6;" id="storypoints-input1">
+								<label class="item item-input card" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;margin-left: 10px;" id="storypoints-input1">
 				                    <span class="input-label" style="background-color:#95a5a6;">Storypoints</span>
 				                    <input type="number" placeholder="Storypoints" required="" style="background-color:#95a5a6;" name="productivityMetrics_stats_storypoints" ng-model="productivityMetrics_stats_storypoints">
 				                </label>
-				                <label class="item item-input card" style="background-color:#95a5a6;" id="velocity-input1">
+				                <label class="item item-input card" style="border-radius:10px 10px 10px 10px;width:90%;background-color:#95a5a6;margin-left: 10px;" id="velocity-input1">
 				                    <span class="input-label" style="background-color:#95a5a6;">Velocity</span>
 				                    <input type="number" placeholder="Velocity" required="" style="background-color:#95a5a6;" name="productivityMetrics_stats_velocity" ng-model="productivityMetrics_stats_velocity">
 				                </label>
