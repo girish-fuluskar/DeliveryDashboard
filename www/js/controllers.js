@@ -2801,7 +2801,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
     $ionicSlideBoxDelegate.slide(0);
   }
 
-  $("#example_id").ionRangeSlider({
+  /*$("#example_id").ionRangeSlider({
       min: 0,
       max: 100000,
       from:0,
@@ -2823,15 +2823,11 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
   function updateInputs (data) {
     $values.prop("value", data.from);
     console.log(data.from);
-  }
+  }*/
 
-  $scope.onSpentHrsChange = function(sptHours_input){
-    //alert("hi");
+  /*$scope.onSpentHrsChange = function(sptHours_input){
     data.from = sptHours_input;
-    /*slider.update({
-        from: sptHours_input
-    });*/
-  }
+  }*/
 
   //$scope.getUsrProjectDataList = function(){
 

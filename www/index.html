@@ -21,12 +21,12 @@
     <link rel="stylesheet" href="css/angular-chart.css">
     <link href="css/style.css" rel="stylesheet">
     <link href="css/tiles.css" rel="stylesheet">
-    <link href="css/jquery-ui.css" rel="stylesheet">
-    <link href="css/jquery-ui.min.css" rel="stylesheet">
-    <link href="lib/ion.rangeSlider/css/ion.rangeSlider.css" rel="stylesheet">
+    <!-- <link href="css/jquery-ui.css" rel="stylesheet">
+    <link href="css/jquery-ui.min.css" rel="stylesheet"> -->
+<!--     <link href="lib/ion.rangeSlider/css/ion.rangeSlider.css" rel="stylesheet">
     <link href="lib/ion.rangeSlider/css/ion.rangeSlider.skinHTML5.css" rel="stylesheet">
     <link href="lib/ion.rangeSlider/css/normalize.css" rel="stylesheet">
-
+ -->
     <style type="text/css">
       .platform-ios .manual-ios-statusbar-padding{
         padding-top:20px;
@@ -76,11 +76,11 @@
     <script src="lib/highcharts/highcharts-more.js"></script> 
     <script src="lib/highcharts/modules/exporting.js"></script>
     <script src="lib/highcharts/adapters/standalone-framework.js"></script>
-    <script src="js/jquery-ui.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
-    <script src="lib/ion.rangeSlider/js/ion.rangeSlider.min.js"></script>
+    <!-- <script src="js/jquery-ui.js"></script>
+    <script src="js/jquery-ui.min.js"></script> -->
+<!--     <script src="lib/ion.rangeSlider/js/ion.rangeSlider.min.js"></script>
     <script src="lib/angular-rangeslider/angular.rangeSlider.js"></script>
-    <link rel="stylesheet" href="lib/angular-rangeslider/angular.rangeSlider.css">
+    <link rel="stylesheet" href="lib/angular-rangeslider/angular.rangeSlider.css"> -->
     <!-- <script src="angular-utf8-base64.js"></script> -->
 
     <!-- Only required for Tab projects w/ pages in multiple tabs 
@@ -91,7 +91,7 @@
   <body class="modal_background" ng-app="app" animation="slide-left-right-ios7">
   <div class="modal_background">
     <ion-side-menus style="background-color:#856046;" enable-menu-with-back-views="false" data-componentid="side-menu21">
-        <ion-side-menu-content drag-content="false">
+        <ion-side-menu-content>
             <ion-nav-bar class="tab_header" style="">
                 <ion-nav-back-button></ion-nav-back-button>
                 <ion-nav-buttons side="left">
@@ -110,7 +110,7 @@
                     <a class="button button-assertive  button-full icon-left ion-power" style="left:-10px;font-weight:600;border-radius:10px 10px 10px 10px;" id="menu-button1" menu-close="" ui-sref="signIn">Sign Out</a>
                 </div>
                 <div data-componentid="button6" style="margin-right:-20px;">
-                    <a class="button  button-full icon-left ion-paintbrush modal_background" style="left:-10px;font-weight:600;border-radius:10px 10px 10px 10px;" id="menu-button6" menu-close="" ui-sref="addNewSprint" ng-controller="addNewSprintCtrl" ng-click="mainSlide()">Add New Sprint</a>
+                    <a class="button  button-full icon-left ion-paintbrush modal_background" style="left:-10px;font-weight:600;border-radius:10px 10px 10px 10px;" id="menu-button6" menu-close="" ui-sref="addNewSprint">Add New Sprint</a>
                 </div>
                 <!-- <div data-componentid="button8" style="margin-right:-20px;">
                     <a class="button button-full icon-left ion-home modal_background" style="left:-10px;font-weight:600;border-radius:10px 10px 10px 10px;" id="menu-button8" menu-close="" ui-sref="newSprintPage">New Sprint Page</a>
