@@ -100,7 +100,8 @@
 						         	</label>
 					         	</div>
 					         	<!-- <ion-list show-delete="true" can-swipe="true"> -->
-			         				<li class="item" ng-repeat="k in selectedTeamLists | filter:filterResult">
+					         	<div id="searchTeamList" style="height: 400px;overflow: auto;">
+			         				<li class="item" tabindex="1" ng-repeat="k in selectedTeamLists | filter:filterResult">
 							            <!-- <span class="input-label card" style="color: black; font-weight: 600;width: 90%;"> -->
 							            	{{k.selectedTeamList.firstname}} 	{{k.selectedTeamList.lastname}}<br>
 							            	{{k.selectedTeamList.phone}}<br>
@@ -114,8 +115,9 @@
 								            <br>
 								            <br>
 							            <!-- </span> -->							        	    
-						            	<button class="button button-assertive icon ion-minus-circled" ng-click="deleteTeamListItem(i)"></button>
-						            </li>
+						            	<button class="button button-assertive icon ion-minus-circled" ng-click="deleteTeamListItem(k)"></button>
+						            </li>						            
+					            </div>
 			         			<!-- </ion-list> -->
 				    		</div>
 				    		<div class="col col-10">

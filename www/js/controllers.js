@@ -2928,7 +2928,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
     roleArray.push(teamRole);
   }
 
-  $scope.roleList = roleArray; 
+  $scope.roleList = roleArray;
 
   //add searched team member
   $scope.searchedTeamMember = function(id,fName,lName,phone,email,profession){
@@ -2986,7 +2986,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
           $scope.suggestionTeamList = teamListArray;
           $scope.userProfiles = searchedData;
         }
-        else{;
+        else{
           //clear suggestion list
           $scope.suggestionTeamList="";
           console.log(selectedTeamListArray);

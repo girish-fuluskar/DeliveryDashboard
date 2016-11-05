@@ -4,6 +4,27 @@ ion-scroll {
     height: 250px;
 }
 
+.listHeight {
+  height : 200px;
+}
+
+.sub-menu {
+    padding: 0;
+    border: 1px solid black;
+    max-height: 4.5em;
+    overflow-y: auto;
+}
+
+.sub-menu li {
+    font-size: 1em;
+    padding: .25em 1em;
+    line-height: 1em;
+}
+
+.sub-menu li:hover {
+    background: #f1f1f1;
+}
+
 .vranger {
   margin-top: 100px;
    transform: rotate(270deg);

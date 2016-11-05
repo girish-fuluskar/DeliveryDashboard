@@ -51,7 +51,7 @@
 		    		<h1 style="background-color: transparent;color: blue; font-weight: 300; text-align: right;padding-right: 20px;" id="projectDetails-heading12">Add Team</h1>
 			    	<hr>
 		        	<label id="searchUser-input14" class="item item-input ">
-		         		<input placeholder="Search User" required=""  name="searchinput" type="text" ng-model="searchinput">
+		         		<input placeholder="Search User" required=""  name="searchinput" type="text" ng-model="searchinput" ng-enter="search(searchinput)">
 		         	</label>
 		         	<div ng-show="searchform.$submitted || searchform.searchinput.$touched">
 		            	<div style="color:red;margin:5px;padding:5px;" ng-show="searchform.searchinput.$error.required">Please enter input to search.</div>
