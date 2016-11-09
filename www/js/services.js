@@ -45,6 +45,17 @@ angular.module('app.services', [])
 
 //Sign in Service
 .service('signInData', function($state,$http, $q,$ionicPopup,$ionicLoading) {
+
+    this.setUserDetails = function(usrDetails){
+      window.localStorage.setItem('usrDetails', angular.toJson(usrDetails));
+      return;
+    }
+
+    this.getUserDetails = function(){
+      var usrDetails = window.localStorage.getItem('usrDetails');
+      return usrDetails;
+    }
+
     this.getLoginAuthenticated = function(authTokenForLogin){
        return $q(function(resolve, reject) {
         var req = {

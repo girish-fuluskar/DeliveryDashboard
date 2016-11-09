@@ -37,6 +37,12 @@ angular.module('app.routes', [])
     controller: 'addNewSprintCtrl'
   })
 
+  .state('userProfile', {
+    url: '/userProfile',
+    templateUrl: 'templates/userProfile.html',
+    controller: 'addNewSprintCtrl'
+  })
+
   /*.state('newSprintPage', {
     url: '/newSprintPage',
     templateUrl: 'templates/newSprintPage.html',

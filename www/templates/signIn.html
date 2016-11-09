@@ -1,6 +1,73 @@
 <ion-view title="Log In" hide-nav-bar="true" hide-back-button="true" id="page6" class=" ">
     <ion-content style="height:100%;" scroll="true" padding="false" class="manual-ios-statusbar-padding">
-        <ion-slide-box style="height:100%; background-image: url('img/loginBackground.jpg');background-repeat: no-repeat center center fixed; -webkit-background-size: contain;background-size: cover;background-position: center;">
+    <h1 style="color: #1d3f6c;font-size: 55px; font-style: italic;font-family: Trebuchet MS; font-weight: 500; text-align: center;height:100px;text-shadow: 2px 2px #6c7b8b;" class="" id="logIn-heading1">~ Delivery Dashboard ~</h1>
+    <div class="row" style="background-color: transparent;">
+        <div class="col col-10">
+        </div>
+        <div class="col col-80">
+            <button class="button button-energized button-block" style="align-items: right; font-weight:400;border-radius:10px 10px 10px 10px;box-shadow:5px 5px 5px #888888;text-shadow: 2px 2px #6c7b8b;" type="submit" id="signup-button4" ui-sref="signUp">Sign Up</button>
+        </div>
+        <div class="col col-10">
+        </div>
+    </div>
+    <div class="spacer" style="width: 250px; height: 10px;"></div>
+    <div class="row" style="background-color: transparent;">
+        <div class="col col-20">
+        </div>
+        <div class="col col-60" style="text-align: center;">
+            <span class="input" style="font-style: italic;font-size: 20px;font-weight: 300; align-items: center;text-align: center;">__________or__________</span>
+        </div>
+        <div class="col col-20">
+        </div>        
+    </div>
+    <div class="row" style="background-color: transparent;">
+        <div class="col col-20">
+        </div>
+        <div class="col col-60" style="align-items: center;">
+            <form id="signIn-form2" class="list" name="signinForm" style="align-items: center; " novalidate ng-submit="signinForm.$valid && Login(emailid,password)">
+                <div class="spacer" style="width: 250px; height: 10px;"></div>
+                <ion-list id="signIn-list2" class="">
+                    <!-- <h1 style="color: #1d3f6c; font-weight: 500; text-align: center;height:100px;text-shadow: 2px 2px #6c7b8b;" class="" id="logIn-heading1">Log In</h1> -->
+                    <div class="spacer" style="width: 300px; height: 10px;"></div>
+                    <label class="item item-input card" name="email" id="signIn-input10" style="box-shadow:5px 5px 5px #888888;">
+                        <span class="input-label">Username</span>
+                        <input type="text" placeholder="Username" required="" name="email" ng-model="emailid">
+                    </label>
+                     <div ng-show="signinForm.$submitted || signinForm.email.$touched">
+                      <div style="color:red;margin:5px;padding:5px;" ng-show="signinForm.email.$error.required">Please enter Email Id.</div>
+                      <div style="color:red;margin:5px;padding:5px;" ng-show="signinForm.email.$error.email">Please enter valid Email Id.</div>
+                    </div>
+                    <label class="item item-input card" id="signIn-input11" name="password" style="box-shadow:5px 5px 5px #888888;">
+                        <span class="input-label">Password</span>
+                        <input type="password" placeholder="Password" required="" name="password" ng-model="password">
+                    </label>
+                    <div class="spacer" style="width: 300px; height: 30px;"></div>
+                     <div ng-show="signinForm.$submitted || signinForm.firstname.$touched">
+                      <div style="color:red;margin:5px;padding:5px;" ng-show="signinForm.password.$error.required">Please enter password.</div>
+                    </div>
+                    <button class="button button-dark  button-block" style="font-weight:400;border-radius:10px 10px 10px 10px;box-shadow:5px 5px 5px #888888;text-shadow: 2px 2px #6c7b8b;" type="submit" id="signIn-button4" >Sign In</button>
+                    <div ng-show="submissionSuccess" style="width:50%;color:red;margin:0 auto;">Login failed. Please try again.</div>
+                    <div class="spacer" style="width: 250px; height: 10px;"></div>
+                    <div class="row" style="background-color: transparent;">
+                        <div class="col col-40">      
+                        </div>
+                        <div class="col col-50" style="height: 70px;">
+                            <button class="button button-assertive button-inline" style="height: 150px;width: 150px; align-items: center; font-weight:400;border-radius:150px 150px 150px 150px;box-shadow:5px 5px 5px #888888;text-shadow: 2px 2px #6c7b8b;" type="" id="about-button4">
+                                <font size="6px"><b>What is </font></b><font size="2px">Delivery Dashboard<br></font><font size="6px">?</font></button>
+                        </div>
+                        <div class="col col-10">      
+                        </div>
+                    </div>
+                    <div class="spacer" style="width: 250px; height: 50px;"></div>
+                </ion-list>
+            </form>
+        </div>
+        <div class="col col-20">
+        </div>
+    </div>
+    
+
+        <!-- <ion-slide-box style="height:100%; background-image: url('img/loginBackground.jpg');background-repeat: no-repeat center center fixed; -webkit-background-size: contain;background-size: cover;background-position: center;">
             <ion-slide>
                 <ion-scroll style="height:100%" scrollbar-y="true">
                     <div class="spacer" style="width: 250px; height: 300px;"></div>
@@ -28,7 +95,6 @@
                         <button class="button button-positive  button-block" style="font-weight:300;border-radius:10px 10px 10px 10px;" type="submit" id="signIn-button4" >Sign In</button>
                         <div ng-show="submissionSuccess" style="width:50%;color:red;margin:0 auto;">Login failed. Please try again.</div>
                         <div class="spacer" style="width: 250px; height: 50px;"></div>
-                        <!-- <a ui-sref="signUp" id="signIn-button5" class="button button-light  button-block button-clear" style="font-weight:300;font-style:italic;color:#1A8BAB;border-radius:10px 10px 10px 10px;">Or create an account</a> -->
                     </form>
                 </ion-scroll>
             </ion-slide>
@@ -36,7 +102,6 @@
             <ion-scroll style="height:100%" scrollbar-y="true">
                 <form id="signUp-form1" class="list" name="signupform" novalidate ng-submit="signupform.$valid && signup(data)">
                     <h1 style="color: rgb(240, 242, 247); font-weight: 300; text-align: right;" id="signUp-heading12">Sign Up</h1>
-                    <!-- <a class="button button-full  button-outline" style="font-weight:300;color: rgb(240, 242, 247);text-align:left;" id="signUp-button5" ui-sref="signIn">Sign In</a> -->
                     <div style="width: 283px; height: 10px;" class="spacer"></div>
                     <ion-list id="signUp-list1" class=" ">
                         <label class="item item-input " id="signUp-input1" style="background-color: transparent; font-weight: 500;"> 
@@ -116,6 +181,6 @@
                     <div class="spacer" style="width: 250px; height: 50px;"></div>
                 </ion-scroll>
             </ion-slide>
-        </ion-slide-box>        
+        </ion-slide-box> -->        
     </ion-content>
 </ion-view>

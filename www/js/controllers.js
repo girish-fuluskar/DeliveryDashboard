@@ -3182,6 +3182,11 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
 
 //Sign in Controller 
 .controller("signInCtrl", function($scope, $ionicPopup, signInData) {
+    $scope.userDetails = JSON.parse(signInData.getUserDetails());
+    /*$scope.getUserDetails = function(){
+      $scope.userDetails = JSON.parse(signInData.getUserDetails()); 
+    }*/   
+
      $scope.Login = function(emailid,password) {      
         var emailid = $scope.emailid, 
             password = $scope.password;
@@ -3189,6 +3194,46 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
         $scope.logginIn = signInData.getLoginAuthenticated($scope.authTokenForLogin)
       .then(function(loginData) {
             $scope.loginData = loginData;
+            var usrDetails=[];
+            var tags=[];
+            for(var t=0;t<loginData.data.response.tags.length;t++){
+              /*var tgs={
+                name : loginData.data.response.tags[t]
+              };*/
+              tags.push({"name":loginData.data.response.tags[t].name});
+            }
+            var roles=[];
+            for(var g=0;g<loginData.data.response.roles.length;g++){
+              /*var rls = {
+                name : loginData.data.response.roles[g]
+              };*/
+              roles.push({"name":loginData.data.response.roles[g].name});
+            }
+            var usrDtls = {
+              id : loginData.data.response.id,
+              email : loginData.data.response.email,
+              phone : loginData.data.response.phone,
+              firstname : loginData.data.response.firstname,
+              lastname : loginData.data.response.lastname,
+              dateOfJoiningIBM : loginData.data.response.dateOfJoiningIBM,
+              careerStartDate : loginData.data.response.careerStartDate,
+              designation : {
+                profession : loginData.data.response.designation.profession,
+                specialization : loginData.data.response.designation.specialization
+              },
+              band : loginData.data.response.band,
+              tags : tags,
+              roles : roles,
+              creationdate : loginData.data.response.creationdate,
+              updateddate : loginData.data.response.updateddate,
+              password : loginData.data.response.password,
+              locked : loginData.data.response.locked,
+              diversity : loginData.data.response.diversity,
+              account : loginData.data.response.account
+            };
+            //var finalUsrDetails = {usrDtls:usrDtls};
+            usrDetails.push(usrDtls);
+            signInData.setUserDetails(usrDtls);
       }, function(err) {    
           $scope.submissionSuccess = true;        
           var alertPopup = $ionicPopup.alert({
