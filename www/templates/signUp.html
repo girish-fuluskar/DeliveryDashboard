@@ -1,84 +1,92 @@
 <ion-view title="Sign Up" hide-nav-bar="true" hide-back-button="true" id="page5" class=" ">
     <ion-content padding="false" class="manual-ios-statusbar-padding" class="manual-ios-statusbar-padding">
-      <form id="signUp-form1" class="list card" name="signupform" novalidate ng-submit="signupform.$valid && signup(data)" style="background-color: rgb(26, 139, 171); border-radius:10px 10px 10px 10px;align-items: center;opacity: 0.7;">
-        <h1 style="color: rgb(240, 242, 247); font-weight: 400; text-align: right;margin-right: 10px;text-shadow: 2px 2px #6c7b8b;" id="signUp-heading12">Sign Up</h1>
         <div class="row" style="background-color: transparent;">
-            <div class="col col-40">
-                <button class="button button-energized button-inline" style="align-items: right; font-weight:400;border-radius:10px 10px 10px 10px;box-shadow:5px 5px 5px #888888;text-shadow: 2px 2px #6c7b8b;" type="submit" id="signin-button4" ui-sref="signIn">Sign In</button>
+            <!-- <div class="col col-10">
+            </div> -->
+            <div class="col col-100" style="">
+                <form id="signUp-form1" class="list card" name="signupform" novalidate ng-submit="signupform.$valid && signup(data)" style="background-color: rgb(26, 139, 171); border-radius:10px 10px 10px 10px;align-items: center;box-shadow:5px 5px 5px #888888;">
+                    <h1 style="color: rgb(240, 242, 247); font-weight: 400; text-align: right;margin-right: 10px;text-shadow: 2px 2px #6c7b8b;" id="signUp-heading12">Sign Up</h1>
+                    <div class="row" style="background-color: transparent;">
+                        <div class="col col-40">
+                            <button class="button button-energized button-inline" style="align-items: right; font-weight:400;border-radius:10px 10px 10px 10px;box-shadow:5px 5px 5px #888888;text-shadow: 2px 2px #6c7b8b;" type="submit" id="signin-button4" ui-sref="signIn">Sign In</button>
+                        </div>
+                        <div class="col col-60">
+                        </div>
+                    </div>
+                    <!-- <div style="width: 283px; height: 5px;" class="spacer"></div> -->
+                    <ion-list id="signUp-list1" class=" ">
+                        <label class="item item-input " id="signUp-input1" style="background-color: transparent; font-weight: 500;"> 
+                            <span class="input-label" style="color:white; font-weight: 500;">Employee Id</span>
+                            <input type="text" placeholder="" required=""  name="id" style="color:white; font-weight: 500;" ng-model="data.id">
+                        </label>
+                        <label class="item item-input " id="signUp-input2" style="background-color: transparent; font-weight: 500;">
+                            <span class="input-label"  style="color:white; font-weight: 500;">Email Id</span>
+                            <input type="email" placeholder="example@example.com"  style="color:white; font-weight: 500;" required=""  name="email" ng-model="data.email">
+                        </label>
+                         <div ng-show="signupform.$submitted || signupform.email.$touched">
+                          <div style="color:red; margin:5px;padding:5px;" ng-show="signupform.email.$error.required">Please enter email.</div>
+                          <div style="color:red;margin:5px;padding:5px;" ng-show="signupform.email.$error.email">Please enter valid email.</div>
+                        </div>
+                        <label class="item item-input " id="signUp-input3" style="background-color: transparent; font-weight: 500;">
+                            <span class="input-label"  style="color:white; font-weight: 500;">Password</span>
+                            <input type="password" placeholder="" required=""  style="color:white; font-weight: 500;"  name="password" ng-model="data.password">
+                        </label>
+                        <div ng-show="signupform.$submitted || signupform.password.$touched">
+                          <div style="color:red;margin:5px;padding:5px;" ng-show="signupform.password.$error.required">Please enter password.</div>
+                        </div>
+                        <label class="item item-input " id="signUp-input4" style="background-color: transparent; font-weight: 500;">
+                            <span class="input-label"  style="color:white; font-weight: 500;">First Name</span>
+                            <input type="text" placeholder="" required=""  style="color:white; font-weight: 500;" name="firstname" ng-model="data.firstname">
+                        </label>
+                         <div ng-show="signupform.$submitted || signupform.firstname.$touched">
+                          <div style="color:red;margin:5px;padding:5px;" ng-show="signupform.firstname.$error.required">Please enter first name.</div>
+                        </div>
+                        <label class="item item-input " id="signUp-input5" style="background-color: transparent; font-weight: 500;">
+                            <span class="input-label" style="color:white; font-weight: 500;">Last Name</span>
+                            <input type="text" placeholder="" required="" style="color:white; font-weight: 500;" name="lastname" ng-model="data.lastname">
+                        </label>
+                         <div ng-show="signupform.$submitted || signupform.lastname.$touched">
+                          <div style="color:red;margin:5px;padding:5px;" ng-show="signupform.lastname.$error.required">Please enter last name.</div>
+                        </div>
+                        <label class="item item-input " id="signUp-input6" style="background-color: transparent; font-weight: 500;">
+                            <span class="input-label" style="color:white; font-weight: 500;">Phone</span>
+                            <input type="tel" placeholder="" required="" style="color:white; font-weight: 500;" name="phoneNo" ng-model="data.phoneNo">
+                        </label>
+                        <div ng-show="signupform.$submitted || signupform.phoneNo.$touched">
+                          <div style="color:red;margin:5px;padding:5px;" ng-show="signupform.phoneNo.$error.required">Please enter phone no.</div>
+                        </div>
+                        <label class="item item-input " id="signUp-input7" style="background-color: transparent; font-weight: 500;">
+                            <span class="input-label" style="color:white; font-weight: 500;">Date of Birth</span>
+                            <input type="date" placeholder="mm/dd/yyyy" style="color:white; font-weight: 500;">
+                        </label> 
+                        <label class="item item-input " id="signUp-input8" style="background-color: transparent; font-weight: 500;">
+                            <span class="input-label" style="color:white; font-weight: 500;">Date of Joining IBM</span>
+                            <input type="date" placeholder="mm/dd/yyyy" style="color:white; font-weight: 500;">
+                        </label>     
+                        <label class="item item-input " id="signUp-input9" style="background-color: transparent; font-weight: 500;">
+                            <span class="input-label" style="color:white; font-weight: 500;">Career Start Date</span>
+                            <input type="date" placeholder="mm/dd/yyyy" style="color:white; font-weight: 500;">
+                        </label>
+                        <label class="item item-select " id="signUp-select1" style="background-color: transparent; font-weight: 500;">
+                            <span class="input-label" style="color:white; font-weight: 500;">Band</span>
+                            <select required="" name="band" ng-model="data.band" style="background-color: transparent; color:white; font-weight: 500;">
+                                <option style="color: black;">6G</option>
+                                <option style="color: black;">6A</option>
+                                <option style="color: black;">6B</option>
+                                <option style="color: black;">7A</option>
+                                <option style="color: black;">7B</option>
+                                <option style="color: black;">8</option>
+                                <option style="color: black;">9</option>
+                                <option style="color: black;">Executive</option>
+                            </select>
+                        </label>
+                    </ion-list>
+                    <button class="button button-assertive  button-block" style="border-radius:10px 10px 10px 10px;" type="submit" id="login-button13">Signup</button>
+                    <div class="spacer" style="width: 250px; height: 20px;"></div>
+                </form>
             </div>
-            <div class="col col-60">
-            </div>
-        </div>
-        <!-- <div style="width: 283px; height: 5px;" class="spacer"></div> -->
-        <ion-list id="signUp-list1" class=" ">
-            <label class="item item-input " id="signUp-input1" style="background-color: transparent; font-weight: 500;"> 
-                <span class="input-label" style="color:white; font-weight: 500;">Employee Id</span>
-                <input type="text" placeholder="" required=""  name="id" style="color:white; font-weight: 500;" ng-model="data.id">
-            </label>
-            <label class="item item-input " id="signUp-input2" style="background-color: transparent; font-weight: 500;">
-                <span class="input-label"  style="color:white; font-weight: 500;">Email Id</span>
-                <input type="email" placeholder="example@example.com"  style="color:white; font-weight: 500;" required=""  name="email" ng-model="data.email">
-            </label>
-             <div ng-show="signupform.$submitted || signupform.email.$touched">
-              <div style="color:red; margin:5px;padding:5px;" ng-show="signupform.email.$error.required">Please enter email.</div>
-              <div style="color:red;margin:5px;padding:5px;" ng-show="signupform.email.$error.email">Please enter valid email.</div>
-            </div>
-            <label class="item item-input " id="signUp-input3" style="background-color: transparent; font-weight: 500;">
-                <span class="input-label"  style="color:white; font-weight: 500;">Password</span>
-                <input type="password" placeholder="" required=""  style="color:white; font-weight: 500;"  name="password" ng-model="data.password">
-            </label>
-            <div ng-show="signupform.$submitted || signupform.password.$touched">
-              <div style="color:red;margin:5px;padding:5px;" ng-show="signupform.password.$error.required">Please enter password.</div>
-            </div>
-            <label class="item item-input " id="signUp-input4" style="background-color: transparent; font-weight: 500;">
-                <span class="input-label"  style="color:white; font-weight: 500;">First Name</span>
-                <input type="text" placeholder="" required=""  style="color:white; font-weight: 500;" name="firstname" ng-model="data.firstname">
-            </label>
-             <div ng-show="signupform.$submitted || signupform.firstname.$touched">
-              <div style="color:red;margin:5px;padding:5px;" ng-show="signupform.firstname.$error.required">Please enter first name.</div>
-            </div>
-            <label class="item item-input " id="signUp-input5" style="background-color: transparent; font-weight: 500;">
-                <span class="input-label" style="color:white; font-weight: 500;">Last Name</span>
-                <input type="text" placeholder="" required="" style="color:white; font-weight: 500;" name="lastname" ng-model="data.lastname">
-            </label>
-             <div ng-show="signupform.$submitted || signupform.lastname.$touched">
-              <div style="color:red;margin:5px;padding:5px;" ng-show="signupform.lastname.$error.required">Please enter last name.</div>
-            </div>
-            <label class="item item-input " id="signUp-input6" style="background-color: transparent; font-weight: 500;">
-                <span class="input-label" style="color:white; font-weight: 500;">Phone</span>
-                <input type="tel" placeholder="" required="" style="color:white; font-weight: 500;" name="phoneNo" ng-model="data.phoneNo">
-            </label>
-            <div ng-show="signupform.$submitted || signupform.phoneNo.$touched">
-              <div style="color:red;margin:5px;padding:5px;" ng-show="signupform.phoneNo.$error.required">Please enter phone no.</div>
-            </div>
-            <label class="item item-input " id="signUp-input7" style="background-color: transparent; font-weight: 500;">
-                <span class="input-label" style="color:white; font-weight: 500;">Date of Birth</span>
-                <input type="date" placeholder="mm/dd/yyyy" style="color:white; font-weight: 500;">
-            </label> 
-            <label class="item item-input " id="signUp-input8" style="background-color: transparent; font-weight: 500;">
-                <span class="input-label" style="color:white; font-weight: 500;">Date of Joining IBM</span>
-                <input type="date" placeholder="mm/dd/yyyy" style="color:white; font-weight: 500;">
-            </label>     
-            <label class="item item-input " id="signUp-input9" style="background-color: transparent; font-weight: 500;">
-                <span class="input-label" style="color:white; font-weight: 500;">Career Start Date</span>
-                <input type="date" placeholder="mm/dd/yyyy" style="color:white; font-weight: 500;">
-            </label>
-            <label class="item item-select " id="signUp-select1" style="background-color: transparent; font-weight: 500;">
-                <span class="input-label" style="color:white; font-weight: 500;">Band</span>
-                <select required="" name="band" ng-model="data.band" style="background-color: transparent; color:white; font-weight: 500;">
-                    <option style="color: black;">6G</option>
-                    <option style="color: black;">6A</option>
-                    <option style="color: black;">6B</option>
-                    <option style="color: black;">7A</option>
-                    <option style="color: black;">7B</option>
-                    <option style="color: black;">8</option>
-                    <option style="color: black;">9</option>
-                    <option style="color: black;">Executive</option>
-                </select>
-            </label>
-        </ion-list>
-        <button class="button button-assertive  button-block" style="border-radius:10px 10px 10px 10px;" type="submit" id="login-button13">Signup</button>
-        <div class="spacer" style="width: 250px; height: 20px;"></div>
-    </form>  
+            <!-- <div class="col col-10">
+            </div> -->
+        </div>  
     </ion-content>
 </ion-view>
