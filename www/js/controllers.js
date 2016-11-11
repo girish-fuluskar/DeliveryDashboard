@@ -1,4 +1,8 @@
 angular.module('app.controllers', [])
+
+.controller('aboutDashboardCtrl', function($scope){
+
+})
      
 .controller('dashboardCtrl', function($scope,$ionicPopup,$filter,$state, $ionicListDelegate,$ionicPlatform, $ionicModal, $ionicSlideBoxDelegate, $ionicLoading, 
   chartData, chartDataWithoutParam) {

@@ -4,6 +4,22 @@ ion-scroll {
     height: 250px;
 }
 
+.marquee {
+  position: relative;
+  animation: marquee 2s linear infinite;
+  text-align:center;
+  color:#ffffff;
+}
+
+@keyframes marquee {
+  0% {
+    top: 10em
+  }
+  100% {
+    top: -2em
+  }
+}
+
 .listHeight {
   height : 200px;
 }
