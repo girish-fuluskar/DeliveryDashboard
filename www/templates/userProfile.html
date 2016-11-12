@@ -1,21 +1,5 @@
 <ion-view style="" title="User Profile" hide-back-button="true" id="page9" class=" ">
 	<ion-content padding="true" class="manual-ios-statusbar-padding">
-		<!-- <label class="item modal_header" id="effortExtended" style="margin: auto;border-radius:10px 10px 10px 10px;width:90%;font-weight: 500;">
-            <span class="" style="font-weight:500;font-size:15px;text-align:center;color: black;">
-            {{userDetails.firstname}} {{userDetails.lastname}} ({{userDetails.id}})<br>
-            {{userDetails.email}}<br>
-            {{userDetails.phone}}<br>
-            {{userDetails.designation.profession}} - ({{userDetails.designation.specialization}})<br>
-            </span>
-            <span>Tags :</span>
-            <li class="" tabindex="1" ng-repeat="t in userDetails.tags"> 
-	        	{{t.name}}
-	        </li>
-	        <span>Roles :</span>
-            <li class="" tabindex="1" ng-repeat="r in userDetails.roles"> 
-	        	{{r.name}}
-	        </li>
-        </label> -->
         <div id="searchUser-input14" style="border-radius:10px 10px 10px 10px;width:90%;margin-left: 10px;" class="item item-input card">
      		<input class="" type="search" id="searchTeam" placeholder="Search User" required=""  name="searchinput" type="text" ng-model="searchinput" value="" ng-change="search(searchinput)">
      	</div>
@@ -32,15 +16,52 @@
          		<input  class="card" placeholder="Filter Result" type="text" ng-model="filterResult">
          	</label>
      	</div>
+        
+
      	<!-- <ion-list show-delete="true" can-swipe="true"> -->
      	<div id="searchTeamList" style="height: 400px;overflow: auto;">
-			<li class="item" style="background-color: #dfdfdf;" tabindex="1" ng-repeat="k in selectedTeamLists | filter:filterResult">
-	            <div class="col 10">
+            <li class="item" style="background-color: #dfdfdf;" tabindex="1" ng-repeat="k in selectedTeamLists | filter:filterResult">
+                <div class="row" style="background-color: transparent;">
+                    <div class="col col-100">
+                        <button style="border-radius:10px 10px 10px 10px;" class="button button-assertive button-block" ng-click="deleteTeamListItem(k)">Remove</button>
+                    </div>                       
+                </div>
+                <span class="input-label" style="border-radius:10px 10px 10px 10px;width:90%;color:black; font-weight: 500;">
+                    {{k.selectedTeamList.firstname}} {{k.selectedTeamList.lastname}}<br>
+                    {{k.selectedTeamList.phone}}<br>
+                    {{k.selectedTeamList.email}}<br>
+                </span>
+                <div class="row" style="background-color: transparent;">
+                    <div class="col col-80">
+                        Current Roles: <br>
+                        <label ng-repeat="r in k.selectedTeamList.roles"> 
+                            {{r.name}}<br>
+                        </label>
+                    </div>
+                    <div class="col col-20">
+                        <button style="border-radius:30px 30px 30px 30px;" class="button icon ion-paintbrush" ng-click="editTeamListItem()">
+                            {{val}}
+                        </button>
+                    </div>
+                </div>
+                <div class="row" style="background-color: transparent;" ng-hide=isHide>
+                    <ion-toggle ng-repeat="a in userRoleByAdmin" ng-model="role" ng-change="usrRoleAdded(a.usrRole, role)" name="usrRole" toggle-class="toggle-calm card" style="border-radius:10px 10px 10px 10px;width:90%;margin:10px;background-color:#95a5a6;"><br>{{a.usrRole}}</ion-toggle>
+                    <br>
+                    <div class="col col-30">
+                        <button class="button button-balanced icon ion-checkmark-circled" style="height: 100%;border-radius:10px 10px 10px 10px;" ng-click="updateUserRoleByAdmin(k.selectedTeamList.email)"></button>
+                    </div>
+                </div>
+                <!-- <select class="item item-select" multiple ng-model="userRoleModel" ng-options="option.name for option in userRoleThroughAdmin"> -->
+                    <!-- <option ng-repeat="option in userRoleThroughAdmin" value="{{option}}">{{option}}</option> -->
+                <!-- </select> -->
+                <!-- <div ng-dropdown-multiselect="" options="userRoleThroughAdmin" selected-model="userRoleModel"></div> -->
+                
+	            <!-- <div class="col 10">
                     <button style="" class="button icon ion-paintbrush" ng-click="editTeamListItem(k)">
                     {{val}}
                     </button>
-                </div>
-                <br>
+                </div> -->
+                <!-- <br>
             	{{k.selectedTeamList.firstname}} 	{{k.selectedTeamList.lastname}}<br>
             	{{k.selectedTeamList.phone}}<br>
             	{{k.selectedTeamList.email}}<br>
@@ -52,7 +73,6 @@
                     Add or remove role:<br>
                     <label ng-repeat="r in userRoleByAdmin">
                         <input type="checkbox" value="r.usrRole" ng-model="r.usrRole"> {{r.usrRole}}
-                        <!-- <ion-toggle ng-model="userRoles" name="userRoles" toggle-class="toggle-calm card" style="border-radius:10px 10px 10px 10px;width:90%;margin:10px;background-color:#95a5a6;">{{r.usrRole}}</ion-toggle> -->
                     </label>
                 </label>
                 <div class="row" style="background-color: transparent;">
@@ -61,8 +81,8 @@
                     </div>
                     <div class="col 90">
                     </div>                       
-                </div>
-                <hr>
+                </div> -->
+                <!-- <hr> -->
             </li>						            
         </div>
 	</ion-content>

@@ -2798,6 +2798,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
   var optionsArr=[];
   var roleArray=[];
   var userRoleArray=[];
+  var userAlterRoles=[];
   //setting log date hidden on load
   $scope.isHidden=true;
   $scope.isHide=true;
@@ -2926,11 +2927,12 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
   //Array list for added team members role
   $scope.teamMemberRoleList=["SM","Designer","Developer","BuildLead","Tester"];
   $scope.userRoleThroughAdmin=["ROLE_USER","ROLE_ADMIN","ROLE_ROOT"];
-  
+  $scope.userRoleModel;
   //team member role list for role update
   for(var t=0;t<$scope.teamMemberRoleList.length;t++){
     var teamRole={
-      role: $scope.teamMemberRoleList[t]
+      id: t,
+      label: $scope.teamMemberRoleList[t]
     };
     var roleListObj = {teamRole:teamRole};
     roleArray.push(teamRole);
@@ -2948,6 +2950,16 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
   }
 
   $scope.userRoleByAdmin = userRoleArray;
+
+  $scope.usrRoleAdded=function(val, role){
+   console.log(val, role);
+   if(role===true){
+    userAlterRoles.push(val);
+   }
+   else{
+    userAlterRoles.splice(userAlterRoles.indexOf(val), 1);
+   }
+  }
 
   //add searched team member
   $scope.searchedTeamMember = function(id,fName,lName,phone,email,profession,roles){
@@ -2975,20 +2987,37 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
     $ionicListDelegate.closeOptionButtons();
   };
 
-  $scope.editTeamListItem = function(k){
-    console.log(k);
-    if($scope.isHide===true){
-      $scope.isHide=false;
-      $scope.val=' Cancel'; 
+  //updating user role by Admin only
+  $scope.updateUserRoleByAdmin = function(usrEmailId){
+    console.log(usrEmailId);
+    if(userAlterRoles.length<=0){
+      var rls={
+        "name":"ROLE_USER"
+      };
+      //var roleList = {rls:rls};
+      userAlterRoles.push(rls); 
     }
-    else{
-     $scope.isHide=true;
-     $scope.val='';
-    }
+    console.log(userAlterRoles);
+
+    //api call for update user by admin
+
+
+    //clear userAlterRoles array
+    userAlterRoles = "";
+    //remove item from list
+    $scope.deleteTeamListItem(usrEmailId);
   };
 
-  $scope.updateUserRoleByAdmin = function(t){
-    console.log(t);
+  $scope.editTeamListItem = function(){
+    //$scope.isHide=false;
+    if($scope.isHide==false){
+      $scope.isHide=true;
+      $scope.val="";
+    }
+    else{
+      $scope.isHide=false;
+      $scope.val=" Cancel";
+    }
   };
   
   //Search team members
