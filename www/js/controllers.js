@@ -2797,9 +2797,10 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
   var selectedTeamListArray=[];
   var optionsArr=[];
   var roleArray=[];
+  var userRoleArray=[];
   //setting log date hidden on load
   $scope.isHidden=true;
-
+  $scope.isHide=true;
 
   $scope.mainSlide = function(){
     $ionicSlideBoxDelegate.slide(0);
@@ -2924,6 +2925,9 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
 
   //Array list for added team members role
   $scope.teamMemberRoleList=["SM","Designer","Developer","BuildLead","Tester"];
+  $scope.userRoleThroughAdmin=["ROLE_USER","ROLE_ADMIN","ROLE_ROOT"];
+  
+  //team member role list for role update
   for(var t=0;t<$scope.teamMemberRoleList.length;t++){
     var teamRole={
       role: $scope.teamMemberRoleList[t]
@@ -2934,15 +2938,27 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
 
   $scope.roleList = roleArray;
 
+  //team member role chnage by Admin only
+  for(var u=0;u<$scope.userRoleThroughAdmin.length;u++){
+    var userRole={
+      usrRole: $scope.userRoleThroughAdmin[u]
+    };
+    var usrRoleLisyObj = {userRole:userRole};
+    userRoleArray.push(userRole);
+  }
+
+  $scope.userRoleByAdmin = userRoleArray;
+
   //add searched team member
-  $scope.searchedTeamMember = function(id,fName,lName,phone,email,profession){
+  $scope.searchedTeamMember = function(id,fName,lName,phone,email,profession,roles){
     var selectedTeamList={
       id : id,
       firstname : fName,
       lastname : lName,
       phone : phone,
       email : email,
-      profession: profession
+      profession: profession,
+      roles: roles
     };
 
     var finalSelectedTeamList = {selectedTeamList:selectedTeamList};
@@ -2958,10 +2974,28 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
     selectedTeamListArray.splice(selectedTeamListArray.indexOf(i), 1);    
     $ionicListDelegate.closeOptionButtons();
   };
+
+  $scope.editTeamListItem = function(k){
+    console.log(k);
+    if($scope.isHide===true){
+      $scope.isHide=false;
+      $scope.val=' Cancel'; 
+    }
+    else{
+     $scope.isHide=true;
+     $scope.val='';
+    }
+  };
+
+  $scope.updateUserRoleByAdmin = function(t){
+    console.log(t);
+  };
   
   //Search team members
   $scope.search = function(data){
     $scope.searchinput = "";
+    $scope.isHide=true;
+    $scope.val='';
     chartDataWithoutParam.search(data)
       .then(function(searchedData){
         if(data!=null || data!=undefined){
@@ -2981,7 +3015,8 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
               phone : searchedData[b].phone,
               email : searchedData[b].email,
               profession:searchedData[b].designation.profession,
-              specialization:searchedData[b].designation.specialization
+              specialization:searchedData[b].designation.specialization,
+              roles: searchedData[b].roles
             };
             var finalTeamList = {searchTeamList:searchTeamList};
             teamListArray.push(finalTeamList);
