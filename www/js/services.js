@@ -85,6 +85,43 @@ angular.module('app.services', [])
     };
 })
 
+.service('userProfileWithAdmin', function($state,$http, $q,$ionicPopup,$ionicLoading){
+  var token = window.localStorage.getItem('authToken');
+  
+  this.updateUserProfileByAdmin = function(usrEmailId,userAlterRoles){
+    return $q(function(resolve, reject){
+      var req = {
+        url: 'http://inmbz2239.in.dst.ibm.com:11090/deliverydashboard/user/restricted',
+        method:'PATCH',
+        headers : {
+          'Authorization' : 'Basic '+ token
+        }            
+      }
+      $http(req)
+        .then(function(userProfileData) {           
+          // function to retrive the response
+          /*if (projectData != "") {
+              var userProjectArr = [];
+              for(var r=0;r<projectData.data.response.length;r++){
+                var usrProj={
+                  "id": projectData.data.response[r].id,
+                  "name": projectData.data.response[r].name
+                };
+                userProjectArr.push(usrProj);
+              }
+              window.localStorage.setItem('useProjectListData', JSON.stringify(userProjectArr));*/
+            resolve(userProfileData);
+          } else {
+            reject('Profile not updated for this user');
+          }
+        },
+        function(err) {
+          reject(err);
+        });  
+    });  
+  };
+})
+
 //chartData without param
 .service('chartDataWithoutParam', function($state,$http, $q,$ionicPopup,$ionicLoading) {
   var token = window.localStorage.getItem('authToken');

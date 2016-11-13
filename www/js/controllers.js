@@ -2791,7 +2791,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
     
 })
    
-.controller('addNewSprintCtrl', function($scope, $ionicSlideBoxDelegate, $state, $filter, $ionicLoading, $ionicPopup, $ionicListDelegate, chartDataWithoutParam ) {
+.controller('addNewSprintCtrl', function($scope, $ionicSlideBoxDelegate, $state, $filter, $ionicLoading, $ionicPopup, $ionicListDelegate, chartDataWithoutParam, userProfileWithAdmin ) {
   var finalTeamStructureList = [];
   var teamListArray=[];
   var selectedTeamListArray=[];
@@ -3000,7 +3000,18 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
     console.log(userAlterRoles);
 
     //api call for update user by admin
-
+    userProfileWithAdmin.updateUserProfileByAdmin(usrEmailId,userAlterRoles)
+      .then(function(usrProfileByAdmin){
+        
+      }, function(err){
+        if(searchedData.status===400){
+          //clear suggestion list in case - no result found
+          var alertPopup = $ionicPopup.alert({
+            title: 'Profile not updated',
+            text: 'err.data.message'
+          });
+        }
+      });
 
     //clear userAlterRoles array
     userAlterRoles = "";
