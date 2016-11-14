@@ -2931,8 +2931,7 @@ $scope.chartsWithoutParam = function(accountId, projectId, fromDate, toDate, int
   //team member role list for role update
   for(var t=0;t<$scope.teamMemberRoleList.length;t++){
     var teamRole={
-      id: t,
-      label: $scope.teamMemberRoleList[t]
+      role: $scope.teamMemberRoleList[t]
     };
     var roleListObj = {teamRole:teamRole};
     roleArray.push(teamRole);
