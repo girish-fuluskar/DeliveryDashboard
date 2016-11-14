@@ -88,7 +88,7 @@ angular.module('app.services', [])
 .service('userProfileWithAdmin', function($state,$http, $q,$ionicPopup,$ionicLoading){
   var token = window.localStorage.getItem('authToken');
   
-  this.updateUserProfileByAdmin = function(usrEmailId,userAlterRoles){
+  /*this.updateUserProfileByAdmin = function(usrEmailId,userAlterRoles){
     return $q(function(resolve, reject){
       var req = {
         url: 'http://inmbz2239.in.dst.ibm.com:11090/deliverydashboard/user/restricted',
@@ -100,7 +100,7 @@ angular.module('app.services', [])
       $http(req)
         .then(function(userProfileData) {           
           // function to retrive the response
-          /*if (projectData != "") {
+          if (projectData != "") {
               var userProjectArr = [];
               for(var r=0;r<projectData.data.response.length;r++){
                 var usrProj={
@@ -109,7 +109,7 @@ angular.module('app.services', [])
                 };
                 userProjectArr.push(usrProj);
               }
-              window.localStorage.setItem('useProjectListData', JSON.stringify(userProjectArr));*/
+              window.localStorage.setItem('useProjectListData', JSON.stringify(userProjectArr));
             resolve(userProfileData);
           } else {
             reject('Profile not updated for this user');
@@ -119,7 +119,7 @@ angular.module('app.services', [])
           reject(err);
         });  
     });  
-  };
+  };*/
 })
 
 //chartData without param
